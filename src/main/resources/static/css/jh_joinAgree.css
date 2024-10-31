@@ -1,0 +1,89 @@
+
+ .content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px; /* 각 요소 사이 간격 설정 */
+	margin: 0;
+	height: auto;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	width: 100%; /* 부모 너비에 맞추기 */
+	margin-bottom: 20px;
+}
+
+.text {
+	width: 1000px;
+	height: 200px;
+	margin-bottom: 10px;
+	font-family: Pretendard;
+	border: solid 1px #ddd;
+	text-align: left;
+	overflow-y: scroll;
+	white-space: pre-line;
+	font-size: 16px;
+	padding-left: 18px;
+	padding-right: 10px;
+	color: black;
+	
+}
+
+.check {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 18px;
+	margin-left: 71%;
+}
+
+input[type="checkbox"] {
+	accent-color: #134b84;
+	width: 20px;
+	height: 20px;
+}
+
+.agree {
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.check2 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 18px;
+	margin-left: 30%;
+}
+ 
+#backBtn, #submitBtn {
+	
+	
+    margin-left: 5px; /* 버튼 간의 간격 */
+    padding: 15px 20px; /* 버튼 패딩 증가 */
+    font-size: 18px; /* 버튼 글꼴 크기 증가 */
+    width: 120px; /* 버튼 너비 증가 */
+}
+
+ 
+.moveBtn {
+	margin-top: 20px;
+	margin-left: 30%;
+} 
+ 
+
+#backBtn {
+	background: #134b84;
+	color: white;
+	border: 1px solid black;
+}
+ 
+ 
+ #submitBtn.active {
+    background-color: #daaf67; /* 활성화 시 배경색 */
+    cursor: pointer; /* 활성화 시 커서 변경 */
+}
+ 

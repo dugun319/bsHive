@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+header {
+	position: fixed;
+  	top: 0;
+  	/* width: 100% */
+  	left: 0;
+  	right: 0;
+  	z-index: 300;
+}
+
+.main_header_banner {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    max-height: 930px;
+    position: relative;
+}
+
+.main_header_banner_img {
+    width: 100%;
+    height: auto;
+    max-height: 930px;
+    transition: transform 1s ease;
+    flex-shrink: 0; /* 각 이미지가 flex 컨테이너 내에서 고정 크기를 유지 */
+}
+
+.main_body_container {
+	display: grid;
+	grid-template-columns: minmax(auto, 1700px);
+	justify-content: center;
+	padding: 0px;
+	max-width: 100%;
+	margin: 0px auto;
+	background-color: #ffffff;
+}
+
+.main_body_content {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, auto);
+	gap: 40px;
+	width: 100%;
+	margin: 0 15px;
+	padding: 100px 0;
+}
+
+.main_gogi_table {
+	grid-column: 1/span 2;
+	grid-row: 1;
+}
+
+.main_but_img {
+	grid-column: 1/span 2;
+	grid-row: 2;
+}
+
+.main_calendar {
+	grid-column: 1/span 2;
+	grid-row: 3;
+}
+
+.main_event_banner {
+	grid-column: 3;
+	grid-row: 1/span 3;
+	position: relative;
+    width: 100%;
+    max-width: 540px;
+    height: auto;
+    overflow: hidden;
+}
+
+.main_event_banner_box {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.main_gogi_table_td1{
+	font-size: 21px;
+	font-weight: 800;
+	height: 30px;
+	padding: 20px 0;
+}
+
+.main_event_image {
+    min-width: 100%;
+}
+
+.main_event_image.active {
+    display: block;
+}
+
+.main_event_banner_text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 540px;
+    padding: 20px 0;
+}
+
+.main_event_banner_navigetor {
+    display: flex;
+    gap: 5px;
+}
+
+.navigator {
+    display: inline-block;
+    width: 16px; /* 기본 너비 */
+    height: 16px;
+    background-color: gray; /* 비활성화 색상 */
+    border-radius: 50%; /* 기본 원 모양 */
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.navigator.active {
+    width: 60px;  /* Increases width for selected state */
+    height: 16px;
+    border-radius: 12px; /* Makes it a rounded box */
+    background-color: #134b84;
+}
+
+.navigator.active::before, 
+.navigator.active::after {
+    content: '';
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 2px;
+    background-color: #555;
+}
+
+.navigator.active::before {
+    left: -15px;
+}
+
+.navigator.active::after {
+    right: -15px;
+}
+
+.view_more {
+    font-weight: bold;
+    color: #134b84;
+    cursor: pointer;
+}
