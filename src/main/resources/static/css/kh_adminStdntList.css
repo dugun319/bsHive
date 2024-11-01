@@ -1,0 +1,92 @@
+#searchDiv{
+	margin: 15px;
+}
+
+#searchDiv select{
+	width: 120px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#searchDiv input{
+	width: 400px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#searchDiv button{
+	width: 100px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #fdfdfd;
+	background-color: #134b84;
+}
+
+table, th, td{
+	border-bottom: 2px solid #999999;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.cell1{
+	width: 120px;
+	height: 55px;
+}
+
+.cell2{
+	width: 60px;
+	height: 55px;
+}
+
+.cell3{
+	width: 120px;
+	height: 55px;
+}
+
+.cell4{
+	width: 300px;
+	height: 55px;
+}
+
+.cell5{
+	width: 200px;
+	height: 55px;
+}
+
+.cell6{
+	width: 100px;
+	height: 55px;
+}
+
+.cell7{
+	width: 150px;
+	height: 55px;
+}
+
+.cell8{
+	width: 120px;
+	height: 55px;
+}
+
+table button{
+	width: 100px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	background-color: #999999;
+	color: #323232;
+}
+
+table button:hover{
+	width: 100px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #fdfdfd;
+	background-color: #134b84;
+}

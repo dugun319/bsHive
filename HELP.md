@@ -1,7 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 728b529ce2c3a82e695cdd22c453792c009b2037
 # Getting Started
 
 ### Reference Documentation
@@ -43,8 +40,6 @@ These additional references should also help you:
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
-<<<<<<< HEAD
-=======
 =======
 # Getting Started
 
@@ -88,4 +83,3 @@ These additional references should also help you:
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
 >>>>>>> 1a484729168f7c0adeb2023851fd02354f4d73a2
->>>>>>> 728b529ce2c3a82e695cdd22c453792c009b2037

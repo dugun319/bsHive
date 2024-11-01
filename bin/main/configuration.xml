@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-config.dtd">
-
-<configuration>
-	<settings>
-		<setting name="jdbcTypeForNull" value="VARCHAR"/>
-	</settings>
-
-	<typeAliases>
-		<typeAlias alias="Paper" type="com.postGre.bsHive.dto.Paper" />
-	</typeAliases>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -53,9 +38,9 @@
 		<typeAlias alias="Kh_ScholarshipList"		type="com.postGre.bsHive.Adto.Kh_ScholarshipList"/>
 		<typeAlias alias="Kh_StdntList"				type="com.postGre.bsHive.Adto.Kh_StdntList"/>
 		<typeAlias alias="Kh_EmpList"				type="com.postGre.bsHive.Adto.Kh_EmpList"/>
+		<typeAlias alias="Kh_LctrList"				type="com.postGre.bsHive.Adto.Kh_LctrList"/>
 		
 		
 	</typeAliases>
 	
->>>>>>> 728b529ce2c3a82e695cdd22c453792c009b2037
 </configuration> 

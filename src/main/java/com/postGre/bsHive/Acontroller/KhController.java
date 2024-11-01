@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.postGre.bsHive.Adto.Kh_EmpList;
+import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Amodel.Lgn;
@@ -120,9 +121,9 @@ public class KhController {
 	//
 	//professor
 	//
-	@RequestMapping(value="/profList" , method = {RequestMethod.GET, RequestMethod.POST})
-    public String getProfList(Kh_EmpList eList, Model model) {
-		log.info("KhController getStdntList() is called");
+	@RequestMapping(value="/empList" , method = {RequestMethod.GET, RequestMethod.POST})
+    public String getEmpList(Kh_EmpList eList, Model model) {
+		log.info("KhController getEmpList() is called");
 		
 		String rawKeyword 			= eList.getKeyword();		
 		if(rawKeyword != null && rawKeyword.length()==0) { 
@@ -130,28 +131,31 @@ public class KhController {
 			eList.setSearch(null); 
 		}
 		
-		int totProfList				= khTableSerive.getTotProfList(eList);
+		int totProfList				= khTableSerive.getTotEmpList(eList);
 		Paging paging				= new Paging(totProfList, eList.getCurrentPage());
 		
 		System.out.println(paging);
 		eList.setStart(paging.getStart());
 		eList.setEnd(paging.getEnd());
 		
-		List<Kh_EmpList> ProfList	= khTableSerive.getStdntList(eList);
+		List<Kh_EmpList> empList	= khTableSerive.getEmpList(eList);
 		
 		model.addAttribute("rawList", 		eList);
 		model.addAttribute("page", 			paging);
 		model.addAttribute("currentPage", 	eList.getCurrentPage());
-		model.addAttribute("ProfList", 		ProfList);
+		model.addAttribute("empList", 		empList);
+		model.addAttribute("mbr_se", 		eList.getMbr_se());
 		
-        return "kh/adminStdntList";
+        return "kh/adminEmpList";
     }
+	
 	
 	@GetMapping(value = "/delLgnId")
 	public String updateLgnDelYn(Lgn lgn) {
 		int result = 0;
 		
 		System.out.println("updateLgnDelYn(String eml) eml -> " + lgn.getEml());
+		System.out.println("updateLgnDelYn(String eml) mbr_se -> " + lgn.getMbr_se());
 		result					= khTableSerive.updateLgnDelYn(lgn);
 		
 		if(result == 1) {
@@ -161,17 +165,53 @@ public class KhController {
 		if(lgn.getMbr_se().equals("1")) {
 			return "redirect:/kh/admin/stdntList";
 		} else if(lgn.getMbr_se().equals("2")) {
-			return "redirect:/kh/admin/profList";
+			return "redirect:/kh/admin/empList?mbr_se=2";
 		} else {
-			return "redirect:/kh/admin/empList";
+			return "redirect:/kh/admin/empList?mbr_se=3";
 		}
 	}
 	
+		
+	//
+	// Approve Lecture
+	//
+	@RequestMapping(value="/appLctrList" , method = {RequestMethod.GET, RequestMethod.POST})
+	public String getLctrList(Kh_LctrList lcList, Model model) {
+		log.info("KhController getAppLctrList() is called");
+		System.out.println("getAppLctrList lectureType -> " + lcList.getLectureType());
+		
+		String rawKeyword 			= lcList.getKeyword();		
+		if(rawKeyword != null && rawKeyword.length()==0) { 
+			lcList.setKeyword(null);
+			lcList.setSearch(null);
+		}
+
+		int totLctrList				= khTableSerive.getTotLctrList(lcList);
+		Paging paging				= new Paging(totLctrList, lcList.getCurrentPage());
+		
+		System.out.println(paging);
+		lcList.setStart(paging.getStart());
+		lcList.setEnd(paging.getEnd());
+		
+		List<Kh_LctrList> lctrList	= khTableSerive.getLctrList(lcList);
+		
+		model.addAttribute("rawList", 		lcList);
+		model.addAttribute("page", 			paging);
+		model.addAttribute("lctrList", 		lctrList);
+		
+		System.out.println(lcList);
+		
+		return "kh/adminAppLctrList";
+	}
 	
 	
-	
-	
-	
+	@GetMapping(value = "/appLctr")
+	public String approveLecture(Kh_LctrList lcList, Model model) {
+		log.info("KhController approveLecture() is called");
+		System.out.println("approveLecture lectureType -> " + lcList.getLectureType());
+		
+		return "kh/adminAppLctr";
+	}
 	
 	
 	

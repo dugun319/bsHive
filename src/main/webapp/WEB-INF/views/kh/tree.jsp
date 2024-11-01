@@ -19,26 +19,26 @@
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-3").click(function() {
 			location.href="/kh/admin/empList?mbr_se=2";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-4").click(function() {
 			location.href="/kh/admin/empList?mbr_se=3";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
+		$("#tui-tree-node-7").click(function() {
+			location.href="/kh/admin/appLctrList?lectureType=5";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
+		$("#tui-tree-node-8").click(function() {
+			location.href="/kh/admin/appLctrList?lectureType=1";
 			});
 	});
 	
@@ -159,14 +159,15 @@
                     {text:'성적입력'} 								//tui-tree-node-10
                 ]},
                 {text: '수료관리', state: 'closed', children: [
-                    {text:'장학금'},								//tui-tree-node-12
-                    {text:'재증명'}								//tui-tree-node-13
+                	{text:'강의평가'},								//tui-tree-node-12
+                	{text:'장학금'},								//tui-tree-node-13
+                    {text:'재증명'}								//tui-tree-node-14
                 ]}
             ]},
             {text: '게시판관리', state:'closed', children: [
-            	{text:'공지사항게시판'},							//tui-tree-node-15
-                {text:'1:1문의게시판'},							//tui-tree-node-16
-                {text:'FAQ'}									//tui-tree-node-17
+            	{text:'공지사항게시판'},							//tui-tree-node-16
+                {text:'1:1문의게시판'},							//tui-tree-node-17
+                {text:'FAQ'}									//tui-tree-node-18
             ]}
         ];
 

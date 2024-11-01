@@ -8,10 +8,11 @@
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/kh_adminStdntList.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
-	function delLgnId(param) {
-		alert("로그인 ID를 삭제합니다");
+	function delLgnId(param, mbr_se) {
 		console.log(param);
-		location.href = "/kh/admin/delLgnId?mbr_se=1&eml=" + encodeURIComponent(param);
+		console.log(mbr_se);
+		alert("로그인 ID를 삭제합니다");		
+		location.href = "/kh/admin/delLgnId?mbr_se=" + mbr_se + "&eml=" + encodeURIComponent(param);
 	}
 
 </script>
@@ -28,15 +29,16 @@
         <div class="main-content">
         
 	        <div id="searchDiv">
-				<form action="/kh/admin/stdntList" method="post">
+				<form action="/kh/admin/empList" method="post">
 					<select name="search"	id="search">
 						<option value="UNQ_NUM">고유번호</option>
 						<option value="EML">로그인ID</option>
-						<option value="STDNT_NM">이름</option>
-						<option value="STDNT_TELNO">연락처</option>
+						<option value="EMP_NM">이름</option>
+						<option value="EMP_TELNO">연락처</option>
 						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
+					<input	type="hidden"		name="mbr_se"	id="mbr_se"		value="${mbr_se}" />
 					<button type="submit"		id="searchButton">SEARCH</button>
 				</form>
 			</div>
@@ -54,17 +56,17 @@
 					<th class="cell8">삭제</th>			
 				</tr>
 				
-				<c:forEach	var="stdntList"	items="${stdntList}"	varStatus="status" >
+				<c:forEach	var="empList"	items="${empList}"	varStatus="status" >
 					<tr>
-						<td class="cell1">${stdntList.unq_num}</td>						
-						<td class="cell2">${stdntList.stdnt_nm}</td>
-						<td class="cell3">${stdntList.stdnt_telno}</td>						
-						<td class="cell4">${stdntList.stdnt_addr}</td>
-						<td class="cell5">${stdntList.stdnt_daddr}</td>						
-						<td class="cell6">${stdntList.stdnt_zip}</td>
-						<td class="cell7">${stdntList.eml}</td>
+						<td class="cell1">${empList.unq_num}</td>						
+						<td class="cell2">${empList.emp_nm}</td>
+						<td class="cell3">${empList.emp_telno}</td>						
+						<td class="cell4">${empList.emp_addr}</td>
+						<td class="cell5">${empList.emp_daddr}</td>						
+						<td class="cell6">${empList.emp_zip}</td>
+						<td class="cell7">${empList.eml}</td>
 						<td class="cell8">
-							<button type="button" onclick="delLgnId('${stdntList.eml}')">로그인 ID 삭제</button>
+							<button type="button" onclick="delLgnId('${empList.eml}', '${mbr_se}')">로그인 ID 삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -75,15 +77,15 @@
     <footer id="pagingDiv">
     	<div id="paging">
 				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/stdntList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Previous]</a>
+					<a href="/kh/admin/empList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Previous]</a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/stdntList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}">[${i }]</a>
+					<a href="/kh/admin/empList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}">[${i }]</a>
 				</c:forEach>
 				
 				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/stdntList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Next]</a>
+					<a href="/kh/admin/empList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Next]</a>
 				</c:if>
 			</div>    
     </footer>

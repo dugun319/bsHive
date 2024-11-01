@@ -28,13 +28,17 @@
 		FROM public."PRDOC"
 		<where> 					
 			<if test="keyword !=null">
-			${search} LIKE '%'||#{keyword}||'%'
+			#{search} LIKE '%'||#{keyword}||'%'
 			</if>
 		</where>
 	</select>
 	
 	
 	
+	
+	
+	
+<!-- =========================   STUDENT   ===============================	 -->
 	
 
 	
@@ -49,11 +53,11 @@
 						l."EML"
 				FROM public."STDNT" s
 					LEFT OUTER JOIN public."LGN" l
-					ON s."UNQ_NUM" = l."UNQ_NUM"
-					WHERE l."DEL_YN" = '0'
+						ON s."UNQ_NUM" = l."UNQ_NUM"
+						AND l."DEL_YN" = '0'
 					<where> 					
 						<if test="keyword !=null">
-							${search} LIKE '%'||#{keyword}||'%'
+							s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
 						</if>
 					</where>
 					ORDER BY "UNQ_NUM"
@@ -76,14 +80,77 @@
 						FROM public."STDNT" s
 						LEFT OUTER JOIN public."LGN" l
 							ON s."UNQ_NUM" = l."UNQ_NUM"
-							WHERE l."DEL_YN" = '0'
+							AND l."DEL_YN" = '0'
 						<where> 					
 							<if test="keyword !=null">
-							${search} LIKE '%'||#{keyword}||'%'
+								s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
 							</if>
 						</where>
 						ORDER BY "UNQ_NUM"
 					 ) stdntAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
+	
+	
+	
+<!-- =========================   EMPLOYEE   ===============================	 -->
+	
+
+		
+	<select id="getTotEmpList" 	parameterType="Kh_EmpList" 		resultType="int">
+		SELECT COUNT(*) 
+		FROM (	SELECT 	e."UNQ_NUM",
+						e."EMP_NM",
+						e."EMP_TELNO",
+						e."EMP_ADDR",
+						e."EMP_DADDR",
+						e."EMP_ZIP",
+						l."EML"
+				FROM public."EMP" e
+					LEFT OUTER JOIN public."LGN" l
+					ON e."UNQ_NUM" = l."UNQ_NUM"
+						AND l."DEL_YN" = '0'
+						AND l."MBR_SE" = #{mbr_se}
+					<where> 					
+						<if test="keyword !=null">
+							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
+					</where>
+					ORDER BY "UNQ_NUM"
+				) 
+
+	</select>
+	
+	
+	<select id="getEmpList" 	parameterType="Kh_EmpList" 		resultType="Kh_EmpList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, empAll.*
+				FROM (	SELECT 	e."UNQ_NUM",
+						e."EMP_NM",
+						e."EMP_TELNO",
+						e."EMP_ADDR",
+						e."EMP_DADDR",
+						e."EMP_ZIP",
+						l."EML"
+				FROM public."EMP" e
+					LEFT OUTER JOIN public."LGN" l
+					ON e."UNQ_NUM" = l."UNQ_NUM"
+						AND l."DEL_YN" = '0'
+						AND l."MBR_SE" = #{mbr_se}
+					<where> 					
+						<if test="keyword !=null">
+							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
+					</where>
+					ORDER BY "UNQ_NUM"
+				) empAll
 		     )
 		
 		WHERE rn 
@@ -96,6 +163,117 @@
 			SET	"DEL_YN" = '1'
 			WHERE "EML" = #{eml}
 	</update>
+	
+	
+	
+	
+	
+	
+	
+<!-- =========================   LECTURE   ===============================	 -->
+	
+
+		
+	
+	<select id="getTotLctrList" 	parameterType="Kh_LctrList" 		resultType="int">
+		SELECT COUNT(*) 
+		FROM (	SELECT 	l."LCTR_NUM",
+						l."UNQ_NUM2",
+						l."APLY_TYPE",
+						l."APLY_YDM",
+						l."PSCP_NOPE",
+						l."SBJCT_NM",
+						l."LCTR_NAME",
+						e."EMP_NM",
+						e."EMP_TELNO"
+				FROM public."LCTR" l
+				LEFT OUTER JOIN public."EMP" e
+				ON l."UNQ_NUM2" = e."UNQ_NUM"
+				WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) = #{lectureType}
+				<if test="aply_type !=null">
+					AND l."APLY_TYPE" = #{aply_type}
+				</if>
+				)
+		<where> 					
+			<if test="keyword !=null">
+				"${search}"::TEXT LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+				
+
+	</select>
+	
+	
+	<select id="getLctrList" 		parameterType="Kh_LctrList" 		resultType="Kh_LctrList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, lctrAll.*
+				FROM (	
+						SELECT 	l."LCTR_NUM",
+								l."UNQ_NUM2",
+								l."APLY_TYPE",
+								l."APLY_YDM",
+								l."PSCP_NOPE",
+								l."SBJCT_NM",
+								l."LCTR_NAME",
+								e."EMP_NM",
+								e."EMP_TELNO"
+						FROM public."LCTR" l
+						LEFT OUTER JOIN public."EMP" e
+						ON l."UNQ_NUM2" = e."UNQ_NUM"
+						WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) = #{lectureType}
+						<if test="aply_type !=null">
+							AND l."APLY_TYPE" = #{aply_type}
+						</if>
+						
+						)lctrAll
+				<where> 					
+					<if test="keyword !=null">
+						"${search}"::TEXT LIKE '%'||#{keyword}||'%'
+					</if>
+				</where>
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
