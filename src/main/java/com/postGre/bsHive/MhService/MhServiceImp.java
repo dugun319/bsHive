@@ -44,4 +44,84 @@ public class MhServiceImp implements MhService {
 		return GongDelete;
 	}
 
+<<<<<<< HEAD
+=======
+	@Override
+	public int gongInsert(Pst pst) {
+		int gongInsert = 0;
+		gongInsert = md.gongInsert(pst);
+		return gongInsert;
+	}
+
+	@Override
+	public int updateGong(Pst pst) {
+		int updateGong = 0;
+		updateGong = md.updateGong(pst);
+		return updateGong;
+	}
+
+	@Override
+	public int totalYakList() {
+		int totalYakList = 0;
+		totalYakList = md.totalYakList();
+		return totalYakList;
+	}
+
+	@Override
+	public List<Pst> listYak(Pst pst) {
+		List<Pst> listYak = null;
+		listYak = md.listYak(pst);
+		return listYak;
+	}
+
+	@Override
+	public List<Pst> yakView(Pst pst) {
+		List<Pst> yakView = null;
+		yakView = md.yakView(pst);
+		return yakView;
+	}
+
+	@Override
+	public int yakInsert(Pst pst) {
+		int yakInsert = 0;
+		yakInsert = md.yakInsert(pst);
+		return yakInsert;
+	}
+
+	@Override
+	public int updateYak(Pst pst) {
+		int updateYak = 0;
+		updateYak = md.updateYak(pst);
+		return updateYak;
+	}
+
+	@Override
+	public int yakDelete(int pst_num) {
+		int yakDelete = 0;
+		yakDelete = md.yakDelete(pst_num);
+		return yakDelete;
+	}
+
+	@Override
+	public int totalFaqList() {
+		int totalFaqList = 0;
+		totalFaqList = md.totalFaqList();
+		return totalFaqList;
+	}
+
+	@Override
+	public List<Pst> listFaq(Pst pst) {
+		List<Pst>listFaq = null;
+		listFaq = md.listFaq(pst);
+		return listFaq;
+	}
+
+	@Override
+	public List<Pst> fnqView(Pst pst) {
+		List<Pst> fnqView = null;
+		fnqView = md.fnqView(pst);
+		return fnqView;
+	}
+
+>>>>>>> origin/br_test
 }

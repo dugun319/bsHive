@@ -38,7 +38,11 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
+<<<<<<< HEAD
         dialect: org.hibernate.dialect.MySQLDialect
+=======
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+>>>>>>> origin/br_test
         temp: 
           use_jdbc_metadata_defaults: false
 

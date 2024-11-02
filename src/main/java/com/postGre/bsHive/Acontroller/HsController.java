@@ -7,11 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.postGre.bsHive.HsService.HsService;
 
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+=======
+
+@Controller
+@RequiredArgsConstructor
+>>>>>>> origin/br_test
 @RequestMapping(value = "/hs")
 public class HsController {
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.postGre.bsHive.Mapper.seMapper">
+	<select id="onlnTotal" resultType="int">
+	    SELECT COUNT(*)
+		FROM "LCTR"
+		WHERE (("LCTR_NUM" / 100) % 10) BETWEEN 0 AND 4
+	</select>
+	
+	<select id="onlnList" resultType="Onln_Lctr_List">
+		SELECT * 
+		FROM "LCTR"
+		WHERE (("LCTR_NUM" / 100) % 10) BETWEEN 0 AND 4
+	</select>
+	
+	<select id="onlnDtl" resultType="Onln_Lctr_List">
+	    SELECT ol.*, l.*
+	    FROM "ONLN_LCTR" ol
+	    JOIN "LCTR" l ON ol."LCTR_NUM" = l."LCTR_NUM"
+	    WHERE ol."LCTR_NUM" = #{LCTR_NUM}
+	</select>
+	
+	<select id="lctrviewList" parameterType="int" resultType="Onln_Lctr_List">
+	    SELECT su.*, oc.*, lv.*, cc.*
+		FROM "SYLLABUS_UNIT" su
+		LEFT JOIN "ONLN_CONTS" oc ON su."CONTS_ID" = oc."CONTS_ID"
+		LEFT JOIN "LCTR_VIEW" lv ON su."LCTR_NUM" = lv."LCTR_NUM"
+		LEFT JOIN "CONTS_CH" cc ON su."CONTS_ID" = cc."CONTS_ID"
+		WHERE lv."LCTR_NUM" = #{lctr_num}
+		ORDER BY CAST(su."UNIT_NUM" AS INTEGER) ASC;
+	</select>
+	
+	<select id="VideoId" resultType="Onln_Lctr_List">
+		SELECT su.*, oc.*
+		FROM "SYLLABUS_UNIT" su
+		LEFT JOIN "ONLN_CONTS" oc ON su."CONTS_ID" = oc."CONTS_ID"
+    	WHERE su."CONTS_ID" = #{CONTS_ID}
+	</select>
+	
+</mapper>

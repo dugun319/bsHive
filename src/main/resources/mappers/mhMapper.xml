@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.postGre.bsHive.MhDao">
+
+	<select id="totalGongList" resultType="int">
+	
+		select count(*) from "PST" where "PST_CLSF" = '1' and not ("DEL_YN"='1')
+	
+	</select>
+	
+	<select id="listGong" parameterType="Pst" resultType="Pst">
+		select "PST_TTL", "WRT_YMD", "PST_NUM" from "PST" where "PST_CLSF" = '1' and not ("DEL_YN"='1') order by "PST_NUM" 
+	
+	</select>
+	
+	<select id="GongView" parameterType="Pst" resultType="Pst">
+		select "PST_TTL", "WRT_YMD", "PST_CN", "PST_NUM" from "PST" where "PST_CLSF" = '1' and "PST_NUM" = #{pst_num}
+		
+	</select>
+	
+	<update id="GongDelete" parameterType="int">
+		update "PST" set "DEL_YN" = '1' where "PST_NUM" = #{pst_num}
+	
+	</update>
+	
+	<insert id="gongInsert" parameterType="Pst">
+	
+		insert into "PST" ("PST_TTL", "WRT_YMD", "PST_CN", "PST_NUM", "UNQ_NUM", "PST_CLSF") 
+		values (#{pst_ttl}, to_char(now(), 'YYYY-MM-DD'), #{pst_cn}, nextval('seq_pst_num'), 221204004, '1')
+	
+	</insert>
+		
+	<update id="updateGong" parameterType="Pst">
+		update "PST" set "PST_TTL" = #{pst_ttl}, "WRT_YMD" = to_char(now(), 'YYYY-MM-DD'), "PST_CN" = #{pst_cn} 
+		where "PST_NUM" = #{pst_num};
+	</update>
+	
+	<select id="totalYakList" resultType="int">
+	
+		select count(*) from "PST" where "PST_CLSF" = '2' and not ("DEL_YN"='1')
+	
+	</select>
+	
+	<select id="listYak" parameterType="Pst" resultType="Pst">
+		select "PST_TTL", "WRT_YMD", "PST_NUM" from "PST" where "PST_CLSF" = '2'  and not ("DEL_YN"='1') order by "PST_NUM"
+	
+	</select>
+	
+		<select id="yakView" parameterType="Pst" resultType="Pst">
+		select "PST_TTL", "WRT_YMD", "PST_CN", "PST_NUM" from "PST" where "PST_CLSF" = '2' and "PST_NUM" = #{pst_num}
+		
+	</select>
+	
+		<insert id="yakInsert" parameterType="Pst">
+	
+		insert into "PST" ("PST_TTL", "WRT_YMD", "PST_CN", "PST_NUM", "UNQ_NUM", "PST_CLSF") 
+		values (#{pst_ttl}, to_char(now(), 'YYYY-MM-DD'), #{pst_cn}, nextval('seq_pst_num'), 221204004, '2')
+	
+	</insert>
+
+	<update id="updateYak" parameterType="Pst">
+		update "PST" set "PST_TTL" = #{pst_ttl}, "WRT_YMD" = to_char(now(), 'YYYY-MM-DD'), "PST_CN" = #{pst_cn} 
+		where "PST_NUM" = #{pst_num};
+	</update>
+	
+	<update id="yakDelete" parameterType="int">
+		update "PST" set "DEL_YN" = '1' where "PST_NUM" = #{pst_num}
+	
+	</update>
+	
+	
+	<select id="totalFaqList" resultType="int">
+	
+		select count(*) from "PST" where "PST_CLSF" = '3' and not ("DEL_YN"='1')
+	
+	</select>
+	
+	<select id="listFaq" parameterType="Pst" resultType="Pst">
+		select "PST_TTL", "WRT_YMD", "PST_NUM" from "PST" where "PST_CLSF" = '3' and not ("DEL_YN"='1') order by "PST_NUM" 
+	
+	</select>
+	
+	<select id="fnqView" parameterType="Pst" resultType="Pst">
+		select "PST_TTL", "WRT_YMD", "PST_CN", "PST_NUM" from "PST" where "PST_CLSF" = '3' and "PST_NUM" = #{pst_num}
+		
+	</select>
+
+</mapper>

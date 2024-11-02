@@ -33,17 +33,7 @@ html, body {
     
 }
 
-/* Header 스타일 */
-.header {
-    height: 131px; /* 헤더 높이 */
-    background-color: #999999;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-}
+
 
 /* 리스트와 content를 가로로 나열할 컨테이너 */
 .main-container {
@@ -77,16 +67,16 @@ html, body {
 
 /* 마이페이지에만 hover 효과 항상 적용 */
 .list div.active, .list div.active:hover {
-    color: black; /* 텍스트 색상 검정으로 */
+    color: white; /* 텍스트 색상 검정으로 */
     font-weight: bold; /* 글씨 두껍게 */
-    background-color: #e0e0e0; /* 배경색 변화 */
+    background-color: #134b84; /* 배경색 변화 */
 }
 
 /* 리스트 항목 hover 효과 */
 .list div:hover {
-    color: black; /* 호버 시 글씨 색상 검정으로 변화 */
+    color: white; /* 호버 시 글씨 색상 검정으로 변화 */
     font-weight: bold; /* 호버 시 글씨 두껍게 */
-    background-color: #e0e0e0; /* 호버 시 배경색 변화 */
+    background-color: #134b84; /* 호버 시 배경색 변화 */
 }
 
 .list div::before {
@@ -155,19 +145,10 @@ html, body {
     transform: translateX(-50%); /* 수평 중앙 정렬 */
 }
 
-/* Footer 스타일 */
-.footer {
-    height: 301px; /* footer 높이 */
-    background-color: #999999;
-    color: white;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
+.link-style {
+    text-decoration: none; /* 하이퍼링크의 밑줄 없애기 */
+    color: inherit; /* 부모 요소의 색상 상속 */
 }
 
- a {
-    text-decoration: none; /* 밑줄 제거 */
-}
+
 

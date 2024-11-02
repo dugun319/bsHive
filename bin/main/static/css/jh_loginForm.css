@@ -45,7 +45,11 @@
 
         .user_type_buttons {
             display: flex;
+<<<<<<< HEAD
             justify-content: space-around;
+=======
+            justify-content: center;
+>>>>>>> origin/br_test
             margin-bottom: 20px;
             width: 100%;
         }
@@ -57,7 +61,12 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+<<<<<<< HEAD
             
+=======
+            margin: 11px;
+            margin-bottom: -5px;
+>>>>>>> origin/br_test
             
         }
 
@@ -76,17 +85,33 @@
 		  flex-direction: column; /* 입력 필드들을 수직 정렬 */
 		  justify-content: center; /* 수직 방향(세로) 가운데 정렬 */
 		  align-items: center; /* 수평 방향(가로) 가운데 정렬 */
+<<<<<<< HEAD
 		}
         input {
             width: 50%;
+=======
+		  gap:10px;
+		}
+		
+        input {
+            width: 59%;
+>>>>>>> origin/br_test
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
+<<<<<<< HEAD
         }
 
         .input_submit {
             width: 55%;
+=======
+            margin-bottom: 50px;
+        }
+
+        .input_submit {
+            width: 59%;
+>>>>>>> origin/br_test
             background-color: #83CBEB;
             border: none;
             border-radius: 5px;
@@ -103,9 +128,16 @@
             display: flex;
             justify-content: center;
             width: calc(100% - 20px);
+<<<<<<< HEAD
             margin-top: 20px;
             padding: 0;
             list-style: none;
+=======
+            margin-top: 10px;
+            padding: 0;
+            list-style: none;
+            margin-left: 9px;
+>>>>>>> origin/br_test
         }
 
         ul.sign_up_find_idpw li a {
@@ -126,11 +158,17 @@
             display: flex;
             justify-content: center;
             align-items: center; /* 수직 정렬을 위해 추가 */
+<<<<<<< HEAD
             width: 100%;
             height: 100%; /* 높이를 100%로 설정하여 컨테이너에 맞춤 */
             position: absolute; /* 로그인 컨테이너의 아래에 위치하도록 설정 */
             top: 0; /* 상단 맞춤 */
             left: 0; /* 좌측 맞춤 */
+=======
+            width: 201vh;
+            height: 100%; /* 높이를 100%로 설정하여 컨테이너에 맞춤 */
+            position: absolute; /* 로그인 컨테이너의 아래에 위치하도록 설정 */
+>>>>>>> origin/br_test
             overflow: hidden; /* 이미지가 컨테이너 밖으로 넘어가지 않도록 설정 */
         }
 		
@@ -143,14 +181,35 @@
         }
 		
 		.login_icon {
+<<<<<<< HEAD
 		    margin-bottom: 50px;
 		    display: flex;
 		    justify-content: center;
 		    align-items: center;
 		    margin-top: 10px;
+=======
+		    margin-bottom: 30px;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    margin-top: 30px;
+>>>>>>> origin/br_test
 		}
 		
 		.login_icon img {
 		    width: 80px;
+<<<<<<< HEAD
 		    height: 80px;
 		}
+=======
+		    height: 80px;	
+		}
+		
+		.errMessage {
+		    height: 20px; /* 항상 공간을 차지할 높이 설정 */
+		    color: red;
+		    text-align: center;
+		}
+
+
+>>>>>>> origin/br_test

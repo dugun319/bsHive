@@ -23,7 +23,11 @@ public class MhDaoImp implements MhDao {
 		try {
 			totalGongList = session.selectOne("totalGongList");
 		} catch (Exception e) {
+<<<<<<< HEAD
 			System.out.println("totalGongList: " +e.getMessage());
+=======
+			System.out.println("totalGongList: " +e);
+>>>>>>> origin/br_test
 		}
 		return totalGongList;
 	}
@@ -34,7 +38,11 @@ public class MhDaoImp implements MhDao {
 		try {
 			listGong = session.selectList("listGong", pst);
 		} catch (Exception e) {
+<<<<<<< HEAD
 			System.out.println("listGong: " +e.getMessage());
+=======
+			System.out.println("listGong: " +e);
+>>>>>>> origin/br_test
 		}
 		
 		return listGong;
@@ -56,10 +64,131 @@ public class MhDaoImp implements MhDao {
 	public int GongDelete(int pst_num) {
 		int GongDelete = 0;
 		try {
+<<<<<<< HEAD
 			GongDelete = session.delete("GongDelete", pst_num);
+=======
+			GongDelete = session.update("GongDelete", pst_num);
+>>>>>>> origin/br_test
 		} catch (Exception e) {
 		}
 		return GongDelete;
 	}
 
+<<<<<<< HEAD
+=======
+	@Override
+	public int gongInsert(Pst pst) {
+		int gongInsert = 0;
+		try {
+			gongInsert = session.insert("gongInsert", pst);
+		} catch (Exception e) {
+			System.out.println("gongInsert error" + e.getMessage());
+		}
+		return gongInsert;
+	}
+
+	@Override
+	public int updateGong(Pst pst) {
+		int updateGong = 0;
+		try {
+			updateGong = session.update("updateGong", pst);
+		} catch (Exception e) {
+			System.out.println("updateGong : " + e);
+		}
+		return updateGong;
+	}
+
+	@Override
+	public int totalYakList() {
+		int totalYakList = 0;
+		try {
+			totalYakList = session.selectOne("totalYakList");
+		} catch (Exception e) {
+		}
+		return totalYakList;
+	}
+
+	@Override
+	public List<Pst> listYak(Pst pst) {
+		List<Pst> listYak = null;
+		try {
+			listYak = session.selectList("listYak", pst);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return listYak;
+	}
+
+	@Override
+	public List<Pst> yakView(Pst pst) {
+		List<Pst> yakView = null;
+		try {
+			yakView = session.selectList("yakView", pst);
+		} catch (Exception e) {
+		}
+		return yakView;
+	}
+
+	@Override
+	public int yakInsert(Pst pst) {
+		int yakInsert =0;
+		try {
+			yakInsert = session.insert("yakInsert", pst);
+		} catch (Exception e) {
+		}
+		return yakInsert;
+	}
+
+	@Override
+	public int updateYak(Pst pst) {
+		int updateYak = 0;
+		try {
+			updateYak = session.update("updateYak", pst);
+		} catch (Exception e) {
+		}
+		return updateYak;
+	}
+
+	@Override
+	public int yakDelete(int pst_num) {
+		int yakDelete = 0;
+		try {
+			yakDelete = session.update("yakDelete", pst_num);
+		} catch (Exception e) {
+		}
+		return yakDelete;
+	}
+
+	@Override
+	public List<Pst> listFaq(Pst pst) {
+		List<Pst> listFaq = null;
+		try {
+			listFaq = session.selectList("listFaq", pst);
+		} catch (Exception e) {
+		}
+		return listFaq;
+	}
+
+	@Override
+	public int totalFaqList() {
+		int totalFaqList = 0;
+		try {
+			totalFaqList = session.selectOne("totalFaqList", totalFaqList);
+		} catch (Exception e) {
+		}
+		
+		return totalFaqList;
+	}
+
+	@Override
+	public List<Pst> fnqView(Pst pst) {
+		List<Pst> fnqView = null;
+		try {
+			fnqView = session.selectList("fnqView", fnqView);
+		} catch (Exception e) {
+		}
+		return fnqView;
+	}
+
+>>>>>>> origin/br_test
 }

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 plugins {
 	id 'java'
 	id 'war'
@@ -56,6 +57,8 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 =======
+=======
+>>>>>>> origin/br_test
 plugins {
 	id 'java'
 	id 'war'
@@ -113,4 +116,7 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+<<<<<<< HEAD
 >>>>>>> 1a484729168f7c0adeb2023851fd02354f4d73a2
+=======
+>>>>>>> origin/br_test

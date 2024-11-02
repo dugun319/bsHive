@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.postGre.bsHive.Amodel.Lctr_Evl">
+ 	<select id="getEvalQuestion"  resultType="String">
+        SELECT unnest(string_to_array(string_agg("EVL_QUES", ', '),',')) AS questions FROM "LCTR_EVL"
+ 	</select>
+<insert id="addCourseEval" parameterType="Lctr_Evl">
+    INSERT INTO public."LCTR_EVL" ("EVL_NUM","LCTR_NUM","UNQ_NUM","EVL_QUES","EVL_TOTAL" ,"EVL_OX")
+    VALUES (nextval('seq_evl_num'), 1,1, #{evl_ques}, NULL, NULL)
+</insert>
+    <update id="submitQuestion" parameterType="int">
+    	UPDATE public."LCTR_EVL"
+    	SET "EVL_TOTAL" = COALESCE("EVL_TOTAL", 0) + 1, "EVL_OX" = COALESCE("EVL_TOTAL", 0) + 1
+    	WHERE "EVL_NUM" = CAST(#{evl_num} AS VARCHAR)
+    </update>
+ </mapper>

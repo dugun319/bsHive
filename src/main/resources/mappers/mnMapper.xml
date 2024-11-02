@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.postGre.bsHive.Mapper.mnMapper">
+	<select id="selAll" resultType="Crans_Qitem">
+		SELECT * FROM "CRANS_QITEM"
+	</select>
+	
+	<select id="selPstAllList" resultType="Pst">
+		SELECT *
+		FROM   "PST"
+		where  "PST_CLSF" = '1'
+		order  by "WRT_YMD" desc
+	</select>
+	
+	<select id="joinAplyLctrAllList" resultType="Mn_LctrAplyOflWeek">
+		SELECT 
+		    lc."LCTR_NUM",
+		    lc."LCTR_NAME",
+		    lc."SBJCT_NM",
+		    ofl."BGNG_YMD",
+		    ofl."END_YMD",
+		    lc."END_DATE"
+		FROM 
+		    "LCTR" lc
+		JOIN 
+		    "OFL_LCTR" ofl ON lc."LCTR_NUM" = ofl."LCTR_NUM"
+		WHERE 
+		    lc."APLY_TYPE" = '1'
+	</select>
+</mapper>

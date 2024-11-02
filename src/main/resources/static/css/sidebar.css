@@ -1,0 +1,173 @@
+/* 기본 스타일 초기화 */
+* {
+    box-sizing: border-box; /* 모든 요소의 박스 크기를 border-box로 설정 */
+    margin: 0;
+    padding: 0;
+}
+
+/* html과 body 높이 및 너비 설정 */
+html, body {
+    height: 100%; /* 전체 높이 100% */
+    width: 100%; /* 전체 너비 100% */
+}
+
+/* 전체 레이아웃: Flexbox로 설정 */
+.body {
+    width: 1700px; /* 가로 길이 1700px */
+    min-height: 835px; /* 최소 세로 길이 835px, 필요에 따라 늘어남 */
+    margin: 0 auto; /* 중앙 정렬 */
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 세로 방향으로 나열 */
+}
+
+/* Title 스타일 */
+.title {
+    height: 259px; /* 제목 세로 길이 */
+    font-size: 50px; /* 글씨 크기 */
+    font-weight: bold; /* 글씨 두껍게 */
+    display: flex; /* Flexbox 사용 */
+    align-items: flex-end; /* 세로 방향 아래쪽 정렬 */
+    justify-content: flex-start; /* 가로 방향 왼쪽 정렬 */
+    padding-left: 455px; /* 왼쪽으로 옮기기 위한 패딩 */
+    padding-bottom: 40px; /* 아래쪽 여백 조정 */
+    
+}
+
+/* Header 스타일 */
+.header {
+    height: 131px; /* 헤더 높이 */
+    background-color: #999999;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 리스트와 content를 가로로 나열할 컨테이너 */
+.main-container {
+    display: flex; /* Flexbox 사용하여 가로로 나열 */
+    gap: 80px; /* list와 content 사이 간격 */
+    margin: 0; /* 헤더와 리스트 사이, 리스트와 푸터 사이 간격 */
+    flex: 1; /* 남은 공간 차지 */
+}
+
+.list {
+    width: 380px; /* 리스트의 고정 너비 */
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    gap: 15px; /* 항목 간 간격 */
+    border-top: 2px solid black; /* 리스트 맨 위에 검정색 선 추가 */
+    border-right: none; /* 오른쪽 경계선 제거 */
+}
+
+/* 리스트 항목 디자인 */
+.list div {
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: gray; /* 기본 글씨 색상 회색 */
+    transition: color 0.3s, background-color 0.3s, font-weight 0.3s; /* 글씨 색상과 배경색 변화 전환 */
+    cursor: pointer;
+    position: relative; /* 자식 요소의 절대 위치 설정을 위해 relative 설정 */
+}
+
+/* 마이페이지에만 hover 효과 항상 적용 */
+.list div.active, .list div.active:hover {
+    color: white; /* 텍스트 색상 검정으로 */
+    font-weight: bold; /* 글씨 두껍게 */
+    background-color: #134b84; /* 배경색 변화 */
+}
+
+/* 리스트 항목 hover 효과 */
+.list div:hover {
+    color: white; /* 호버 시 글씨 색상 검정으로 변화 */
+    font-weight: bold; /* 호버 시 글씨 두껍게 */
+    background-color: #134b84; /* 호버 시 배경색 변화 */
+}
+
+.list div::before {
+    content: ''; /* 점을 나타내기 위한 비어있는 컨텐츠 */
+    position: absolute; /* 절대 위치 지정 */
+    left: -20px; /* 점의 왼쪽 위치 조정 */
+    top: 50%; /* 세로 중앙 정렬 */
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
+    width: 8px; /* 점의 너비 */
+    height: 8px; /* 점의 높이 */
+    background-color: transparent; /* 기본 배경색 투명 */
+    border-radius: 50%; /* 둥근 모양으로 */
+    transition: background-color 0.3s; /* 배경색 변화 전환 */
+}
+
+/* 'active' 클래스의 점 효과 */
+.list div.active::before {
+    background-color: black; /* 점 색상 설정 */
+}
+
+/* hover 시 점 색상 변경 */
+.list div:hover::before {
+    background-color: black; /* 호버 시 점 색상 변경 */
+}
+
+/* Content 영역 */
+.content {
+    flex: 1; /* 남은 공간을 모두 차지 */
+    display: flex; /* Flexbox를 사용하여 가로로 나열 */
+    flex-wrap: nowrap; /* 줄바꿈 없이 나열 */
+    gap: 20px; /* 박스 간의 간격을 20px로 설정 */
+    overflow-x: auto; /* 수평 스크롤 가능하도록 설정 */
+    padding-top: 80px; /* 패딩 추가 */
+    border-top: 2px solid black; /* content 위에 검정색 선 추가 */
+    height: 576px;
+}
+
+/* 콘텐츠 박스 스타일 */
+.content-box {
+    flex: 0 0 auto; /* 기본 크기를 유지 */
+    width: 230px; /* 각 박스의 너비 설정 (필요에 따라 조정) */
+    height:188px;
+    padding: 15px; /* 패딩 */
+    border: 1px solid #E5E5E5; /* 테두리 색상 */
+    text-align: center; /* 내용 중앙 정렬 */
+    font:bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    transition: background-color 0.3s, transform 0.3s; /* 배경색과 변형 효과 전환 */
+    font-size: 18px; /* 폰트 크기 (필요에 따라 조정) */
+   	font-weight: bold;
+}
+
+/* 호버 시 효과 */
+.content-box:hover {
+    background-color: #daaf67; /* 호버 시 배경색 변화 */
+    color: white; /* 텍스트 색상 변화 */
+    transform: scale(1.05); /* 약간 확대 효과 */
+}
+
+.content-image {
+    width: 60px; /* 이미지 너비 조정 (필요에 따라 조정) */
+    height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+    margin-left:60px;
+    margin-top:20px;
+    margin-bottom:10px;
+    transform: translateX(-50%); /* 수평 중앙 정렬 */
+}
+
+/* Footer 스타일 */
+.footer {
+    height: 301px; /* footer 높이 */
+    background-color: #999999;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+ a {
+    text-decoration: none; /* 밑줄 제거 */
+}
+
