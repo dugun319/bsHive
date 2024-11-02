@@ -1,0 +1,92 @@
+  
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* 수평 중앙 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
+            height: 100vh; /* 화면 전체 높이 */
+            position: relative; /* 자식 요소의 위치 조정 */
+        }
+
+        .image_container {
+            width: 50%;
+            height: auto;
+        }
+
+        .image_container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(60%) blur(2px);
+            opacity: 0.9;  
+        }
+
+        .login_container {
+            padding: 0;
+            width: 1300px;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            background-color: #fdfdfd;
+         	box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.4);  
+         	
+        }
+        
+ 
+
+       
+        
+        .background_image {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* 수직 정렬을 위해 추가 */
+            width: 100%;
+            height: 100%; /* 높이를 100%로 설정하여 컨테이너에 맞춤 */
+            position: absolute; /* 로그인 컨테이너의 아래에 위치하도록 설정 */
+            top: 0; /* 상단 맞춤 */
+            left: 0; /* 좌측 맞춤 */
+            overflow: hidden; /* 이미지가 컨테이너 밖으로 넘어가지 않도록 설정 */
+        }
+		
+		.background_image_img {
+            width: 100%; /* 가로 방향에서 100%로 설정 */
+            height: auto; /* 자동으로 높이 조정하여 비율 유지 */
+            min-height: 100%; /* 최소 높이를 100%로 설정하여 항상 컨테이너를 채움 */
+            filter: brightness(60%) blur(2px);
+            opacity: 0.9;  
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+		
+	.overlay-text1 {
+	    position: absolute; /* 절대 위치 설정 */
+	    top: 80%; /* 세로 중앙 정렬 */
+	    left: 20%; /* 가로 중앙 정렬 */
+	    transform: translate(-10%, -10%); /* 중앙 정렬을 위한 변환 */
+	    color: white; /* 글자 색상 */
+	    font-size: 60px; /* 글자 크기 */
+	    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 그림자 효과 */
+   		transition: opacity 0.3s; /* 전환 효과 */
+	}
+	.overlay-text2 {
+	    position: absolute; /* 절대 위치 설정 */
+	    top: 80%; /* 세로 중앙 정렬 */
+	    right: 17%; /* 가로 중앙 정렬 */
+	    transform: translate(-10%, -10%); /* 중앙 정렬을 위한 변환 */
+	    color: white; /* 글자 색상 */
+	    font-size: 70px; /* 글자 크기 */
+	    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 그림자 효과 */
+	    transition: opacity 0.3s; /* 전환 효과 */
+	}

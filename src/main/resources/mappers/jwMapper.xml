@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.postGre.bsHive.jwMapper">
+ 
+ 	<insert id="insertLctr" parameterType="LCTR">
+ 		INSERT into "LCTR"(
+ 							"LCTR_NUM",
+ 							"UNQ_NUM2",
+ 							"APLY_TYPE",
+ 							"APLY_YDM",
+ 							"END_DATE",
+ 							"PSCP_NOPE",
+ 							"SBJCT_NM",
+ 							"LCTR_NAME"
+ 						  )
+	 
+ 		VALUES (
+ 				 #{lctr_num},
+ 				 #{unq_num2},
+ 				 #{aply_type},
+ 				 openDate,
+ 				 openDate,
+ 				 #{pscp_nope},
+ 				 #{sbjct_nm},
+ 				 #{lctr_name}		
+ 			   )
+ 	</insert>
+ 	
+ 
+ 
+ 	<select id="selectOnlnLctr" parameterType="Onln_Lctr_List" resultType="Onln_Lctr_List">
+ 		SELECT o."LCTR_NUM"
+ 			 , l."LCTR_NAME"
+ 			 , o."BGNG_YMD"
+ 			 , o."END_YMD"
+ 			 , o."RCRT_NOPE"
+ 			 , l."PSCP_NOPE"
+ 		FROM "ONLN_LCTR" o
+ 		LEFT OUTER JOIN "LCTR" l on o."LCTR_NUM" = l."LCTR_NUM"
+ 	</select>
+ 
+ 	<select id="selectOnlnUnit" parameterType="int" resultType="Onln_Lctr_List">
+ 		SELECT u."UNIT_NUM"
+ 			 , o."CONTS_NM"
+ 			 , o."PLAY_HR"
+ 		FROM "SYLLABUS_UNIT" u
+ 		LEFT OUTER JOIN "ONLN_CONTS" o on u."CONTS_ID" = o."CONTS_ID"
+ 		ORDER BY CAST(u."UNIT_NUM" AS INTEGER) ASC
+ 	</select>
+ 	 
+ 
+ </mapper>

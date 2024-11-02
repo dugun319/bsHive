@@ -1,0 +1,83 @@
+server:
+  port: 8888
+# Oracle Connect
+
+spring:
+#File Size
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  file:
+    upload:
+      path: C:\Users\admin\Desktop\project\jmAuto\src\main\resources\static\images\
+        
+        
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://172.30.1.98:5432/bs_Hive
+    username: postgres
+    password: postgre
+    
+  #datasource:
+  #  driver-class-name: oracle.jdbc.OracleDriver
+  #  url: jdbc:oracle:thin:@localhost:1521/xe
+  #  username: testJMA
+  #  password: tiger 
+    
+#    url: jdbc:oracle:thin:@172.30.1.45:1521/xe
+#    username: S202430101
+#    password: tiger
+    
+# Jpa Setting
+  jpa:
+    show-sql: true
+    
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp: 
+          use_jdbc_metadata_defaults: false
+
+# View Resolver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 
+    password: 
+    properties:
+      mail:
+        smtp:
+          auth: true      
+          starttls:
+            enable: true
+            
+  # jsp 수정시 자동 F5
+  devtools:
+    livereload:
+      enabled: true
+      
+#MyBatis
+mybatis:
+  config-location: classpath:configuration.xml
+  mapper-locations: classpath:mappers/*.xml
+
+
+# logger를 통해 하이버네이트 실행 SQL      
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug 
+      
+youtube:
+  api:
+    key: ${YOUTUBE_API_KEY}   

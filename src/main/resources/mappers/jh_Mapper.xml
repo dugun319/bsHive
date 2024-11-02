@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.postGre.bsHive.jh_Mapper">
+ 
+	<select id="login" resultType="user_table" parameterType="user_table">
+		select *
+		FROM "LGN"
+		where "EML" =#{eml}
+		AND "PSWD" =#{pswd}
+		AND "MBR_SE" =#{mbr_se}
+		
+	</select>
+	
+
+
+	 <select id="myClass" parameterType="int" resultType="Lctr_Aply">	
+ 		SELECT * FROM "LCTR_APLY"
+		where "UNQ_NUM" =#{unq_num}
+
+ 	</select>
+	
+	
+	
+
+<insert id="join" parameterType="User_Table">
+    <!-- 시퀀스 번호를 생성하고 저장 -->
+    <selectKey keyProperty="unq_num" order="BEFORE" resultType="int">
+        SELECT generate_unq_num(CAST(#{mbr_se} AS integer))::integer
+    </selectKey>
+
+    <!-- LGN 테이블에 삽입 -->
+    INSERT INTO "LGN" 
+    VALUES (
+        #{unq_num},  
+        #{eml},
+        #{pswd},
+        0,
+        #{mbr_se}
+    );
+
+    <if test="mbr_se == 1">
+        INSERT INTO "STDNT" 
+        VALUES (
+            #{unq_num},  
+            #{nm},
+            0,
+            #{addr},
+            #{daddr},
+            #{zip},
+            #{telno}
+        );
+    </if>
+
+    <if test="mbr_se == 2">
+        INSERT INTO "EMP" 
+        VALUES (
+            #{unq_num},  
+            #{nm},
+            #{telno},
+            0,
+            #{addr},
+            #{daddr},
+            #{zip}
+        );
+    </if>
+</insert>
+
+
+
+	
+	
+	
+	
+	
+</mapper> 

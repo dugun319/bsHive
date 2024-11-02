@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.postGre.bsHive.kh_TableMapper">
+ 	<select id="getPrdocList" 		parameterType="Kh_PrdocList" 	resultType="Kh_PrdocList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, prdocAll.*
+				FROM (
+						SELECT *
+						FROM public."PRDOC"
+						<where> 					
+							<if test="keyword !=null">
+							${search} LIKE '%'||#{keyword}||'%'
+							</if>
+						</where>
+						ORDER BY "APLY_NUM"
+					 ) prdocAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="getTotPrdocList" 	parameterType="Kh_PrdocList" 	resultType="int">
+		SELECT COUNT(*) 
+		FROM public."PRDOC"
+		<where> 					
+			<if test="keyword !=null">
+			#{search} LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	
+	
+	
+<!-- =========================   STUDENT   ===============================	 -->
+	
+
+	
+	<select id="getTotStdntList" 	parameterType="Kh_StdntList" 	resultType="int">
+		SELECT COUNT(*) 
+		FROM (	SELECT 	s."UNQ_NUM",
+						s."STDNT_NM",
+						s."STDNT_TELNO",
+						s."STDNT_ADDR",
+						s."STDNT_DADDR",
+						s."STDNT_ZIP",
+						l."EML"
+				FROM public."STDNT" s
+					LEFT OUTER JOIN public."LGN" l
+						ON s."UNQ_NUM" = l."UNQ_NUM"
+						AND l."DEL_YN" = '0'
+					<where> 					
+						<if test="keyword !=null">
+							s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
+					</where>
+					ORDER BY "UNQ_NUM"
+				) 
+
+	</select>
+	
+	
+	<select id="getStdntList" 		parameterType="Kh_StdntList" 	resultType="Kh_StdntList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, stdntAll.*
+				FROM (	SELECT 	s."UNQ_NUM",
+								s."STDNT_NM",
+								s."STDNT_TELNO",
+								s."STDNT_ADDR",
+								s."STDNT_DADDR",
+								s."STDNT_ZIP",
+								l."EML"
+						FROM public."STDNT" s
+						LEFT OUTER JOIN public."LGN" l
+							ON s."UNQ_NUM" = l."UNQ_NUM"
+							AND l."DEL_YN" = '0'
+						<where> 					
+							<if test="keyword !=null">
+								s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+							</if>
+						</where>
+						ORDER BY "UNQ_NUM"
+					 ) stdntAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
+	
+	
+	
+<!-- =========================   EMPLOYEE   ===============================	 -->
+	
+
+		
+	<select id="getTotEmpList" 	parameterType="Kh_EmpList" 		resultType="int">
+		SELECT COUNT(*) 
+		FROM (	SELECT 	e."UNQ_NUM",
+						e."EMP_NM",
+						e."EMP_TELNO",
+						e."EMP_ADDR",
+						e."EMP_DADDR",
+						e."EMP_ZIP",
+						l."EML"
+				FROM public."EMP" e
+					LEFT OUTER JOIN public."LGN" l
+					ON e."UNQ_NUM" = l."UNQ_NUM"
+						AND l."DEL_YN" = '0'
+						AND l."MBR_SE" = #{mbr_se}
+					<where> 					
+						<if test="keyword !=null">
+							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
+					</where>
+					ORDER BY "UNQ_NUM"
+				) 
+
+	</select>
+	
+	
+	<select id="getEmpList" 	parameterType="Kh_EmpList" 		resultType="Kh_EmpList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, empAll.*
+				FROM (	SELECT 	e."UNQ_NUM",
+						e."EMP_NM",
+						e."EMP_TELNO",
+						e."EMP_ADDR",
+						e."EMP_DADDR",
+						e."EMP_ZIP",
+						l."EML"
+				FROM public."EMP" e
+					LEFT OUTER JOIN public."LGN" l
+					ON e."UNQ_NUM" = l."UNQ_NUM"
+						AND l."DEL_YN" = '0'
+						AND l."MBR_SE" = #{mbr_se}
+					<where> 					
+						<if test="keyword !=null">
+							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
+					</where>
+					ORDER BY "UNQ_NUM"
+				) empAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<update id="updateLgnDelYn"			parameterType="Kh_StdntList">
+		UPDATE public."LGN"
+			SET	"DEL_YN" = '1'
+			WHERE "EML" = #{eml}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+<!-- =========================   LECTURE   ===============================	 -->
+	
+
+		
+	
+	<select id="getTotLctrList" 	parameterType="Kh_LctrList" 		resultType="int">
+		SELECT COUNT(*) 
+		FROM (	SELECT 	l."LCTR_NUM",
+						l."UNQ_NUM2",
+						l."APLY_TYPE",
+						l."APLY_YDM",
+						l."PSCP_NOPE",
+						l."SBJCT_NM",
+						l."LCTR_NAME",
+						e."EMP_NM",
+						e."EMP_TELNO"
+				FROM public."LCTR" l
+				LEFT OUTER JOIN public."EMP" e
+				ON l."UNQ_NUM2" = e."UNQ_NUM"
+				WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) = #{lectureType}
+				<if test="aply_type !=null">
+					AND l."APLY_TYPE" = #{aply_type}
+				</if>
+				)
+		<where> 					
+			<if test="keyword !=null">
+				"${search}"::TEXT LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+				
+
+	</select>
+	
+	
+	<select id="getLctrList" 		parameterType="Kh_LctrList" 		resultType="Kh_LctrList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, lctrAll.*
+				FROM (	
+						SELECT 	l."LCTR_NUM",
+								l."UNQ_NUM2",
+								l."APLY_TYPE",
+								l."APLY_YDM",
+								l."PSCP_NOPE",
+								l."SBJCT_NM",
+								l."LCTR_NAME",
+								e."EMP_NM",
+								e."EMP_TELNO"
+						FROM public."LCTR" l
+						LEFT OUTER JOIN public."EMP" e
+						ON l."UNQ_NUM2" = e."UNQ_NUM"
+						WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) = #{lectureType}
+						<if test="aply_type !=null">
+							AND l."APLY_TYPE" = #{aply_type}
+						</if>
+						
+						)lctrAll
+				<where> 					
+					<if test="keyword !=null">
+						"${search}"::TEXT LIKE '%'||#{keyword}||'%'
+					</if>
+				</where>
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 	
+	<select id="getTotTfListByCon" 			parameterType="TransferList" resultType="int">
+		SELECT COUNT(*) 
+		FROM payment
+		<where> 					
+			<if test="keyword !=null">
+			${search} LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getTotTfListByCon" 			parameterType="TransferList" resultType="int">
+		SELECT COUNT(*) 
+		FROM payment
+		<where> 					
+			<if test="keyword !=null">
+			${search} LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getTotExpertReview" 		parameterType="ExpList"		resultType="int">
+		SELECT COUNT(*) 
+		FROM expert_review
+		<where> 					
+			<if test="keyword !=null">
+			${search} LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+ 
+	<select id="selectCarBySellId"			parameterType="long"		resultType="Car_General_Info">
+		SELECT *
+		FROM car_general_info
+		WHERE sell_num = #{sell_num}
+	</select>
+	
+	<select id="selectPaymentListByUserId"	parameterType="String"		resultType="Payment">
+		SELECT *
+		FROM payment
+		WHERE user_id = #{user_id}
+			AND del_state = 0
+	</select>
+	
+	<select id="selectPaymentBySellId"		parameterType="long"		resultType="Payment">
+		SELECT *
+		FROM payment
+		WHERE sell_num = #{sell_num}
+	</select>
+		
+	<select id="selectPaymentByTid"			parameterType="String"		resultType="Payment">
+		SELECT *	
+		FROM payment
+		WHERE approval_num = #{tid}
+	</select>
+	
+	<select id="selectUserById"				parameterType="String"		resultType="User_Table">
+		SELECT *	
+		FROM user_table
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="expertReviewDetail"			parameterType="long"		resultType="Expert_Review">
+		SELECT *	
+		FROM expert_review
+		WHERE expert_review_num = #{expert_review_num}
+	</select>	
+	
+	<insert id="InsertPayment"				parameterType="Payment">
+		INSERT INTO Payment (
+							user_id,
+							approval_num,
+							approval_date,
+							sell_num,
+							expert_review_num,
+							price,
+							tax,
+							fee,
+							total_price,
+							buz_fee,
+							buz_money,
+							receiver_name,
+							receiver_tel,
+							receiver_zipcode,
+							receiver_addr1,
+							receiver_addr2,
+							insure_img_name,
+							insure_img_url,
+							delivery_date,
+							buy_type,
+							del_state,
+							refund_password
+						)		
+				VALUES ( 
+						 	#{user_id},
+							#{approval_num},
+							sysdate,
+							#{sell_num},
+							#{expert_review_num},
+							#{price},
+							#{tax},
+							#{fee},
+							#{total_price},
+							#{buz_fee},
+							#{buz_money},
+							#{receiver_name},
+							#{receiver_tel},
+							#{receiver_zipcode},
+							#{receiver_addr1},
+							#{receiver_addr2},
+							#{insure_img_name},
+							#{insure_img_url},
+							#{delivery_date},
+							#{buy_type},
+							#{del_state},
+							#{refund_password}
+						)	
+
+	</insert>
+	
+	<select id="getBrand"					parameterType="String"		resultType="String">
+		SELECT content	
+		FROM common
+		WHERE brand = #{brand}
+	</select>
+	
+	
+	<select id="getCarType"					parameterType="int"			resultType="String">
+		SELECT content	
+		FROM common
+		WHERE car_type	= #{car_type}
+			AND brand	= 9999
+	</select>
+	
+	
+	<select id="getCarList" 				resultType="Car_General_Info">
+		SELECT * 
+    	FROM Car_General_Info
+    		WHERE del_state = 0	
+    	ORDER BY sell_num
+	</select>
+	
+	
+	<select id="getExpertReviewList" 		parameterType="long"		resultType="Expert_Review">
+		SELECT * 
+    	FROM Expert_Review
+    	WHERE sell_num = #{sell_num}
+	</select>
+	
+	<select id="getPurchaseExpertList"			parameterType="String"		resultType="long">
+		SELECT expert_review_num	
+		FROM payment
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="getPurchaseCarList"				parameterType="String"		resultType="long">
+		SELECT sell_num	
+		FROM payment
+		WHERE user_id = #{user_id}
+			AND del_state = 0
+	</select>
+	
+	<select id="getRefundPassword"				parameterType="String"		resultType="String">
+		SELECT refund_password	
+		FROM payment
+		WHERE approval_num = #{approval_num}
+	</select>	
+	
+	<update id="updateRefundPayment"			parameterType="String">
+		UPDATE payment
+			SET	del_state = 1
+			WHERE approval_num = #{approval_num}
+	</update>
+	
+	<update id="updateCarDelState"				parameterType="long">
+		UPDATE car_general_info
+			SET	del_state = 1
+			WHERE sell_num = #{sell_num}
+	</update>
+	
+	<select id="getUserIdByApprovalNum"			parameterType="String"		resultType="String">
+		SELECT user_id	
+		FROM payment
+		WHERE approval_num = #{approval_num}
+	</select>
+	
+	<insert id="insertExpertReview"				parameterType="Expert_Review">
+		INSERT INTO Expert_Review (
+							expert_review_num,
+							sell_num,
+							write_date,
+							score,
+							content,
+							user_id,
+							ess_state,
+							ess_mileage,
+							ess_regi,
+							egine_oil,
+							brake_oil,
+							coolant,
+							tire,
+							brake_pad,
+							del_state
+						)		
+				VALUES ( 
+						 	expertReview_seq.nextval,
+							#{sell_num},
+							sysdate,
+							#{score},
+							#{content},
+							#{user_id},
+							#{ess_state},
+							#{ess_mileage},
+							#{ess_regi},
+							#{egine_oil},
+							#{brake_oil},
+							#{coolant},
+							#{tire},
+							#{brake_pad},
+							0
+						)	
+
+	</insert>
+	
+	<update id="updateExpertReview"				parameterType="Expert_Review">
+		UPDATE Expert_Review
+			SET	
+				score 				= #{score},
+				content 			= #{content},
+				ess_state			= #{ess_state},
+				ess_mileage 		= #{ess_mileage},
+				ess_regi			= #{ess_regi},
+				egine_oil			= #{egine_oil},
+				brake_oil			= #{brake_oil},
+				coolant				= #{coolant},
+				tire				= #{tire},
+				brake_pad			= #{brake_pad}
+			WHERE expert_review_num = #{expert_review_num}
+	</update>
+	
+	<select id="getPayList"						parameterType="PayList"		resultType="PayList">
+		SELECT *	
+		FROM (
+				SELECT ROWNUM AS rn, paymentAll.*
+				FROM (
+						SELECT *
+						FROM payment
+						WHERE user_id = #{user_id}
+						ORDER BY approval_date
+					 ) paymentAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end} 	
+	</select>
+	
+	<select id="getPayListCon"					parameterType="PayList"		resultType="PayList">
+		SELECT *	
+		FROM (
+				SELECT ROWNUM AS rn, paymentAll.*
+				FROM (
+						SELECT *
+						FROM payment
+						<where> 					
+							<if test="keyword !=null">
+							${search} LIKE '%'||#{keyword}||'%'
+							</if>
+						</where>
+						ORDER BY approval_date
+					 ) paymentAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end} 	
+	</select>
+	
+	
+	<select id="getPayListAll"					parameterType="PayList"		resultType="PayList">
+		SELECT *	
+		FROM (
+				SELECT ROWNUM AS rn, paymentAll.*
+				FROM (
+						SELECT *
+						FROM payment
+						ORDER BY approval_date
+					 ) paymentAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end} 	
+	</select>
+	
+	<select id="getReviewListCon"				parameterType="ExpList"		resultType="ExpList">
+		SELECT *	
+		FROM (
+				SELECT ROWNUM AS rn, expert_reviewAll.*
+				FROM (
+						SELECT *
+						FROM expert_review
+						<where> 					
+							<if test="keyword !=null">
+								${search} LIKE '%'||#{keyword}||'%'
+							</if>
+						</where>
+						ORDER BY expert_review_num
+					 ) expert_reviewAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end} 	
+	</select>
+	
+	<update id="updateReviewDelState"			parameterType="Expert_Review">
+		UPDATE expert_review
+			SET	del_state = ${del_state}
+			WHERE expert_review_num = #{expert_review_num}
+	</update>
+	
+	
+	<select id="getImageName"					parameterType="long"		resultType="String">
+		SELECT img_url	
+		FROM car_images
+		WHERE sell_num = #{sell_num}
+	</select>
+	
+	<select id="getAutoCompleteList" 			parameterType="map"			resultType="map">
+	
+	SELECT *	
+		FROM (
+				SELECT ROWNUM, searchList.*
+				FROM (
+						SELECT 	${search} 
+						FROM 	payment
+						<where> 					
+							<if test="keyword !=null">
+							${search} LIKE '%'||#{value}||'%'
+							</if>
+						</where>
+					 ) searchList
+		     )
+		WHERE ROWNUM	BETWEEN 1 AND 10 
+		
+	</select>
+	
+	
+	<select id="getSellerInfoById" 				parameterType="String"			resultType="Seller_Info">
+	
+	SELECT 	s.user_id,
+			s.user_name,
+			s.user_tel,
+			s.buz_num,
+			b.buz_name,
+			b.buz_addr,
+			b.buz_contract_url
+	FROM 	user_table s
+	LEFT OUTER JOIN business b
+		ON	s.buz_num = b.buz_num
+	WHERE	s.user_id = #{user_id}
+	
+	</select>
+	
+	<select id="getTransferListCon" 			parameterType="TransferList"	 resultType="TransferList">
+	SELECT *	
+    FROM (
+        SELECT ROWNUM AS rn, paymentAll.*
+            FROM (
+                    SELECT  p.approval_num,
+                            p.approval_date,
+                            p.sell_num,
+                            p.expert_review_num,
+                            p.price,
+                            p.tax,
+                            p.fee,
+                            p.total_price,
+                            p.buz_fee,
+                            p.buz_money,
+                            c.user_id,
+                            e.user_id AS expert_id,
+                            a.account_num,
+                            a.account_name,
+                            a.account_bank
+                    FROM    payment p
+                    LEFT OUTER JOIN car_general_info c
+                       ON p.sell_num = c.sell_num
+                    LEFT OUTER JOIN expert_review e
+                       ON p.expert_review_num = e.expert_review_num
+                    LEFT OUTER JOIN account a
+                       ON c.user_id = a.user_id
+                       OR e.user_id = a.user_id
+                    ORDER BY approval_date
+                    ) paymentAll
+                <where> 					
+					<if test="keyword !=null">
+					${search} LIKE '%'||#{keyword}||'%'
+					</if>
+				</where>
+            )
+	WHERE ROWNUM	BETWEEN 1 AND 10 
+	</select>
+	
+	
+ -->	
+	
+</mapper> 
