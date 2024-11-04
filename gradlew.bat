@@ -1,7 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin/br_test
 @rem
 @rem Copyright 2015 the original author or authors.
 @rem
@@ -96,7 +93,6 @@ exit /b %EXIT_CODE%
 if "%OS%"=="Windows_NT" endlocal
 
 :omega
-<<<<<<< HEAD
 =======
 @rem
 @rem Copyright 2015 the original author or authors.
@@ -193,5 +189,3 @@ if "%OS%"=="Windows_NT" endlocal
 
 :omega
 >>>>>>> 1a484729168f7c0adeb2023851fd02354f4d73a2
-=======
->>>>>>> origin/br_test
