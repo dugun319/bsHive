@@ -2,14 +2,6 @@ package com.postGre.bsHive.JwDao;
 
 import java.util.List;
 
-<<<<<<< HEAD
-import com.postGre.bsHive.Adto.All_Lctr;
-
-public interface JwDao {
-
-	List<All_Lctr> 			listAllLctr(All_Lctr al);
-
-=======
 import com.postGre.bsHive.Adto.LgnEmp;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
 
@@ -28,5 +20,4 @@ public interface JwDao {
 
 
 	
->>>>>>> origin/br_test
 }

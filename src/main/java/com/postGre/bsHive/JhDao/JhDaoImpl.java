@@ -1,9 +1,5 @@
 package com.postGre.bsHive.JhDao;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Repository;
-
-=======
 
 import java.util.List;
 
@@ -13,15 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.postGre.bsHive.Adto.User_Table;
 import com.postGre.bsHive.Amodel.Lctr_Aply;
 
->>>>>>> origin/br_test
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
 public class JhDaoImpl implements JhDao {
-<<<<<<< HEAD
-
-=======
 	
 	private final SqlSession session;
 	
@@ -76,5 +68,4 @@ public class JhDaoImpl implements JhDao {
 	
 	
 	
->>>>>>> origin/br_test
 }

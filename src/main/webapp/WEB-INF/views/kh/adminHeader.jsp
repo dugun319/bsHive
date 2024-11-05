@@ -16,6 +16,10 @@
 body{
 	margin: 0px;
 	padding: 0px;
+	font-family: "Noto Sans KR", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
 }
 
 header{
@@ -67,6 +71,17 @@ footer {
 </style>
 
 <script type="text/javascript">
+$(function(){
+    $.ajax({
+        type:"POST", 
+        dataType: data, 
+        data:{}, 
+        url:"/kh/admin/sessionExtension",
+        success: function(data) {
+			console.log('extension');
+		},
+    });
+});
 
 fetchAndUpdateRemainingTime = function () {
     $.get("/kh/admin/getSessionRemain", 
@@ -93,9 +108,12 @@ updateTimerDisplay = function (countdown) {
 sessionExtension = function () {
     $.ajax({
         type:"POST", 
-        dataType:'json', 
+        dataType: data, 
         data:{}, 
         url:"/kh/admin/sessionExtension",
+        success: function(data) {
+			console.log('extension');
+		},
     });
 }
 

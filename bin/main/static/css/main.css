@@ -1,14 +1,5 @@
 @charset "UTF-8";
 
-<<<<<<< HEAD
-header {
-	position: fixed;
-  	top: 0;
-  	/* width: 100% */
-  	left: 0;
-  	right: 0;
-  	z-index: 300;
-=======
 html {
     scroll-behavior: smooth;
 }
@@ -72,18 +63,10 @@ header {
     scroll-snap-align: start;
     height: 100vh; /* 전체 뷰포트 높이를 채움 */
     width: 100vw;
->>>>>>> origin/br_test
 }
 
 .main_header_banner {
     display: flex;
-<<<<<<< HEAD
-    overflow: hidden;
-    width: 100%;
-    height: auto;
-    max-height: 930px;
-    position: relative;
-=======
     position: relative; /* 이미지와 내비게이터의 상대적 위치 설정 */
     width: 100%;
     height: auto;
@@ -115,66 +98,17 @@ header {
     height: 16px;
     border-radius: 12px; /* Makes it a rounded box */
     background-color: #fdfdfd; /* Active color */
->>>>>>> origin/br_test
 }
 
 .main_header_banner_img {
     width: 100%;
     height: auto;
-<<<<<<< HEAD
-    max-height: 930px;
-=======
     max-height: 911px;
->>>>>>> origin/br_test
     transition: transform 1s ease;
     flex-shrink: 0; /* 각 이미지가 flex 컨테이너 내에서 고정 크기를 유지 */
 }
 
 .main_body_container {
-<<<<<<< HEAD
-	display: grid;
-	grid-template-columns: minmax(auto, 1700px);
-	justify-content: center;
-	padding: 0px;
-	max-width: 100%;
-	margin: 0px auto;
-	background-color: #ffffff;
-}
-
-.main_body_content {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(3, auto);
-	gap: 40px;
-	width: 100%;
-	margin: 0 15px;
-	padding: 100px 0;
-}
-
-.main_gogi_table {
-	grid-column: 1/span 2;
-	grid-row: 1;
-}
-
-.main_but_img {
-	grid-column: 1/span 2;
-	grid-row: 2;
-}
-
-.main_calendar {
-	grid-column: 1/span 2;
-	grid-row: 3;
-}
-
-.main_event_banner {
-	grid-column: 3;
-	grid-row: 1/span 3;
-	position: relative;
-    width: 100%;
-    max-width: 540px;
-    height: auto;
-    overflow: hidden;
-=======
     display: grid;
     grid-template-columns: minmax(auto, 1700px);
     justify-content: center;
@@ -220,50 +154,33 @@ header {
     width: 100%;
     max-width: 540px;
     height: auto;
->>>>>>> origin/br_test
 }
 
 .main_event_banner_box {
     display: flex;
     transition: transform 0.5s ease;
-<<<<<<< HEAD
-}
-
-.main_gogi_table_td1{
-	font-size: 21px;
-	font-weight: 800;
-	height: 30px;
-	padding: 20px 0;
-=======
     width: 100%;
     position: relative;
     overflow: hidden;
->>>>>>> origin/br_test
 }
 
 .main_event_image {
     min-width: 100%;
-<<<<<<< HEAD
-=======
     max-height: 700px;
     transition: opacity 0.5s ease; /* Smooth transition effect */
     opacity: 0 !important;; /* Set initial opacity to 0 for all images */
     top: 0; /* Align them to the top */
     left: 0; /* Align them to the left */
->>>>>>> origin/br_test
 }
 
 .main_event_image.active {
     display: block;
-<<<<<<< HEAD
-=======
     opacity: 1 !important; /* Current active image */
     position: absolute;
 }
 
 .main_event_image:not(.active) {
     opacity: 0;
->>>>>>> origin/br_test
 }
 
 .main_event_banner_text {
@@ -274,25 +191,17 @@ header {
     padding: 20px 0;
 }
 
-<<<<<<< HEAD
-.main_event_banner_navigetor {
-=======
 .main_event_banner_navigetor{
 	display: flex;
 	
 }
 
 .main_event_banner_navigator {
->>>>>>> origin/br_test
     display: flex;
     gap: 5px;
 }
 
-<<<<<<< HEAD
-.navigator {
-=======
 .event_navigator {
->>>>>>> origin/br_test
     display: inline-block;
     width: 16px; /* 기본 너비 */
     height: 16px;
@@ -300,19 +209,6 @@ header {
     border-radius: 50%; /* 기본 원 모양 */
     margin: 0 5px;
     cursor: pointer;
-<<<<<<< HEAD
-}
-
-.navigator.active {
-    width: 60px;  /* Increases width for selected state */
-    height: 16px;
-    border-radius: 12px; /* Makes it a rounded box */
-    background-color: #134b84;
-}
-
-.navigator.active::before, 
-.navigator.active::after {
-=======
     transition: background-color 0.3s, width 0.3s;
 }
 
@@ -325,7 +221,6 @@ header {
 
 .event_navigator.active::before,
 .event_navigator.active::after {
->>>>>>> origin/br_test
     content: '';
     top: 50%;
     transform: translateY(-50%);
@@ -334,19 +229,11 @@ header {
     background-color: #555;
 }
 
-<<<<<<< HEAD
-.navigator.active::before {
-    left: -15px;
-}
-
-.navigator.active::after {
-=======
 .event_navigator.active::before {
     left: -15px;
 }
 
 .event_navigator.active::after {
->>>>>>> origin/br_test
     right: -15px;
 }
 
@@ -354,9 +241,6 @@ header {
     font-weight: bold;
     color: #134b84;
     cursor: pointer;
-<<<<<<< HEAD
-}
-=======
 }
 
 .main_but_img_src {
@@ -437,4 +321,3 @@ header {
     margin: 0 15px;
     min-height: 811px;
 }
->>>>>>> origin/br_test

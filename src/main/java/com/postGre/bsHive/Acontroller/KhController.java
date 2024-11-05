@@ -24,6 +24,7 @@ import com.postGre.bsHive.SeService.Paging;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 
 
@@ -57,6 +58,7 @@ public class KhController {
 	//sessionTimer
 	//
 	
+	@ResponseBody
 	@PostMapping(value = "/sessionExtension")
 	public void sessionExtension(HttpSession session) {
 		System.out.println("sessionExtension(HttpSession session) is called");
@@ -205,18 +207,92 @@ public class KhController {
 	}
 	
 	
-	@GetMapping(value = "/appLctr")
-	public String approveLecture(Kh_LctrList lcList, Model model) {
-		log.info("KhController approveLecture() is called");
-		System.out.println("approveLecture lectureType -> " + lcList.getLectureType());
+	@GetMapping(value = "/goSyllabus")
+	public String goSyllabus(Kh_LctrList lcList, Model model) {
+		log.info("KhController goSyllabus() is called");
+				
+		Kh_LctrList lctrDetail	= khTableSerive.getLctrDetail(lcList);
+		model.addAttribute("lctrDetail",	lctrDetail);
 		
-		return "kh/adminAppLctr";
+		return "kh/syllabusPage";
 	}
 	
 	
+	@Transactional
+	@PostMapping(value = "/sendRequest")
+	public String requestModification(@RequestParam("lctr_num") String lctr_num,
+									  @RequestParam("requestContent") String requestContent,
+									  Model model) {
+		log.info("KhController requestModification() is called");
+		System.out.println("requestModification lctr_num -> " + lctr_num);
+		System.out.println("requestModification requestContent -> " + requestContent);
+		String lectureType		= lctr_num.substring(5, 6);
+		int lctrNum 			= Integer.parseInt(lctr_num);
+		Kh_LctrList lcList		= new Kh_LctrList();
+		lcList.setLctr_num(lctrNum);
+		lcList.setAply_type("3");
+		
+		khTableSerive.updateAplyType(lcList);		
+		Kh_LctrList lctrDetail	= khTableSerive.getLctrDetail(lcList);
+		lctrDetail.setEmlContent(requestContent);
+		
+		khTableSerive.sendRequest(lctrDetail);
+		String aplyType			= lctrDetail.getAply_type();
+		
+		System.out.println("aplyType -> " + aplyType );
+		
+		return "redirect:/kh/admin/appLctrList?aply_type=" + aplyType + "&lectureType=" + lectureType;
+	}
 	
+	@GetMapping(value = "/openLctr")
+	public String openLctr(@RequestParam("lctr_num") String lctr_num, HttpSession session) {
+		log.info("KhController requestModification() is called");
+		System.out.println("requestModification lctr_num -> " + lctr_num);
+
+		String lectureType		= lctr_num.substring(5, 6);
+		String aplyYdm			= "2024-06-15";
+		String endDate			= "2024-06-30";		
+		int lctrNum 			= Integer.parseInt(lctr_num);
+		Kh_LctrList lcList		= new Kh_LctrList();
+		// int unq_num			= Integer.parseInt(session.getAttribute("unq_num").toString());
+		int unq_num				= 317000012;
+		
+		lcList.setUnq_num(unq_num);
+		lcList.setLctr_num(lctrNum);
+		lcList.setAply_type("1");
+		lcList.setAply_ydm(aplyYdm);
+		lcList.setEnd_date(endDate);
+		
+		khTableSerive.openLecture(lcList);
+		Kh_LctrList lctrDetail	= khTableSerive.getLctrDetail(lcList);
+		
+		String aplyType			= lctrDetail.getAply_type();
+		System.out.println("aplyType -> " + aplyType );
+		
+		return "redirect:/kh/admin/appLctrList?aply_type=" + aplyType + "&lectureType=" + lectureType;
+	}
 	
+	@GetMapping(value = "/closeLctr")
+	public String closeLctr(@RequestParam("lctr_num") String lctr_num) {
+		log.info("KhController requestModification() is called");
+		System.out.println("requestModification lctr_num -> " + lctr_num);
+
+		String lectureType		= lctr_num.substring(5, 6);
+		int lctrNum 			= Integer.parseInt(lctr_num);
+		Kh_LctrList lcList		= new Kh_LctrList();
+		lcList.setLctr_num(lctrNum);
+		lcList.setAply_type("5");
+		khTableSerive.updateAplyType(lcList);
+		Kh_LctrList lctrDetail	= khTableSerive.getLctrDetail(lcList);
+		
+		String aplyType			= lctrDetail.getAply_type();
+		
+		System.out.println("aplyType -> " + aplyType );
+		
+		return "redirect:/kh/admin/appLctrList?aply_type=" + aplyType + "&lectureType=" + lectureType;
+	}
 	
+
 	
 	
 	

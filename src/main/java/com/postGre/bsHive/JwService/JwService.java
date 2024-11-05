@@ -2,14 +2,6 @@ package com.postGre.bsHive.JwService;
 
 import java.util.List;
 
-<<<<<<< HEAD
-import com.postGre.bsHive.Adto.All_Lctr;
-
-public interface JwService {
-
-	// 온라인 강의정보 불러오기 
-	List<All_Lctr> listOnlnLct(All_Lctr al);
-=======
 import com.postGre.bsHive.Adto.LgnEmp;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
 
@@ -27,5 +19,4 @@ public interface JwService {
 
 
 	
->>>>>>> origin/br_test
 }

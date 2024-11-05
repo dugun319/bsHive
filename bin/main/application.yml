@@ -38,11 +38,7 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-<<<<<<< HEAD
-        dialect: org.hibernate.dialect.MySQLDialect
-=======
         dialect: org.hibernate.dialect.PostgreSQLDialect
->>>>>>> origin/br_test
         temp: 
           use_jdbc_metadata_defaults: false
 
@@ -55,8 +51,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: 
-    password: 
+    username: dugun319@gmail.com
+    password: mcuw ymbr lsjf clix
     properties:
       mail:
         smtp:

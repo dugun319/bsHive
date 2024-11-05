@@ -1,25 +1,11 @@
-<<<<<<< HEAD
-package com.postGre.bsHive.Acontroller;
-=======
  package com.postGre.bsHive.Acontroller;
 
 import java.io.IOException;
 import java.util.List;
->>>>>>> origin/br_test
 
 import org.springframework.stereotype.Controller;
 
 
-<<<<<<< HEAD
-import ch.qos.logback.core.model.Model;
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.postGre.bsHive.HbService.HbTableService;
-import com.postGre.bsHive.SeService.SeService;
-=======
 import org.springframework.ui.Model;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,34 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
 import com.postGre.bsHive.Amodel.Lctr_Evl;
 import com.postGre.bsHive.HbService.HbTableService;
->>>>>>> origin/br_test
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "hb")
 public class HbController {
 	private final HbTableService hbtableService;
-<<<<<<< HEAD
-	
-	@GetMapping("/hb")
-	public String afterclass() {
-		System.out.println("hbController sucessfully start");
-		return "hb/hbmain";
-	}
-	
-	@GetMapping("/courseEval")
-	public String courEvalStart(Model model){
-		System.out.println("hbController courseEval Start");
-		return "hb/courseEval";
-	}
-	
-	@GetMapping("/courseEvalSubmit")
-	public String courseEvalSubmit(Model model) {
-		hbtableService.addCourseEval();
-		return "hb/showresult";
-	}
-	
-=======
 
 	@GetMapping("/courseEval")
 	public String courEvalStart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -116,5 +80,4 @@ public class HbController {
 		System.out.println("submitGrades start...");
 		return "hb/lecTestResult";
 	}
->>>>>>> origin/br_test
 }

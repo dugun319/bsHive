@@ -5,13 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-import com.postGre.bsHive.Amodel.Crans_Qitem;
-=======
 import com.postGre.bsHive.Adto.Mn_LctrAplyOflWeek;
 import com.postGre.bsHive.Amodel.Crans_Qitem;
 import com.postGre.bsHive.Amodel.Pst;
->>>>>>> origin/br_test
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,19 +21,13 @@ public class MnDaoImpl implements MnDao {
 		List<Crans_Qitem> critem = null;
 		System.out.println("selAll start//////////////");
 		try {
-<<<<<<< HEAD
-			critem = session.selectList("com.postGre.bsHive.Mapper.Mnxml.selAll");
-=======
 			critem = session.selectList("com.postGre.bsHive.Mapper.mnMapper.selAll");
->>>>>>> origin/br_test
 			System.out.println("daoCrit >>>>>>>>>>" + critem);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return critem;
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public List<Pst> pstAllList() {
@@ -66,6 +56,5 @@ public class MnDaoImpl implements MnDao {
 		
 		return mnList;
 	}
->>>>>>> origin/br_test
 	
 }

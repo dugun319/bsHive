@@ -4,12 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import com.postGre.bsHive.Adto.All_Lctr;
-=======
 import com.postGre.bsHive.Adto.LgnEmp;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
->>>>>>> origin/br_test
 import com.postGre.bsHive.JwDao.JwDao;
 
 import lombok.RequiredArgsConstructor;
@@ -19,20 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class JwServiceImpl implements JwService {
 	private final JwDao jd;
 
-<<<<<<< HEAD
-	// 온라인 강의정보 불러오기 
-	@Override
-	public List<All_Lctr> listOnlnLct(All_Lctr al) {
-		List<All_Lctr> AllLctrList = null;
-		System.out.println("JwServiceImpl listOnlnLct Start...");
-
-		AllLctrList = jd.listAllLctr(al);
-		System.out.println("JwServiceImpl listOnlnLct AllLctrList.size->"+AllLctrList.size());
-		
-		return AllLctrList;
-	}
-	
-=======
 	// 강의계획서 작성 정보 insert 
 	@Override
 	public int insertLCTR(LgnEmp lgnEmp2) {
@@ -71,5 +53,4 @@ public class JwServiceImpl implements JwService {
 
 	
 	
->>>>>>> origin/br_test
 }

@@ -23,11 +23,7 @@ public class MhDaoImp implements MhDao {
 		try {
 			totalGongList = session.selectOne("totalGongList");
 		} catch (Exception e) {
-<<<<<<< HEAD
-			System.out.println("totalGongList: " +e.getMessage());
-=======
 			System.out.println("totalGongList: " +e);
->>>>>>> origin/br_test
 		}
 		return totalGongList;
 	}
@@ -38,11 +34,7 @@ public class MhDaoImp implements MhDao {
 		try {
 			listGong = session.selectList("listGong", pst);
 		} catch (Exception e) {
-<<<<<<< HEAD
-			System.out.println("listGong: " +e.getMessage());
-=======
 			System.out.println("listGong: " +e);
->>>>>>> origin/br_test
 		}
 		
 		return listGong;
@@ -64,18 +56,12 @@ public class MhDaoImp implements MhDao {
 	public int GongDelete(int pst_num) {
 		int GongDelete = 0;
 		try {
-<<<<<<< HEAD
-			GongDelete = session.delete("GongDelete", pst_num);
-=======
 			GongDelete = session.update("GongDelete", pst_num);
->>>>>>> origin/br_test
 		} catch (Exception e) {
 		}
 		return GongDelete;
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public int gongInsert(Pst pst) {
 		int gongInsert = 0;
@@ -190,5 +176,4 @@ public class MhDaoImp implements MhDao {
 		return fnqView;
 	}
 
->>>>>>> origin/br_test
 }

@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@ include file="jh_jstl.jsp" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<title>로그인 페이지</title>
-=======
 <%@ include file="jstl.jsp" %>    
 <!DOCTYPE html>
 <html>
@@ -14,7 +7,6 @@
 
 <title>로그인 페이지</title>
 	
->>>>>>> origin/br_test
 	<link rel="stylesheet" type="text/css" href="/css/jh_loginForm.css">
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
@@ -39,12 +31,9 @@
         });
     </script>
 </head>
-<<<<<<< HEAD
-=======
 <header>
 	<%@ include file="../header.jsp" %>
 </header>
->>>>>>> origin/br_test
 <body>
     <div class="container">
         <!-- 이미지 -->
@@ -65,17 +54,6 @@
 	                      
 
 	            <div class="user_type_buttons">
-<<<<<<< HEAD
-	                <button class="user_button" id="student" data-type="s">학생</button>
-	                <button class="user_button" id="professor" data-type="p">교수</button>
-	                <button class="user_button" id="staff" data-type="a">직원</button>
-	            </div>
-	
-	            <form action="/login" method="post" id="loginForm">
-	                <input type="hidden" name="userType" id="userType" value="">
-	                <input type="text" name="username" placeholder="아이디를 입력하세요." required="required">
-	                <input type="password" name="password" placeholder="비밀번호를 입력하세요." required="required">
-=======
 	                <button class="user_button" id="student" data-type="1">학생</button>
 	                <button class="user_button" id="professor" data-type="2">교수</button>
 	                <button class="user_button" id="staff" data-type="3">직원</button>
@@ -88,16 +66,11 @@
 	                <input type="hidden" name="MBR_SE" id="userType" value="">
 	                <input type="text" name="EML" value="${eml}" placeholder="이메일을 입력하세요." required="required">
 	                <input type="password" name="PSWD" placeholder="비밀번호를 입력하세요." required="required">
->>>>>>> origin/br_test
 	                <input type="submit" value="로그인" class="input_submit">
 	            </form>
 	
 	            <ul class="sign_up_find_idpw">
-<<<<<<< HEAD
-	                <li><a href="/joinAgree">회원가입</a></li>
-=======
 	                <li><a href="/jh/signUpSelect">회원가입</a></li>
->>>>>>> origin/br_test
 	                <li><span>&nbsp;|&nbsp;</span></li>
 	                <li><a href="/joinAgree">아이디 찾기</a></li>
 	                <li><span>&nbsp;|&nbsp;</span></li>
@@ -107,10 +80,7 @@
         </div>
     </div>
 </body>
-<<<<<<< HEAD
-=======
 <footer>
 	<%@ include file="../footer.jsp" %>
 </footer>
->>>>>>> origin/br_test
 </html>

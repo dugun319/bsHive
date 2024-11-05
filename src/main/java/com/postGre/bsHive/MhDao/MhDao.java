@@ -14,8 +14,6 @@ public interface MhDao {
 
 	int GongDelete(int pst_num);
 
-<<<<<<< HEAD
-=======
 	int gongInsert(Pst pst);
 
 	int updateGong(Pst pst);
@@ -38,5 +36,4 @@ public interface MhDao {
 
 	List<Pst> fnqView(Pst pst);
 
->>>>>>> origin/br_test
 }

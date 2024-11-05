@@ -1,15 +1,10 @@
 package com.postGre.bsHive.SeService;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Service;
-
-=======
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
->>>>>>> origin/br_test
 import com.postGre.bsHive.SeDao.SeDao;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class SeServiceImpl implements SeService {
 	
 	private final SeDao sd;
-<<<<<<< HEAD
-	
-
-=======
 
 	@Override
 	public int onlnTotal() {
@@ -60,5 +51,4 @@ public class SeServiceImpl implements SeService {
 		return onln_Lctr_List;
 	}
 	
->>>>>>> origin/br_test
 }

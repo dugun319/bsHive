@@ -151,14 +151,14 @@
                 {text: '교수관리'}, 								//tui-tree-node-3
                 {text: '직원관리'} 								//tui-tree-node-4
             ]},
-            {text: '학사관리', state:'closed', children: [
-            	{text: '강의관리', state: 'closed', children: [
+            {text: '학사관리', children: [
+            	{text: '강의관리', children: [
                     {text:'오프라인강의개설승인'}, 					//tui-tree-node-7
                     {text:'온라인강의개설승인'}, 						//tui-tree-node-8
                     {text:'강의실관리'}, 							//tui-tree-node-9
                     {text:'성적입력'} 								//tui-tree-node-10
                 ]},
-                {text: '수료관리', state: 'closed', children: [
+                {text: '수료관리', children: [
                 	{text:'강의평가'},								//tui-tree-node-12
                 	{text:'장학금'},								//tui-tree-node-13
                     {text:'재증명'}								//tui-tree-node-14

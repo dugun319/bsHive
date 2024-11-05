@@ -44,8 +44,6 @@ public class MhServiceImp implements MhService {
 		return GongDelete;
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public int gongInsert(Pst pst) {
 		int gongInsert = 0;
@@ -123,5 +121,4 @@ public class MhServiceImp implements MhService {
 		return fnqView;
 	}
 
->>>>>>> origin/br_test
 }

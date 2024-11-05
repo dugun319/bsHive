@@ -1,9 +1,5 @@
 package com.postGre.bsHive.JhDao;
 
-<<<<<<< HEAD
-public interface JhDao {
-
-=======
 import java.util.List;
 
 import com.postGre.bsHive.Adto.User_Table;
@@ -17,5 +13,4 @@ public interface JhDao {
 
 	int join(User_Table user);
 
->>>>>>> origin/br_test
 }

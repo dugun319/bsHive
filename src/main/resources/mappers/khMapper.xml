@@ -182,7 +182,6 @@
 						l."APLY_TYPE",
 						l."APLY_YDM",
 						l."PSCP_NOPE",
-						l."SBJCT_NM",
 						l."LCTR_NAME",
 						e."EMP_NM",
 						e."EMP_TELNO"
@@ -214,7 +213,6 @@
 								l."APLY_TYPE",
 								l."APLY_YDM",
 								l."PSCP_NOPE",
-								l."SBJCT_NM",
 								l."LCTR_NAME",
 								e."EMP_NM",
 								e."EMP_TELNO"
@@ -239,7 +237,46 @@
 	</select>
 	
 	
+	<select id="getLctrDetail" 		parameterType="Kh_LctrList" 		resultType="Kh_LctrList">
+		SELECT 	l."LCTR_NUM",
+				l."UNQ_NUM2",
+				l."APLY_TYPE",
+				l."APLY_YDM",
+				l."PSCP_NOPE",
+				l."LCTR_NAME",
+				e."EMP_NM",
+				e."EMP_TELNO",
+				log."EML",
+				d1."DEPT_NAME" as "div_name",
+				d2."DEPT_NAME" as "dept_name"
+		FROM public."LCTR" l
+		LEFT OUTER JOIN public."EMP" e
+			ON l."UNQ_NUM2" = e."UNQ_NUM"
+		LEFT OUTER JOIN public."LGN" log
+			ON log."UNQ_NUM" = l."UNQ_NUM2"
+		LEFT OUTER JOIN public."DIV_DEPT" d1
+			ON d1."DEPT_NUM" = #{div_name}::TEXT
+		LEFT OUTER JOIN public."DIV_DEPT" d2
+			ON d2."DEPT_NUM" = #{dept_name}::TEXT
+		WHERE l."LCTR_NUM" = #{lctr_num}
+	</select>
 	
+	
+	<update id="updateAplyType"			parameterType="Kh_LctrList">
+		UPDATE public."LCTR"
+			SET "APLY_TYPE" = #{aply_type}
+			WHERE "LCTR_NUM" = #{lctr_num};
+	</update>
+	
+	
+	<update id="openLecture"			parameterType="Kh_LctrList">
+		UPDATE public."LCTR"
+			SET "APLY_TYPE" = #{aply_type},
+				"UNQ_NUM" = #{unq_num},
+				"APLY_YDM" = #{aply_ydm},
+				"END_DATE" = #{end_date}
+			WHERE "LCTR_NUM" = #{lctr_num};
+	</update>
 	
 	
 	

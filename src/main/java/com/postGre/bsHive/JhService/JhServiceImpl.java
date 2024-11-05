@@ -1,11 +1,5 @@
 package com.postGre.bsHive.JhService;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Service;
-
-import com.postGre.bsHive.JhDao.JhDao;
-
-=======
 import java.util.List;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -18,7 +12,6 @@ import com.postGre.bsHive.Amodel.Lctr_Aply;
 import com.postGre.bsHive.JhDao.JhDao;
 
 import jakarta.mail.internet.MimeMessage;
->>>>>>> origin/br_test
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,8 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class JhServiceImpl implements JhService{
 
 	private final JhDao jd;
-<<<<<<< HEAD
-=======
 	private final JavaMailSender mailSender;
 
 	@Override
@@ -74,5 +65,4 @@ public class JhServiceImpl implements JhService{
 
     
 
->>>>>>> origin/br_test
 }

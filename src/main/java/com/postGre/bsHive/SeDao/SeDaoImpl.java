@@ -1,9 +1,5 @@
  package com.postGre.bsHive.SeDao;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Repository;
-
-=======
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,16 +10,12 @@ import org.springframework.stereotype.Repository;
 
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
 
->>>>>>> origin/br_test
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
 public class SeDaoImpl implements SeDao {
 	
-<<<<<<< HEAD
-	
-=======
 	private final SqlSession session;
 	
 	@Override
@@ -87,6 +79,5 @@ public class SeDaoImpl implements SeDao {
 	}
 
 		
->>>>>>> origin/br_test
 
 }

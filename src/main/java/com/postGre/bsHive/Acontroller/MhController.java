@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.PostMapping;
->>>>>>> origin/br_test
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,11 +27,7 @@ public class MhController {
 	@Autowired
 	private final MhService ms;
 	
-<<<<<<< HEAD
-	@GetMapping("/mhboard_GongList")
-=======
 	@GetMapping("/gongList")
->>>>>>> origin/br_test
 	public String GongGiList(Pst pst, Model model) {
 		System.out.println("mhboard_GongList start");
 		
@@ -44,45 +37,15 @@ public class MhController {
 		
 		model.addAttribute("totalGongList", totalGongList);
 		model.addAttribute("listGong", listGong);
-<<<<<<< HEAD
-		System.out.println("listGong->" +listGong);
-		
-		return "mh/mhboard_GongList";
-	}
-	
-	@GetMapping("/GongView")
-=======
 		
 		return "mh/gongList";
 	}
 	
 	@GetMapping("/gongView")
->>>>>>> origin/br_test
 	public String GongView(Pst pst, Model model) {
 		 List<Pst> GongView = ms.GongView(pst);
 		 
 		 model.addAttribute("GongView",GongView);
-<<<<<<< HEAD
-		 System.out.println("GongView Controller : " +GongView);
-		
-		return "mh/GongView";
-	}
-	
-	@GetMapping("/GongDelete")
-	public String GongDelete(@RequestParam("pst_num") int pst_num) {
-		int result = ms.GongDelete(pst_num);
-		return "redirect:mhboard_GongList";	
-	}
-	
-	@GetMapping("/Gongwrite")
-	public String Gongwrite() {
-		return "redirect:mhboard_GongList";	
-	}
-	
-	
-	
-
-=======
 		
 		return "mh/gongView";
 	}
@@ -195,5 +158,4 @@ public class MhController {
 		return "mh/fnqView";
 	}
 	
->>>>>>> origin/br_test
 }

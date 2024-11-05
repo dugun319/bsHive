@@ -15,10 +15,4 @@
  		LEFT OUTER JOIN "LCTR" l on o."LCTR_NUM" = l."LCTR_NUM"
  	</select>
  
- 
- 
- 
- 
- 
- 
  </mapper>

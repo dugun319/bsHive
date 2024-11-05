@@ -5,17 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
-
-import com.postGre.bsHive.Adto.All_Lctr;
-=======
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.postGre.bsHive.Adto.LgnEmp;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
 import com.postGre.bsHive.Amodel.Lctr;
 import com.postGre.bsHive.Amodel.Onln_Lctr;
->>>>>>> origin/br_test
 import com.postGre.bsHive.JwService.JwService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,19 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
-<<<<<<< HEAD
-=======
 @RequestMapping(value = "/jw")
->>>>>>> origin/br_test
 @Slf4j
 public class JwController {
 	private final JwService js;
 	
-<<<<<<< HEAD
-	// 온라인 강의정보 불러오기 
-	@GetMapping(value = "/jw/")
-	public String OnlnLctrInfo(All_Lctr al,
-=======
 	// 강의개설 폼으로 이동
 	// 로그인한 교수의 정보에서 고유번호와 이름을 들고 감
 	@RequestMapping("/writeFormOnlnLctr")
@@ -96,20 +83,10 @@ public class JwController {
 	// 온라인 강의정보, 차시정보 불러오기 
 	@GetMapping("/lctrInfo")
 	public String OnlnLctrInfo(Onln_Lctr_List ol,
->>>>>>> origin/br_test
 							   //HttpSession session,
 							   Model model) {
 		System.out.println("JwController OnlnLctrInfo Start...");
 		
-<<<<<<< HEAD
-		List<All_Lctr> listOnlnLct = js.listOnlnLct(al);
-		System.out.println("JwController OnlnLctrInfo listOnlnLct.size->"+listOnlnLct.size());
-		
-		model.addAttribute("listOnlnLct", listOnlnLct);
-		System.out.println("JwController OnlnLctrInfo listOnlnLct->"+listOnlnLct);
-		
-		return "jw/lctr_Info";
-=======
 		// 강의정보 목록으로 가져오기
 		List<Onln_Lctr_List> listOnlnLct = js.listOnlnLct(ol);
 		System.out.println("JwController OnlnLctrInfo listOnlnLct.size->"+listOnlnLct.size());
@@ -125,7 +102,6 @@ public class JwController {
 		System.out.println("JwController OnlnLctrInfo UnitOnlnList->"+UnitOnlnList);
 		
 		return "jw/lctrInfo";
->>>>>>> origin/br_test
 	}
 	
 

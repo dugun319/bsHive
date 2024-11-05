@@ -1,10 +1,5 @@
 package com.postGre.bsHive.HbDao;
 
-<<<<<<< HEAD
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
-
-=======
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
 import com.postGre.bsHive.Amodel.Lctr_Evl;
 
->>>>>>> origin/br_test
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -22,8 +16,6 @@ public class HbTableDaoImpl implements HbTableDao {
 	
 	private final SqlSession session;
 
-<<<<<<< HEAD
-=======
 	@Override
 	public void addCourseEval(Lctr_Evl courseEval) {
 		session.insert("addCourseEval", courseEval);
@@ -46,5 +38,4 @@ public class HbTableDaoImpl implements HbTableDao {
 		return session.selectList("getStntNum",onln_Lctr_List);
 	}
 
->>>>>>> origin/br_test
 }

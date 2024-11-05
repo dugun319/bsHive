@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.postGre.bsHive.HsDao.HsDao">
+	<!-- 강의계획서 조회 -->
+	<select id="hsLec_TotSche" parameterType="int" resultType="Hs_Lec">
+		SELECT DISTINCT l."LCTR_NAME", 
+						e."EMP_NM", 
+						l."SBJCT_NM", 
+						ol."BGNG_YMD", 
+						ol."END_YMD", 
+						lm."DOW", 
+						lm."BGNG_TM", 
+						lm."END_TM", 
+						l."PSCP_NOPE", 
+						ol."FNSH_COST",
+						os."LCTR_OTLN",
+						os."EDU_PRPS",
+						os."EDU_CN",
+						os."EVL_MTHD",
+						os."REF_DATA_CN",
+						os."EXCPTN_MTTR" 
+		FROM "LCTR" AS l
+		JOIN "OFL_SYLLABUS"  AS os ON l."LCTR_NUM" 	 = os."LCTR_NUM"
+		JOIN "OFL_LCTR" 	 AS ol ON l."LCTR_NUM" 	 = ol."LCTR_NUM"
+		JOIN "LCTR_WEEK" 	 AS lw ON l."LCTR_NUM" 	 = lw."LCTR_NUM"
+		JOIN "LCTRM" 		 AS lm ON lw."LCTRM_NUM" = lm."LCTRM_NUM"
+		JOIN "EMP" 		 	 AS e  ON l."UNQ_NUM2" 	 = e."UNQ_NUM"
+		WHERE l."LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<!-- 주차별 강의 계획서 List -->
+	<select id="hsLctrWeek" parameterType="int" resultType="Hs_Lec">
+		SELECT *
+		FROM "LCTR_WEEK"
+		WHERE "LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<!-- 강의 주차 option 불러오는 list -->
+	<select id="hsWeekList" parameterType="int" resultType="Hs_Attend">
+		SELECT  "LCTR_WEEKS", "LCTR_YMD"
+		FROM	"LCTR_WEEK"
+		WHERE 	"LCTR_NUM" = #{lctr_num}
+		ORDER BY "LCTR_WEEKS"
+	</select>
+	
+	<select id="hsWeekListProf" parameterType="Hs_Attend" resultType="Hs_Attend">
+		SELECT 	a.*, s."STDNT_NM"
+		FROM 	"ATNDC" AS a
+		JOIN 	"STDNT" AS s ON a."UNQ_NUM" = s."UNQ_NUM"
+		WHERE 	a."LCTR_NUM" = #{lctr_num}
+		AND		a."LCTR_WEEKS" = #{lctr_weeks}
+		ORDER BY s."STDNT_NM"
+	</select>
+	
+	<update id="hsUpdAttendProf" parameterType="Hs_Attend">
+		UPDATE  "ATNDC"
+		SET		"ATNDC_TYPE"=#{atndc_type}
+		WHERE	"UNQ_NUM" = #{unq_num}
+		AND		"LCTR_WEEKS" = #{lctr_weeks}
+		AND		"LCTR_NUM" = #{lctr_num}
+	</update>
+</mapper>

@@ -5,12 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-import com.postGre.bsHive.Adto.All_Lctr;
-=======
 import com.postGre.bsHive.Adto.LgnEmp;
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
->>>>>>> origin/br_test
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,16 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class JwDaoImpl implements JwDao {
 	private final SqlSession session;
 
-<<<<<<< HEAD
-	// 온라인 강의정보 불러오기 
-	@Override
-	public List<All_Lctr> listAllLctr(All_Lctr al) {
-		List<All_Lctr> listResult = null;
-		System.out.println("JwDaoImpl listAllLctr Start...");
-		
-		try {
-			listResult = session.selectList("selectAllLctr", al);
-=======
 	// 강의계획서 작성 정보 insert
 	@Override
 	public int insertLctr(LgnEmp lgnEmp2) {
@@ -54,7 +40,6 @@ public class JwDaoImpl implements JwDao {
 		
 		try {
 			listResult = session.selectList("selectOnlnLctr", ol);
->>>>>>> origin/br_test
 			System.out.println("JwDaoImpl listAllLctr listResult.size()->"+listResult.size());
 					
 		} catch (Exception e) {
@@ -64,9 +49,6 @@ public class JwDaoImpl implements JwDao {
 		return listResult;
 	}
 
-<<<<<<< HEAD
-	
-=======
 	// 온라인강의 차시정보 불러오기
 	@Override
 	public List<Onln_Lctr_List> listOnlnUnit(Onln_Lctr_List ol) {
@@ -85,5 +67,4 @@ public class JwDaoImpl implements JwDao {
 	}
 
 		
->>>>>>> origin/br_test
 }

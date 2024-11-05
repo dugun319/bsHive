@@ -16,4 +16,5 @@ public class Pst {
 	private String 	answr_ymd;			// 답변일자
 	private String 	ans_yn;				// 답변처리여부
 	private String 	del_yn;				// 삭제여부
+	private String  file_group;    		// 파일그룹
 }

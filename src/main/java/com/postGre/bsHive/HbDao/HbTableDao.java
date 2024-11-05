@@ -1,8 +1,5 @@
 package com.postGre.bsHive.HbDao;
 
-<<<<<<< HEAD
-public interface HbTableDao {
-=======
 import java.util.List;
 
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
@@ -14,6 +11,5 @@ public interface HbTableDao {
 	void addCourseEval(Lctr_Evl courseEval);
 	void submitQuestion(String evl_num);
 	List<Onln_Lctr_List> getStntNum(Onln_Lctr_List onln_Lctr_List);
->>>>>>> origin/br_test
 
 }

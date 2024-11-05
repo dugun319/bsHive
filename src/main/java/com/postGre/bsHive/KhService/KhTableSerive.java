@@ -15,24 +15,26 @@ public interface KhTableSerive {
 	// 삭제여부 변경
 	int 					updateLgnDelYn(Lgn lgn);
 	
-	// Student list
+	// Student
 	int 					getTotStdntList(Kh_StdntList stList);
 	List<Kh_StdntList> 		getStdntList(Kh_StdntList stList);
 		
-	// EMP List(Professor & employee)
+	// EMP(Professor & employee)
 	int 					getTotEmpList(Kh_EmpList eList);
 	List<Kh_EmpList> 		getEmpList(Kh_EmpList eList);
 	
 
-	// PRDOC List
+	// PRDOC
 	List<Kh_PrdocList>		getPrdocList(Kh_PrdocList prList);
 	int 					getTotPrdocList(Kh_PrdocList prList);
 	
 	
-	// Lecture List
+	// Lecture
 	
 	int 					getTotLctrList(Kh_LctrList lcList);
 	List<Kh_LctrList> 		getLctrList(Kh_LctrList lcList);
-	
-	
+	Kh_LctrList 			getLctrDetail(Kh_LctrList lcList);
+	void					sendRequest(Kh_LctrList lctrDetail);
+	void 					updateAplyType(Kh_LctrList lcList);
+	void 					openLecture(Kh_LctrList lcList);
 }

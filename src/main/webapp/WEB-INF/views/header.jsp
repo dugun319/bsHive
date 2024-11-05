@@ -6,10 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
-<title>header</title>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.js"></script>
-=======
 <title>BsHiVE</title>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.js"></script>
 <script
@@ -27,7 +23,6 @@
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <style type="text/css">
->>>>>>> origin/br_test
 <style type="text/css">
 	body {
 		font-family: 'Pretendard';
@@ -39,11 +34,7 @@
 	.header_container {
 		display: flex;
 		justify-content: space-between;
-<<<<<<< HEAD
-		background: rgba(50, 50, 50, 0.5);
-=======
 		background: rgba(253, 253, 253, 1);
->>>>>>> origin/br_test
 		align-items: center;
 		max-height: 100px;
 	}
@@ -57,24 +48,17 @@
 	}
 	.header_menu_2 a {
 		text-align: center;
-<<<<<<< HEAD
-	    color: #fdfdfd;
-=======
 	    color: #323232;
->>>>>>> origin/br_test
 	    font-size: 19px;
 	    font-weight: 600;
 	    text-decoration: none;
 	    transition: color 0.3s;
 	    margin:75px; 
 	}
-<<<<<<< HEAD
-=======
 	
 	.header_menu_2 a:hover {
 		color: #134b84;
 	}
->>>>>>> origin/br_test
 	.header_box_1 {
 		display: flex;
 		border: 0.5px solid #e2e8ee;
@@ -90,21 +74,15 @@
 	}
 	
 	.header_menu_1_img{
-<<<<<<< HEAD
-		margin: 30px;
-=======
 		margin: 15px 50px;
 		width: 200px;
 		height: auto;
->>>>>>> origin/br_test
 	}
 	
 	.header_box_1_img {
 		width: 100%;
 		max-width: 24px;
 		height: auto;
-<<<<<<< HEAD
-=======
 	} 
 	
 	.header_menu_3 {
@@ -141,7 +119,6 @@
 		width: 100%;
 		max-width: 12px;
 		height: auto;
->>>>>>> origin/br_test
 	}
 	
 </style>
@@ -149,24 +126,6 @@
 <body>
 	<div class="header_container">
 		<div class="header_menu_1">
-<<<<<<< HEAD
-			<a><img alt="메뉴_icon" src="<%=request.getContextPath()%>/images/main/메뉴_icon.png" class="header_menu_1_img"></a>
-		</div>
-		<nav>
-			<ul class="header_menu_2">
-				<li><a href="">헤더 메뉴1</a></li>
-				<li><a href="">헤더 메뉴2</a></li>
-				<li><a href="">헤더 메뉴3</a></li>
-				<li><a href="">헤더 메뉴4</a></li>
-				<li><a href="">헤더 메뉴5</a></li>
-			</ul>
-		</nav>
-		<div class="header_menu_3">
-			<div class="header_box_1">
-				<input type="text" class="header_input_1">
-				<img alt="검색_icon" src="<%=request.getContextPath()%>/images/main/검색_icon.png" class="header_box_1_img">
-			</div>
-=======
 			<a href="/"><img alt="메뉴_icon" src="<%=request.getContextPath()%>/images/main/Logo.png" class="header_menu_1_img"></a>
 		</div>
 		<nav>
@@ -201,7 +160,6 @@
 					<a class="lpgin_mypage_but"><img alt="자물쇠" src="<%=request.getContextPath()%>/images/main/자물쇠.png" class="lpgin_but_img">&nbsp;로그인</a>
 				</c:otherwise>
 			</c:choose>
->>>>>>> origin/br_test
 		</div>
 	</div>
 </body>

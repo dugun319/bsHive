@@ -1,9 +1,5 @@
 package com.postGre.bsHive.JhService;
 
-<<<<<<< HEAD
-public interface JhService {
-
-=======
 import java.util.List;
 
 import com.postGre.bsHive.Adto.User_Table;
@@ -21,5 +17,4 @@ public interface JhService {
 	
 	
 
->>>>>>> origin/br_test
 }

@@ -2,6 +2,10 @@ package com.postGre.bsHive.KhService;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.postGre.bsHive.Adto.Kh_EmpList;
@@ -18,6 +22,9 @@ import lombok.RequiredArgsConstructor;
 public class KhTableSeriveImplement implements KhTableSerive {
 	
 	private final KhTableDao khTableDao;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@Override
 	public List<Kh_PrdocList> getTestTableList() {
@@ -77,6 +84,45 @@ public class KhTableSeriveImplement implements KhTableSerive {
 	public List<Kh_LctrList> getLctrList(Kh_LctrList lcList) {
 		List<Kh_LctrList> lctrList = khTableDao.getLctrList(lcList);
 		return lctrList;
+	}
+
+	@Override
+	public Kh_LctrList getLctrDetail(Kh_LctrList lcList) {
+		Kh_LctrList lctrDetail	= khTableDao.getLctrDetail(lcList);
+		return lctrDetail;
+	}
+
+	@Override
+	public void sendRequest(Kh_LctrList lctrDetail) {
+		SimpleMailMessage emailBody = new SimpleMailMessage();
+		String mailAddress	  		=	"dugun319@naver.com";
+		// String mailAddress		= lctrDetail.getEml();
+		String mailStr		  		= lctrDetail.getEmlContent();
+		
+		
+		emailBody.setTo(mailAddress);									// 받는 사람 이메일
+		emailBody.setSubject("안녕하세요 교수님, BSHive 학사지원처입니다");		// 이메일 제목
+		emailBody.setText(mailStr);									 	// 이메일 내용
+        
+        try {
+            // 메일 보내기
+            this.mailSender.send(emailBody);
+            System.out.println("KhTableSeriveImplement sendRequest is completed!");
+        } catch (MailException e) {
+            throw e;
+        }
+
+	}
+
+	@Override
+	public void updateAplyType(Kh_LctrList lcList) {
+		khTableDao.updateAplyType(lcList);
+	}
+
+	@Override
+	public void openLecture(Kh_LctrList lcList) {
+		khTableDao.openLecture(lcList);
+		
 	}
 
 }

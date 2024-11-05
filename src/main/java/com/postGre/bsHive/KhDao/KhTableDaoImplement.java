@@ -176,4 +176,49 @@ public class KhTableDaoImplement implements KhTableDao {
 		return lctrList;
 	}
 
+	@Override
+	public Kh_LctrList getLctrDetail(Kh_LctrList lcList) {
+		Kh_LctrList lctrDetail 	= null;
+		String str_lctrNum 		= "" +  lcList.getLctr_num();
+		
+		String year 			= "20" + str_lctrNum.substring(0, 2) + " 년도";
+		String semester			= str_lctrNum.substring(2, 3) + " 학기";
+		String division			= str_lctrNum.substring(3, 4) + "0";
+		String department		= str_lctrNum.substring(3, 5);
+		lcList.setDiv_name(division);
+		lcList.setDept_name(department);
+		
+		try {
+			lctrDetail = session.selectOne("com.postGre.bsHive.kh_TableMapper.getLctrDetail", lcList);
+
+			lctrDetail.setYear(year);
+			lctrDetail.setSemester(semester);
+			
+			System.out.println("KhTableDaoImplement getLctrDetail() lctrDetail -> " + lctrDetail);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getLctrDetail() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return lctrDetail;
+	}
+
+	@Override
+	public void updateAplyType(Kh_LctrList lcList) {
+		try {
+			session.update("com.postGre.bsHive.kh_TableMapper.updateAplyType", lcList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement updateAplyType() e.getMessage() -> " + e.getMessage());
+		}		
+	}
+
+	@Override
+	public void openLecture(Kh_LctrList lcList) {
+		try {
+			session.update("com.postGre.bsHive.kh_TableMapper.openLecture", lcList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement openLecture() e.getMessage() -> " + e.getMessage());
+		}
+		
+	}
+
 }
