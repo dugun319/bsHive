@@ -28,13 +28,10 @@ public interface KhTableDao {
 	int						getTotLctrList(Kh_LctrList lcList);
 	List<Kh_LctrList> 		getLctrList(Kh_LctrList lcList);
 	Kh_LctrList 			getLctrDetail(Kh_LctrList lcList);
-	
-	
-	
-	
-	
-	List<Kh_PrdocList> 		getPrdocList(Kh_PrdocList prList);
-	int 					getTotPrdocList(Kh_PrdocList prList);
 	void 					updateAplyType(Kh_LctrList lcList);
 	void 					openLecture(Kh_LctrList lcList);
-}
+	void 					insertAtdncType(Kh_LctrList lcList);
+
+	List<Kh_PrdocList> 		getPrdocList(Kh_PrdocList prList);
+	int 					getTotPrdocList(Kh_PrdocList prList);
+}	

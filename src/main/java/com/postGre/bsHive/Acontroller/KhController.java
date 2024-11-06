@@ -190,7 +190,13 @@ public class KhController {
 
 		int totLctrList				= khTableSerive.getTotLctrList(lcList);
 		Paging paging				= new Paging(totLctrList, lcList.getCurrentPage());
+		String aplyType				= "0";
 		
+		if(lcList.getAply_type() != null) {
+			aplyType = lcList.getAply_type();
+		}
+			
+			
 		System.out.println(paging);
 		lcList.setStart(paging.getStart());
 		lcList.setEnd(paging.getEnd());
@@ -200,6 +206,8 @@ public class KhController {
 		model.addAttribute("rawList", 		lcList);
 		model.addAttribute("page", 			paging);
 		model.addAttribute("lctrList", 		lctrList);
+		model.addAttribute("aplyType", 		aplyType);
+		
 		
 		System.out.println(lcList);
 		
@@ -218,7 +226,6 @@ public class KhController {
 	}
 	
 	
-	@Transactional
 	@PostMapping(value = "/sendRequest")
 	public String requestModification(@RequestParam("lctr_num") String lctr_num,
 									  @RequestParam("requestContent") String requestContent,
@@ -256,12 +263,14 @@ public class KhController {
 		Kh_LctrList lcList		= new Kh_LctrList();
 		// int unq_num			= Integer.parseInt(session.getAttribute("unq_num").toString());
 		int unq_num				= 317000012;
+		String crtr_cnt			= "총 42점/ 32점 미만 과락( 출석 +3 지각 +2 결석 0 )";	
 		
 		lcList.setUnq_num(unq_num);
 		lcList.setLctr_num(lctrNum);
 		lcList.setAply_type("1");
 		lcList.setAply_ydm(aplyYdm);
 		lcList.setEnd_date(endDate);
+		lcList.setCrtr_cnt(crtr_cnt);
 		
 		khTableSerive.openLecture(lcList);
 		Kh_LctrList lctrDetail	= khTableSerive.getLctrDetail(lcList);
@@ -274,7 +283,7 @@ public class KhController {
 	
 	@GetMapping(value = "/closeLctr")
 	public String closeLctr(@RequestParam("lctr_num") String lctr_num) {
-		log.info("KhController requestModification() is called");
+		log.info("KhController closeLctr() is called");
 		System.out.println("requestModification lctr_num -> " + lctr_num);
 
 		String lectureType		= lctr_num.substring(5, 6);
@@ -292,7 +301,27 @@ public class KhController {
 		return "redirect:/kh/admin/appLctrList?aply_type=" + aplyType + "&lectureType=" + lectureType;
 	}
 	
+	
+	
+	@GetMapping(value = "/startLctr")
+	public String startLctr(@RequestParam("lctr_num") String lctr_num) {
+		log.info("KhController startLctr() is called");
+		System.out.println("requestModification lctr_num -> " + lctr_num);
 
+		String lectureType		= lctr_num.substring(5, 6);
+		int lctrNum 			= Integer.parseInt(lctr_num);
+		Kh_LctrList lcList		= new Kh_LctrList();
+		lcList.setLctr_num(lctrNum);
+		lcList.setAply_type("2");
+		khTableSerive.updateAplyType(lcList);
+		Kh_LctrList lctrDetail	= khTableSerive.getLctrDetail(lcList);
+		
+		String aplyType			= lctrDetail.getAply_type();
+		
+		System.out.println("aplyType -> " + aplyType );
+		
+		return "redirect:/kh/admin/appLctrList?aply_type=" + aplyType + "&lectureType=" + lectureType;
+	}
 	
 	
 	

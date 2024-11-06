@@ -221,4 +221,14 @@ public class KhTableDaoImplement implements KhTableDao {
 		
 	}
 
+	@Override
+	public void insertAtdncType(Kh_LctrList lcList) {
+		try {
+			session.insert("com.postGre.bsHive.kh_TableMapper.insertAtdncType", lcList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement insertAtdncType() e.getMessage() -> " + e.getMessage());
+		}
+		
+	}
+
 }

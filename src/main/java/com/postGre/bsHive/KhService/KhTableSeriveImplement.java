@@ -15,6 +15,7 @@ import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Amodel.Lgn;
 import com.postGre.bsHive.KhDao.KhTableDao;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -118,11 +119,12 @@ public class KhTableSeriveImplement implements KhTableSerive {
 	public void updateAplyType(Kh_LctrList lcList) {
 		khTableDao.updateAplyType(lcList);
 	}
-
+	
+	@Transactional
 	@Override
 	public void openLecture(Kh_LctrList lcList) {
 		khTableDao.openLecture(lcList);
-		
+		khTableDao.insertAtdncType(lcList);		
 	}
 
 }

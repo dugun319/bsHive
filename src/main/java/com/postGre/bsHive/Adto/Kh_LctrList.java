@@ -20,6 +20,8 @@ public class Kh_LctrList {
 	private String 	eml;			//이메일
 	private String 	emlContent;		//이메일 내용
 	
+	private String	crtr_cnt;		//출석기준 
+	
 	private String 	year; 			//개설년도
 	private String 	semester; 		//개설학기
 	private String 	div_name; 		//학부명

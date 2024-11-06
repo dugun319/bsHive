@@ -12,6 +12,8 @@
 <link rel="stylesheet" type="text/css" href="/css/dist/tui-tree.css" />
 </head>
 <script type="text/javascript">
+
+
 	$(function() {
 		$("#tui-tree-node-2").click(function() {
 			location.href="/kh/admin/stdntList";
@@ -43,97 +45,60 @@
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-9").click(function() {
 			location.href="/kh/admin/";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-10").click(function() {
 			location.href="/kh/admin/";
 			});
 	});
 	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
+	
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-13").click(function() {
+		$("#tui-tree-node-12").click(function() {
 			location.href="/kh/admin/prdocList";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-13").click(function() {
 			location.href="/kh/admin/";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-14").click(function() {
+			location.href="/kh/admin/";
+			});
+	});
+	
+	
+	
+	
+	$(function() {
+		$("#tui-tree-node-16").click(function() {
+			location.href="/kh/admin/prdocList";
+			});
+	});
+	
+	$(function() {
+		$("#tui-tree-node-17").click(function() {
 			location.href="/kh/admin/";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-").click(function() {
+		$("#tui-tree-node-18").click(function() {
+			location.href="/kh/admin/";
+			});
+	});
+	
+	$(function() {
+		$("#tui-tree-node-19").click(function() {
 			location.href="/kh/admin/";
 			});
 	});
@@ -166,8 +131,9 @@
             ]},
             {text: '게시판관리', state:'closed', children: [
             	{text:'공지사항게시판'},							//tui-tree-node-16
-                {text:'1:1문의게시판'},							//tui-tree-node-17
-                {text:'FAQ'}									//tui-tree-node-18
+                {text:'약관'},									//tui-tree-node-17
+                {text:'FAQ'},									//tui-tree-node-18
+                {text:'1:1문의게시판'}								//tui-tree-node-19
             ]}
         ];
 

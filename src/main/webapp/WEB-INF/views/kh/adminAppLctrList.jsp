@@ -32,8 +32,14 @@
 	
 	function closeLctr(lctr_num) {
 		alert("강의를 폐강하겠습니까?");
-		var url = "/kh/admin/closeLctr?lctr_num=" + lctr_num;
+		location.href = "/kh/admin/closeLctr?lctr_num=" + lctr_num;
 	}
+	
+	function startLctr(lctr_num) {
+		alert("강의를 시작하겠습니까?");
+		location.href = "/kh/admin/startLctr?lctr_num=" + lctr_num;
+	}
+	
 	
 	$(document).ready(function() {
 		  $('#modalBtn').on('click', function() {		//modalOpen
@@ -103,8 +109,38 @@
 					<th class="cell6">강의명</th>
 					<th class="cell7">강의상태</th>
 					<th class="cell8">강의계획서</th>
-					<th class="cell9">보완요청</th>
-					<th class="cell10">승인</th>			
+					<th class="cell9">
+					<c:set var="status"	value="${aplyType}" />
+						<c:choose>
+							<c:when test="${status eq '0'}">
+								보완요청
+							</c:when>
+							<c:when test="${status eq '1'}">
+								강의진행
+							</c:when>
+							<c:when test="${status eq '3'}">
+								폐강
+							</c:when>
+							<c:otherwise>보완요청</c:otherwise>
+						</c:choose>
+					</th>
+					<th class="cell10">
+						<c:choose>
+							<c:when test="${status eq '0'}">
+								승인
+							</c:when>
+							<c:when test="${status eq '1'}">
+								폐강
+							</c:when>
+							<c:when test="${status eq '2'}">
+								폐강
+							</c:when>
+							<c:when test="${status eq '3'}">
+								승인
+							</c:when>
+							<c:otherwise>승인</c:otherwise>
+						</c:choose>
+					</th>			
 				</tr>
 				
 				<c:forEach	var="lctrList"	items="${lctrList}"	varStatus="status" >
@@ -142,10 +178,22 @@
 							<button type="button" id="syllabus"	onclick="goSyllabus('${lctrList.lctr_num}')">강의계획서</button>
 						</td>
 						<td class="cell9">
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary"	id="modalBtn"	data-lctrNum="${lctrList.lctr_num}" data-empNm="${lctrList.emp_nm}" style="font-size: 12px;">
-								보완요청
-							</button>
+						<c:set var="status"	value="${lctrList.aply_type}" />
+							<c:choose>
+								<c:when test="${status eq '0'}">
+									<button type="button" class="btn btn-primary"	id="modalBtn"	data-lctrNum="${lctrList.lctr_num}" data-empNm="${lctrList.emp_nm}" style="font-size: 12px;">
+										보완요청
+									</button>
+								</c:when>
+								<c:when test="${status eq '1'}">
+									<button	id="canButton"	onclick="startLctr('${lctrList.lctr_num}')">강의시작</button>
+								</c:when>
+								<c:when test="${status eq '3'}">
+									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
+								</c:when>
+							</c:choose>	
+						
+							
 							
 							    
 						    <!-- Modal -->
@@ -184,7 +232,7 @@
 									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
 								</c:when>
 								<c:when test="${aply_type eq '2'}">
-									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의중단</button>
+									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
 								</c:when>
 								<c:when test="${aply_type eq '3'}">
 									<button	id="appButton" 	onclick="openLctr('${lctrList.lctr_num}')">개설승인</button>
