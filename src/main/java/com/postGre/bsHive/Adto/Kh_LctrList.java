@@ -22,10 +22,14 @@ public class Kh_LctrList {
 	
 	private String	crtr_cnt;		//출석기준 
 	
+	private int		fnsh_cost;		//수강료	FNSH_COST
+	
 	private String 	year; 			//개설년도
 	private String 	semester; 		//개설학기
 	private String 	div_name; 		//학부명
 	private String 	dept_name;		//학과명
+	private String	bcode;			//B코드
+	private String	mcode;			//M코드
 	
 	private String	search;			//분류
 	private String	keyword;		//Search Keyword
@@ -34,5 +38,6 @@ public class Kh_LctrList {
   	
 	private String	currentPage;	//현제 페이지
 	
-	private	String	lectureType;	//강의타입(online or offline)
+	private	int		lectureType;	//강의타입(online or offline)
+	private	int		lectureTypeEnd;	//강의타입(online or offline) + 4
 }

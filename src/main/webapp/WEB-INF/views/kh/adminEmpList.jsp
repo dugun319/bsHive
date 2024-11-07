@@ -77,15 +77,15 @@
     <footer id="pagingDiv">
     	<div id="paging">
 				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/empList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Previous]</a>
+					<a href="/kh/admin/empList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[Previous]</a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/empList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}">[${i }]</a>
+					<a href="/kh/admin/empList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[${i }]</a>
 				</c:forEach>
 				
 				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/empList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Next]</a>
+					<a href="/kh/admin/empList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[Next]</a>
 				</c:if>
 			</div>    
     </footer>

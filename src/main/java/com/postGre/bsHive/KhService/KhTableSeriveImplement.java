@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
+import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
+import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Amodel.Lgn;
 import com.postGre.bsHive.KhDao.KhTableDao;
 
@@ -124,7 +126,32 @@ public class KhTableSeriveImplement implements KhTableSerive {
 	@Override
 	public void openLecture(Kh_LctrList lcList) {
 		khTableDao.openLecture(lcList);
-		khTableDao.insertAtdncType(lcList);		
+		khTableDao.insertAtdncType(lcList);	
+		khTableDao.updateOflLctr(lcList);
+	}
+
+	@Override
+	public int getTotBoardList(Kh_pstList pList) {
+		int totBoardList	= khTableDao.getTotBoardList(pList);
+		return totBoardList;
+	}
+
+	@Override
+	public List<Kh_pstList> getBoardList(Kh_pstList pList) {
+		List<Kh_pstList> pstList	= khTableDao.getBoardList(pList);
+				
+		return pstList;
+	}
+
+	@Override
+	public void updateDelYnPst(Kh_pstList pList) {
+		khTableDao.updateDelYnPst(pList);
+	}
+
+	@Override
+	public int getTotSchList(Kh_ScholarshipList sList) {
+		int totSchList	= khTableDao.getTotSchList(sList);
+		return totSchList;
 	}
 
 }

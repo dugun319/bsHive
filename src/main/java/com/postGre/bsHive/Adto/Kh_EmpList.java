@@ -16,7 +16,7 @@ public class Kh_EmpList {
 	private String 	emp_zip; 		//우편번호
 	
 	private String 	eml;			//Lgn 이메일
-	private String 	mbr_se;			// 회원구분
+	private int 	mbr_se;			//회원구분
 	
 	private String	search;			//분류
 	private String	keyword;		//Search Keyword

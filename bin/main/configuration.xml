@@ -51,6 +51,10 @@
 		<typeAlias alias="Hs_Lec" 					type="com.postGre.bsHive.Adto.Hs_Lec"/>
 		<typeAlias alias="Hs_Attend"				type="com.postGre.bsHive.Adto.Hs_Attend"/>
 		<typeAlias alias="All_Lctr"					type="com.postGre.bsHive.Adto.All_Lctr"/>
+		<typeAlias alias="Kh_pstList"				type="com.postGre.bsHive.Adto.Kh_pstList"/>
+		
+		
+		
 		
 	</typeAliases>
 	

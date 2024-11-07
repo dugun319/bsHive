@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
+import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
+import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Amodel.Lgn;
 
 import lombok.RequiredArgsConstructor;
@@ -18,47 +20,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class KhTableDaoImplement implements KhTableDao {
 	private final SqlSession session;
-	
-	public List<Kh_PrdocList> getTestTableList(){
-		List<Kh_PrdocList> paperList = null;
-		try {
-			paperList = session.selectList("com.postGre.bsHive.kh_TableMapper.getPaperTableList");
-			System.out.println("KhTableDaoImplement getTestTableList() paperList -> " + paperList);
-		} catch (Exception e) {
-			System.out.println("KhTableDaoImplement getTestTableList() e.getMessage() -> " + e.getMessage());
-		}
-		
-		return paperList;
-	}
-
-	@Override
-	public List<Kh_PrdocList> getPrdocList(Kh_PrdocList prList) {
-		List<Kh_PrdocList> prdocList = null;
-		try {
-			prdocList = session.selectList("com.postGre.bsHive.kh_TableMapper.getPrdocList", prList);
-			System.out.println("KhTableDaoImplement getPrdocList() prdocList -> " + prdocList);
-		} catch (Exception e) {
-			System.out.println("KhTableDaoImplement getPrdocList() e.getMessage() -> " + e.getMessage());
-		}
-		
-		return prdocList;
-	}
-
-	@Override
-	public int getTotPrdocList(Kh_PrdocList prList) {
-		int totPrdocList = 0;
-		
-		try {
-			totPrdocList = session.selectOne("com.postGre.bsHive.kh_TableMapper.getTotPrdocList", prList);
-			System.out.println("KhTableDaoImplement getTotPrdocList() totPrdocList -> " + totPrdocList);
-		} catch (Exception e) {
-			System.out.println("KhTableDaoImplement getTotPrdocList() e.getMessage() -> " + e.getMessage());
-		}
-		
-		return totPrdocList;
-	}
-
-	
 	
 	
 	//
@@ -183,10 +144,10 @@ public class KhTableDaoImplement implements KhTableDao {
 		
 		String year 			= "20" + str_lctrNum.substring(0, 2) + " 년도";
 		String semester			= str_lctrNum.substring(2, 3) + " 학기";
-		String division			= str_lctrNum.substring(3, 4) + "0";
+		String division			= "3" + str_lctrNum.substring(3, 4) + "0";
 		String department		= str_lctrNum.substring(3, 5);
-		lcList.setDiv_name(division);
-		lcList.setDept_name(department);
+		lcList.setBcode(division);
+		lcList.setMcode(department);
 		
 		try {
 			lctrDetail = session.selectOne("com.postGre.bsHive.kh_TableMapper.getLctrDetail", lcList);
@@ -230,5 +191,125 @@ public class KhTableDaoImplement implements KhTableDao {
 		}
 		
 	}
+
+	@Override
+	public void updateOflLctr(Kh_LctrList lcList) {
+		try {
+			session.update("com.postGre.bsHive.kh_TableMapper.updateOflLctr", lcList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement updateOflLctr() e.getMessage() -> " + e.getMessage());
+		}
+		
+	}
+	
+	
+	
+	//PRDOC
+	
+	public List<Kh_PrdocList> getTestTableList(){
+		List<Kh_PrdocList> paperList = null;
+		try {
+			paperList = session.selectList("com.postGre.bsHive.kh_TableMapper.getPaperTableList");
+			System.out.println("KhTableDaoImplement getTestTableList() paperList -> " + paperList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getTestTableList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return paperList;
+	}
+
+	@Override
+	public List<Kh_PrdocList> getPrdocList(Kh_PrdocList prList) {
+		List<Kh_PrdocList> prdocList = null;
+		try {
+			prdocList = session.selectList("com.postGre.bsHive.kh_TableMapper.getPrdocList", prList);
+			System.out.println("KhTableDaoImplement getPrdocList() prdocList -> " + prdocList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getPrdocList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return prdocList;
+	}
+
+	@Override
+	public int getTotPrdocList(Kh_PrdocList prList) {
+		int totPrdocList = 0;
+		
+		try {
+			totPrdocList = session.selectOne("com.postGre.bsHive.kh_TableMapper.getTotPrdocList", prList);
+			System.out.println("KhTableDaoImplement getTotPrdocList() totPrdocList -> " + totPrdocList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getTotPrdocList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return totPrdocList;
+	}
+
+	
+
+	
+	
+	
+	//Scholarship
+
+	@Override
+	public int getTotSchList(Kh_ScholarshipList sList) {
+		int totSchList = 0;
+		
+		try {
+			totSchList = session.selectOne("com.postGre.bsHive.kh_TableMapper.getTotSchList", sList);
+			System.out.println("KhTableDaoImplement getTotSchList() totPrdocList -> " + totSchList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getTotSchList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return totSchList;
+	}
+
+	
+	
+	
+	//
+	// Board
+	//
+	
+	@Override
+	public int getTotBoardList(Kh_pstList pList) {
+		int totBoardList = 0;
+		
+		try {
+			totBoardList = session.selectOne("com.postGre.bsHive.kh_TableMapper.getTotBoardList", pList);
+			System.out.println("KhTableDaoImplement getTotBoardList() totBoardList -> " + totBoardList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getTotBoardList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return totBoardList;
+	}
+
+	@Override
+	public List<Kh_pstList> getBoardList(Kh_pstList pList) {
+		List<Kh_pstList> pstList	= null;
+		
+		try {
+			pstList = session.selectList("com.postGre.bsHive.kh_TableMapper.getBoardList", pList);
+			System.out.println("KhTableDaoImplement getBoardList() pstList -> " + pstList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getBoardList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return pstList;
+	}
+
+	@Override
+	public void updateDelYnPst(Kh_pstList pList) {
+		try {
+			session.update("com.postGre.bsHive.kh_TableMapper.updateDelYnPst", pList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement updateDelYnPst() e.getMessage() -> " + e.getMessage());
+		}
+		
+	}
+
 
 }

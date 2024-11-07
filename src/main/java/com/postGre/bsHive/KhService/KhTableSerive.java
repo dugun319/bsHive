@@ -5,7 +5,9 @@ import java.util.List;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
+import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
+import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Amodel.Lgn;
 
 public interface KhTableSerive {
@@ -28,6 +30,9 @@ public interface KhTableSerive {
 	List<Kh_PrdocList>		getPrdocList(Kh_PrdocList prList);
 	int 					getTotPrdocList(Kh_PrdocList prList);
 	
+	//Scholarship
+	int 					getTotSchList(Kh_ScholarshipList sList);
+	
 	
 	// Lecture
 	
@@ -37,4 +42,11 @@ public interface KhTableSerive {
 	void					sendRequest(Kh_LctrList lctrDetail);
 	void 					updateAplyType(Kh_LctrList lcList);
 	void 					openLecture(Kh_LctrList lcList);
+
+	// Board
+	int 					getTotBoardList(Kh_pstList pList);
+	List<Kh_pstList> 		getBoardList(Kh_pstList pList);
+	void 					updateDelYnPst(Kh_pstList pList);
+
+	
 }

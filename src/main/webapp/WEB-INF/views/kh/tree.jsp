@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <title>Tree</title>
-<link rel="stylesheet" type="text/css" href="/css/tui-example-style.css" />
-<link rel="stylesheet" type="text/css" href="/css/docs.css" />
+<link rel="stylesheet" type="text/css" href="/css/kh_tui-tree-style.css" />
+<link rel="stylesheet" type="text/css" href="/css/kh_docs_tree.css" />
 <link rel="stylesheet" type="text/css" href="/css/dist/tui-tree.css" />
 </head>
 <script type="text/javascript">
@@ -33,20 +33,26 @@
 	});
 	
 	$(function() {
-		$("#tui-tree-node-7").click(function() {
+		$("#tui-tree-node-6").click(function() {
 			location.href="/kh/admin/appLctrList?lectureType=5";
 			});
 	});
 	
 	$(function() {
+		$("#tui-tree-node-7").click(function() {
+			location.href="/kh/admin/appLctrList?lectureType=0";
+			});
+	});
+	
+	$(function() {
 		$("#tui-tree-node-8").click(function() {
-			location.href="/kh/admin/appLctrList?lectureType=1";
+			location.href="/kh/admin/lctrRoom";
 			});
 	});
 	
 	$(function() {
 		$("#tui-tree-node-9").click(function() {
-			location.href="/kh/admin/";
+			location.href="/kh/admin/schList";
 			});
 	});
 	
@@ -57,49 +63,27 @@
 	});
 	
 	
-	
 	$(function() {
 		$("#tui-tree-node-12").click(function() {
-			location.href="/kh/admin/prdocList";
+			location.href="/kh/admin/boardList?pst_clsf=1";
 			});
 	});
 	
 	$(function() {
 		$("#tui-tree-node-13").click(function() {
-			location.href="/kh/admin/";
+			location.href="/kh/admin/boardList?pst_clsf=2";
 			});
 	});
 	
 	$(function() {
 		$("#tui-tree-node-14").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	
-	
-	
-	$(function() {
-		$("#tui-tree-node-16").click(function() {
-			location.href="/kh/admin/prdocList";
+			location.href="/kh/admin/boardList?pst_clsf=3";
 			});
 	});
 	
 	$(function() {
-		$("#tui-tree-node-17").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-18").click(function() {
-			location.href="/kh/admin/";
-			});
-	});
-	
-	$(function() {
-		$("#tui-tree-node-19").click(function() {
-			location.href="/kh/admin/";
+		$("#tui-tree-node-15").click(function() {
+			location.href="/kh/admin/boardList?pst_clsf=4";
 			});
 	});
 </script>
@@ -112,29 +96,31 @@
 
         var data = [
             {text: '인원관리', children: [
-                {text: '학생관리'}, 								//tui-tree-node-2
-                {text: '교수관리'}, 								//tui-tree-node-3
-                {text: '직원관리'} 								//tui-tree-node-4
+                {text: '학생관리'}, 							//tui-tree-node-2
+                {text: '교수관리'}, 							//tui-tree-node-3
+                {text: '직원관리'} 							//tui-tree-node-4
             ]},
             {text: '학사관리', children: [
-            	{text: '강의관리', children: [
-                    {text:'오프라인강의개설승인'}, 					//tui-tree-node-7
-                    {text:'온라인강의개설승인'}, 						//tui-tree-node-8
-                    {text:'강의실관리'}, 							//tui-tree-node-9
-                    {text:'성적입력'} 								//tui-tree-node-10
-                ]},
-                {text: '수료관리', children: [
-                	{text:'강의평가'},								//tui-tree-node-12
-                	{text:'장학금'},								//tui-tree-node-13
-                    {text:'재증명'}								//tui-tree-node-14
-                ]}
+                {text:'오프라인강의개설승인'}, 					//tui-tree-node-6
+                {text:'온라인강의개설승인'}, 						//tui-tree-node-7
+                {text:'강의실확인'}, 							//tui-tree-node-8
+                {text:'장학금'},								//tui-tree-node-9
+                {text:'재증명'}								//tui-tree-node-10
             ]},
-            {text: '게시판관리', state:'closed', children: [
-            	{text:'공지사항게시판'},							//tui-tree-node-16
-                {text:'약관'},									//tui-tree-node-17
-                {text:'FAQ'},									//tui-tree-node-18
-                {text:'1:1문의게시판'}								//tui-tree-node-19
+            {text: '게시판관리', children: [
+            	{text:'공지사항게시판'},						//tui-tree-node-12
+                {text:'약관'},								//tui-tree-node-13
+                {text:'FAQ'},								//tui-tree-node-14
+                {text:'1:1문의게시판'}							//tui-tree-node-15
             ]}
+            
+            
+            //{text: '게시판관리', state:'closed', children: [
+            	//{text:'공지사항게시판'},							//tui-tree-node-13
+                //{text:'약관'},									//tui-tree-node-14
+                //{text:'FAQ'},									//tui-tree-node-15
+                //{text:'1:1문의게시판'}							//tui-tree-node-16
+            //]}
         ];
 
         var tree = new tui.Tree('#tree', {
