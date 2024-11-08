@@ -28,4 +28,9 @@ public class Hs_Attend {
 	
 	// 출석 list로 update위해 만든 배열함수
 	private String attendanceData; // 여러 학생의 출석 정보를 담는 리스트
+	
+	// 공통분류코드
+	private int 	bcode;			//대분류
+	private int 	mcode;			//중분
+	private String 	content;		//코드
 }

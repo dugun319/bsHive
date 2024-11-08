@@ -8,6 +8,6 @@ public class Lgn {
 	private int unq_num;	// 고유번호 
 	private String eml;		// 이메일
 	private String pswd;	// 비밀번호
-	private String del_yn;	// 삭제여부
-	private String mbr_se;	// 회원구분
+	private int del_yn;	// 삭제여부
+	private int mbr_se;	// 회원구분
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.postGre.bsHive.Adto.Onln_Lctr_List;
+import com.postGre.bsHive.Amodel.Lctr_View;
 import com.postGre.bsHive.SeDao.SeDao;
 
 import lombok.RequiredArgsConstructor;
@@ -50,5 +51,34 @@ public class SeServiceImpl implements SeService {
 		
 		return onln_Lctr_List;
 	}
+
+	@Override
+	public void updateView(int maxDtl, int lastDtl, int unqNum, int unitNum, int lctrNum, int lctrPace) {
+	    System.out.println("진행률 " + lctrPace);
+	    System.out.println("맥스값 " + maxDtl);
+		sd.updateLastDtl(maxDtl, lastDtl, unqNum, unitNum, lctrNum, lctrPace);
+	    return;
+	}
+
+
+	@Override
+	public void updateMaxDtl(int lastDtl, int unqNum, int unitNum, int lctrNum) {
+		sd.updateMaxDtl(lastDtl, unqNum, unitNum, lctrNum); // 수정된 메소드 호출
+	    return;
+	}
+
+	@Override
+	public List<Onln_Lctr_List> getChaptersForVideo(String vdoId) {
+		List<Onln_Lctr_List> chapterList = null;
+		chapterList = sd.chapterList(vdoId);
+		return chapterList;
+	}
+
+	@Override
+	public int getMaxDtl(Lctr_View lctr_View) {
+		int getMaxDtl = sd.getMaxDtl(lctr_View);
+		return getMaxDtl;
+	}
+
 	
 }

@@ -22,13 +22,13 @@
 	    WHERE ol."LCTR_NUM" = #{LCTR_NUM}
 	</select>
 	
-	<select id="lctrviewList" parameterType="int" resultType="Onln_Lctr_List">
-	    SELECT su.*, oc.*, lv.*, cc.*
+	<select id="lctrviewList" resultType="Onln_Lctr_List">
+	    SELECT su."UNIT_NUM", su."LCTR_NUM", su."CONTS_ID", oc."CONTS_NM", oc."VDO_ID", oc."PLAY_HR", lv."MAX_DTL", lv."LAST_DTL", cc."CH_NM", cc."PLAY_START", oc."PLAY_HR", lv."LCTR_PACE"
 		FROM "SYLLABUS_UNIT" su
 		LEFT JOIN "ONLN_CONTS" oc ON su."CONTS_ID" = oc."CONTS_ID"
-		LEFT JOIN "LCTR_VIEW" lv ON su."LCTR_NUM" = lv."LCTR_NUM"
+		LEFT JOIN "LCTR_VIEW" lv ON su."LCTR_NUM" = lv."LCTR_NUM" AND su."UNIT_NUM" = lv."UNIT_NUM"
 		LEFT JOIN "CONTS_CH" cc ON su."CONTS_ID" = cc."CONTS_ID"
-		WHERE lv."LCTR_NUM" = #{lctr_num}
+		WHERE su."LCTR_NUM" = #{lctr_num} 
 		ORDER BY CAST(su."UNIT_NUM" AS INTEGER) ASC;
 	</select>
 	
@@ -38,5 +38,19 @@
 		LEFT JOIN "ONLN_CONTS" oc ON su."CONTS_ID" = oc."CONTS_ID"
     	WHERE su."CONTS_ID" = #{CONTS_ID}
 	</select>
+	
+	<select id="chapterList" resultType="Onln_Lctr_List">
+		SELECT oc.*, cc.* 
+		FROM "ONLN_CONTS" oc
+		LEFT JOIN "CONTS_CH" cc ON oc."CONTS_ID" = cc."CONTS_ID"
+		WHERE "VDO_ID" = #{VDO_ID}
+	</select>
+	
+	<select id="getMaxDtl" resultType="Lctr_View">
+		SELECT * 
+		FROM "LCTR_VIEW"
+		WHERE "LCTR_NUM" = #{LCTR_NUM} AND "UNIT_NUM" = #{UNIT_NUM} AND "UNQ_NUM" = #{UNQ_NUM}
+	</select>
+	
 	
 </mapper>

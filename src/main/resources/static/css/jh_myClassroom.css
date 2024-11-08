@@ -1,0 +1,108 @@
+
+.border {
+    width: 100%; /* 전체 너비 */
+    border-collapse: collapse; /* 경계 겹치기 제거 */
+    margin-top: 20px; /* 위쪽 여백 */
+    font-size: 16px; /* 글자 크기 */
+}
+
+.border th, .border td {
+    border: 1px solid #ddd; /* 경계선 색상 */
+    padding: 12px; /* 셀 안의 여백 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+
+.border th {
+    background-color: #f2f2f2; /* 헤더 배경색 */
+    color: black; /* 헤더 텍스트 색상 */
+    font-weight: bold; /* 헤더 텍스트 굵게 */
+}
+
+.border tr:nth-child(even) {
+    background-color: #f9f9f9; /* 짝수 행 배경색 */
+}
+
+.border tr:hover {
+    background-color: #e2e2e2; /* 마우스 오버 시 색상 */
+}
+
+/* 셀의 텍스트를 더 잘 보이게 하기 위한 스타일 */
+.border td {
+    color: black; /* 셀 텍스트 색상 */
+}
+
+.select.button {
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 가로 방향 중앙 정렬 */
+    align-items: center; /* 세로 방향 중앙 정렬 */
+    margin: 0 auto; /* 부모 요소 내에서 중앙 정렬 */
+
+}
+
+ .content{
+ 	height:auto; 
+ 	
+ }
+ 
+.select.button a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #ffffff; /* 기본 배경색을 흰색으로 설정 */
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+     border: solid 1px #999999;
+}
+
+/* 호버 시 색상 변경 */
+.select.button a:hover {
+    background-color: #134b84;
+    color: #fff;
+}
+
+/* 현재 선택된 링크에 주황색 배경 적용 */
+.select.button a.active {
+    background-color: #134b84;
+    color: white;
+    font-weight: bold;
+    border-bottom: #134b84;
+    
+}
+
+.content {
+    flex: 1; /* 남은 공간을 모두 차지 */
+    gap: 20px; /* 박스 간의 간격을 20px로 설정 */
+    overflow-x: auto; /* 수평 스크롤 가능하도록 설정 */
+    padding-top: 80px; /* 패딩 추가 (원하는 경우 유지) */
+    border-top: 2px solid black; /* content 위에 검정색 선 추가 */
+    height: 576px;
+}
+
+h2{
+	display: inline-block;
+}
+
+
+.regisClass {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #134b84;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-left: 905px; 
+}
+
+.regisClass:hover {
+    background-color: #daaf67;
+}
+
+
+ 

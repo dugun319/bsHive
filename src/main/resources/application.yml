@@ -11,7 +11,7 @@ spring:
 
   file:
     upload:
-      path: C:\Users\admin\Desktop\project\jmAuto\src\main\resources\static\images\
+      path: C:/upload/ 
         
         
   datasource:
@@ -80,4 +80,4 @@ logging:
       
 youtube:
   api:
-    key: ${YOUTUBE_API_KEY}   
+    key: AIzaSyDfcLr228hhIauepDaf5lgSUTKq5EA6pOQ  

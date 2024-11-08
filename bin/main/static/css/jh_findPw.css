@@ -1,0 +1,196 @@
+
+.content {
+    flex: 1; 
+    gap: 20px; 
+    height: auto;
+    overflow-x: auto; 
+    padding-top: 80px; 
+    border-top: 2px solid black;
+    flex-direction: column; 
+} 
+
+
+
+label {
+    display: inline-block;
+    font-weight: bold;  /* 레이블 두껍게 */
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="email"] {
+	display: inline-block;
+    width: 50%;  /* 전체 너비 설정 */
+    padding: 10px;  /* 입력 필드 안쪽 여백 */
+    border: 1px solid #ccc;  /* 입력 필드 테두리 */
+    border-radius: 4px;  /* 입력 필드 모서리 둥글게 */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  /* 입력 필드 그림자 */
+}
+
+button {
+    background-color: #007bff;  /* 버튼 배경색 */
+    color: white;  /* 버튼 글자색 */
+    border: none;  /* 버튼 테두리 없애기 */
+    padding: 10px 15px;  /* 버튼 안쪽 여백 */
+    border-radius: 4px;  /* 버튼 모서리 둥글게 */
+    cursor: pointer;  /* 마우스 커서 포인터로 변경 */
+}
+
+button:hover {
+    background-color: #0056b3;  /* 버튼 호버 시 색상 변경 */
+}
+
+
+
+.moveBtn {
+    display: flex;  /* 버튼을 수평으로 나란히 배치 */
+    justify-content: space-between;  /* 버튼 간격 조정 */
+}
+
+.form-group {
+	margin-bottom: 30px; /* 각 폼 그룹의 하단 마진을 설정합니다. */
+	display: flex; /* 폼 그룹 내의 항목들을 플렉스 박스로 배치합니다. */
+	align-items: center; /* 폼 그룹 내 항목들을 수직 중앙에 정렬합니다. */
+	flex-wrap: wrap; /* 줄바꿈을 허용 */
+}
+
+
+.form-group label {
+	width: 150px;
+	/* 라벨의 너비를 150px로 설정합니다. */
+	margin-right: 10px;
+	/* 라벨과 입력 필드 사이의 여백을 설정합니다. */
+	font-weight: bold;
+	/* 라벨의 글씨를 두껍게 설정합니다. */
+	font-size: 21px;
+}
+
+.form-group input {
+	flex: 1;
+	/* 입력 필드가 남은 공간을 모두 차지하도록 설정합니다. */
+	padding: 8px;
+	/* 입력 필드의 내부 여백을 설정합니다. */
+	border: 1px solid #ccc;
+	/* 입력 필드의 테두리 색을 연한 회색으로 설정합니다. */
+	height: 35px;
+	font-size: 16px;
+}
+.check_font {
+	position: relative;
+	left: 165px; /* 이 요소만 한 줄을 차지하게 함 */
+	flex-basis: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px; /* 메시지 크기 조정 */
+	font-size: 14px;
+	color: red; /* 기본 메시지 색상 설정 */
+	margin-top: 5px; /* 메시지와 입력 필드 사이의 여백 */
+	font-size: 0.9em;  /* 글자 크기 조정 */
+}
+
+
+.form-group button:hover {
+	color: #ffffffcc;
+}
+
+.form-group input[type="text"]:focus,
+input[type="password"]:focus {
+	border-color: #ff4714;
+	outline: none;
+}
+
+.form-group input:focus {
+	border-color: #ff4714;
+	outline: none;
+}
+
+.form-group button {
+	background-color: #134b84;
+	/* 버튼의 배경색을 주황색으로 설정합니다. */
+	color: #fdfdfd;
+	/* 버튼의 글씨 색을 흰색으로 설정합니다. */
+	border: none;
+	/* 버튼의 기본 테두리를 제거합니다. */
+	padding: 8px;
+	/* 입력 필드의 내부 여백을 설정합니다. */
+	margin-left: 20px;
+	height: 35px;
+	width: 120px;
+}
+
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 200px;
+    font-size: 16px;
+    height: 45px; /* 높이 조정 */
+    line-height: 1.5; /* 텍스트 높이 조정 */
+    vertical-align: middle;
+}
+
+.moveBtn{
+	margin-top: 80px;
+}
+
+
+.moveBtn button {
+	text-align: center;
+	width: 200px;
+	/* 제출 버튼의 너비를 컨테이너 너비에서 20px 줄여서 설정 */
+	min-width: 320px;
+	min-height: 60px;
+	color: white;
+	/* 제출 버튼의 글자 색을 흰색으로 설정 */
+	background-color: #134b84;
+	/* 제출 버튼의 배경색을 주황색으로 설정 */
+	height: 50px;
+	/* 제출 버튼의 높이를 40px로 설정 */
+	padding: 10px;
+	/* 제출 버튼 내부 여백을 10px로 설정 */
+	border: none;
+	/* 제출 버튼의 테두리를 제거 */
+	font-weight: bold;
+	/* 제출 버튼의 글자를 굵게 설정 */
+	transition: background-color 0.3s;
+	/* 배경색 변환을 부드럽게 0.3초 동안 적용 */
+	cursor: pointer;
+	font-size: 16px;
+	border: solid 1px #134b84;
+
+}
+
+
+
+
+
+.moveBtn {
+	text-align: center;
+}
+
+.moveBtn #backBtn {
+	background-color: #daaf67;
+	border: solid 1px #134b84;
+	color: black;
+	margin: 0 20px 0 0;
+}
+
+.moveBtn #submitBtn {
+	margin: 0 0 0 20px;
+}
+
+
+form {
+	width: 800px;
+}
+
+
+.alert {
+    display: inline-block;
+    width: 800px;
+    text-align: center;
+    color: red;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+
+

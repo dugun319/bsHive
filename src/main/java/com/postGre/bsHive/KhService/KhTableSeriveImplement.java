@@ -154,4 +154,22 @@ public class KhTableSeriveImplement implements KhTableSerive {
 		return totSchList;
 	}
 
+	@Override
+	public Kh_ScholarshipList getSchDetail(Kh_ScholarshipList sList) {
+		Kh_ScholarshipList schDetail	= khTableDao.getSchDetail(sList);
+		return schDetail;
+	}
+
+	@Override
+	public void insertSchDetail(Kh_ScholarshipList schDetail) {
+		khTableDao.insertSchDetail(schDetail);		
+	}
+
+	@Override
+	public List<Kh_ScholarshipList> getSchList(Kh_ScholarshipList sList) {
+		List<Kh_ScholarshipList> schList	= khTableDao.getSchList(sList);
+		
+		return schList;
+	}
+
 }

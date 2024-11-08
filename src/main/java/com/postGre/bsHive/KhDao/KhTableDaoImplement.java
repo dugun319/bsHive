@@ -266,6 +266,45 @@ public class KhTableDaoImplement implements KhTableDao {
 		return totSchList;
 	}
 
+	@Override
+	public Kh_ScholarshipList getSchDetail(Kh_ScholarshipList sList) {
+		Kh_ScholarshipList schDetail	= null;
+		
+		try {
+			schDetail = session.selectOne("com.postGre.bsHive.kh_TableMapper.getSchDetail", sList);
+			System.out.println("KhTableDaoImplement getSchDetail() schDetail -> " + schDetail);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getSchDetail() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return schDetail;
+	}
+
+	
+
+	@Override
+	public void insertSchDetail(Kh_ScholarshipList schDetail) {
+		try {
+			session.insert("com.postGre.bsHive.kh_TableMapper.insertSchDetail", schDetail);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement insertSchDetail() e.getMessage() -> " + e.getMessage());
+		}
+	}
+	
+	@Override
+	public List<Kh_ScholarshipList> getSchList(Kh_ScholarshipList sList) {
+		List<Kh_ScholarshipList> schList = null;
+		try {
+			schList = session.selectList("com.postGre.bsHive.kh_TableMapper.getSchList", sList);
+			System.out.println("KhTableDaoImplement getSchList() schList -> " + schList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getSchList() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return schList;
+	}
+
+
 	
 	
 	

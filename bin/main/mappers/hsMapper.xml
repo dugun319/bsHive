@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.postGre.bsHive.HsDao.HsDao">
+
+	<select id="hsLctr_num" parameterType="int" resultType="Lctr">
+		SELECT 	"LCTR_NAME", "LCTR_NUM"
+		FROM	"LCTR"
+		WHERE	"LCTR_NUM" = #{lctr_num}
+	</select>
+
+	<!-- 강의계획서 조회 -->
+	<select id="hsLec_TotSche" parameterType="Hs_Lec" resultType="Hs_Lec">
+		SELECT DISTINCT l."LCTR_NAME", 
+						e."EMP_NM", 
+						ol."BGNG_YMD", 
+						ol."END_YMD", 
+						s."CONTENT", 
+						lm."BGNG_TM", 
+						lm."END_TM", 
+						l."PSCP_NOPE", 
+						ol."FNSH_COST",
+						os."LCTR_OTLN",
+						os."EDU_PRPS",
+						os."EDU_CN",
+						os."EVL_MTHD",
+						os."REF_DATA_CN",
+						os."EXCPTN_MTTR",
+						l."LCTR_NUM"
+		FROM "LCTR" AS l
+		JOIN "OFL_SYLLABUS"  AS os ON l."LCTR_NUM" 	 = os."LCTR_NUM"
+		JOIN "OFL_LCTR" 	 AS ol ON l."LCTR_NUM" 	 = ol."LCTR_NUM"
+		JOIN "LCTR_WEEK" 	 AS lw ON l."LCTR_NUM" 	 = lw."LCTR_NUM"
+		JOIN "LCTRM" 		 AS lm ON lw."LCTR_NUM"  = lm."LCTR_NUM"
+		JOIN "EMP" 		 	 AS e  ON l."UNQ_NUM2" 	 = e."UNQ_NUM"
+		JOIN (
+    			SELECT *
+    			FROM "SORT_CODE"
+    			WHERE "BCODE" = '270'
+			  ) AS s  ON CAST(lm."DOW_DAY" AS INTEGER) = s."MCODE"
+		WHERE l."LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<!-- 주차별 강의 계획서 List -->
+	<select id="hsLctrWeek" parameterType="int" resultType="Hs_Lec">
+		SELECT *
+		FROM "LCTR_WEEK"
+		WHERE "LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<!-- 강의 주차 option 불러오는 list -->
+	<select id="hsWeekList" parameterType="int" resultType="Hs_Attend">
+		SELECT  "LCTR_WEEKS", "LCTR_YMD"
+		FROM	"LCTR_WEEK"
+		WHERE 	"LCTR_NUM" = #{lctr_num}
+		ORDER BY "LCTR_WEEKS"
+	</select>
+	
+	<select id="hsWeekListProf" parameterType="Hs_Attend" resultType="Hs_Attend">
+		SELECT 	a.*, s."STDNT_NM"
+		FROM 	"ATNDC" AS a
+		JOIN 	"STDNT" AS s ON a."UNQ_NUM" = s."UNQ_NUM"
+		WHERE 	a."LCTR_NUM" = #{lctr_num}
+		AND		a."LCTR_WEEKS" = #{lctr_weeks}
+		ORDER BY s."STDNT_NM"
+	</select>
+	
+	<update id="hsUpdAttendProf" parameterType="Hs_Attend">
+		UPDATE  "ATNDC"
+		SET		"ATNDC_TYPE"=#{atndc_type}
+		WHERE	"UNQ_NUM" = #{unq_num}
+		AND		"LCTR_WEEKS" = #{lctr_weeks}
+		AND		"LCTR_NUM" = #{lctr_num}
+	</update>
+	
+	<select id="hsAttendStd" parameterType="Hs_Attend" resultType="Hs_Attend">
+		SELECT s."CONTENT", a."LCTR_WEEKS", a."ATNDC_TYPE"
+		FROM (
+    			SELECT * 
+    			FROM "SORT_CODE"
+    			WHERE "BCODE" = '250'
+		) AS s
+		JOIN "ATNDC" AS a ON a."ATNDC_TYPE" = s."MCODE"
+		WHERE a."LCTR_NUM" = #{lctr_num}
+		AND a."UNQ_NUM" = #{unq_num}
+	</select>
+	
+	<select id="hsProfListAsmt" parameterType="int" resultType="Hs_Assignment">
+		SELECT 	a.*, l."LCTR_NAME"
+		FROM 	"ASMT" AS a
+		JOIN	"LCTR" AS l ON a."LCTR_NUM" = l."LCTR_NUM"
+		WHERE	a."LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<select id="hsProfAsmtInfo" parameterType="Hs_Assignment" resultType="Hs_Assignment">
+		SELECT l."LCTR_NAME", e."EMP_NM", a.*
+		FROM "LCTR" AS l
+		JOIN "EMP" AS e ON l."UNQ_NUM2" = e."UNQ_NUM"
+		JOIN "ASMT" AS a ON l."LCTR_NUM" = a."LCTR_NUM"
+		WHERE e."UNQ_NUM" = #{unq_num2}
+		AND   l."LCTR_NUM" = #{lctr_num}
+		AND	  a."CYCL" = #{cycl}
+	</select>
+	
+	<!-- 파일업로드 -->
+	<insert id="hsFileUp" parameterType="Asmt_Sbmsn">
+		INSERT INTO "ASMT_SBMSN"("CYCL", "LCTR_NUM", "UNQ_NUM", "FILE_GROUP")
+		VALUES ('1', '24131509', '119040014', #{file_group})
+	</insert>
+	
+	<insert id="hsProfAsmt" parameterType="Hs_Assignment">
+	INSERT INTO "ASMT"("CYCL", "LCTR_NUM", "ASMT_TPC", "ASMT_DTL_CN", "ASMT_DDLN", "FILE_GROUP", "FILE_GROUPC")
+	VALUES (#{cycl}, #{lctr_num}, #{asmt_tpc}, #{asmt_dtl_cn}, #{asmt_ddln}, #{file_group}, #{file_groupc})
+	</insert>
+	
+	<update id="hsProfAsmtUpd" parameterType="Hs_Assignment">
+		UPDATE "ASMT"
+		SET "CYCL"=#{cycl}, "LCTR_NUM"=#{lctr_num}, "ASMT_TPC"=#{asmt_tpc}, "ASMT_DTL_CN"=#{asmt_dtl_cn}, "ASMT_DDLN"=#{asmt_dtl_cn}
+	</update>
+	
+	<select id="hsCheckDataAssign" parameterType="Hs_Assignment" resultType="boolean">
+		SELECT 
+            CASE WHEN COUNT(*) > 0 THEN true ELSE false END
+        FROM "ASMT_SBMSN"
+        WHERE "CYCL" = #{cycl} 
+        AND   "LCTR_NUM" = #{lctr_num} 
+        AND   "UNQ_NUM2" = #{unq_num2}
+	</select>
+	
+	<select id="hsAsmtStdntInfo" parameterType="Hs_Assignment" resultType="Hs_Assignment">
+		SELECT a.*, l."UNQ_NUM2", l."LCTR_NAME", e."EMP_NM", s."UNQ_NUM", s."STDNT_NM"
+		FROM "ASMT" AS a
+		JOIN "LCTR" AS l ON a."LCTR_NUM" = l."LCTR_NUM"
+		JOIN "EMP"	AS e ON l."UNQ_NUM2" = e."UNQ_NUM"
+		JOIN "LCTR_APLY" AS la ON a."LCTR_NUM" = la."LCTR_NUM"
+		JOIN "STDNT" AS s ON la."UNQ_NUM" = s."UNQ_NUM"
+		WHERE a."CYCL" = #{cycl}
+		AND	  a."LCTR_NUM" = #{lctr_num}
+		AND	  s."UNQ_NUM" = #{unq_num}
+	</select>
+</mapper>

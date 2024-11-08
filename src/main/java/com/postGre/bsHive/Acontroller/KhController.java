@@ -1,7 +1,11 @@
 package com.postGre.bsHive.Acontroller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -13,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.mysql.cj.Session;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
@@ -27,14 +34,15 @@ import com.postGre.bsHive.SeService.Paging;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/kh/admin")
 public class KhController {
-
+	@Value("${spring.file.upload.path}")
+	private String uploadPath;
+	
 	private final KhTableSerive khTableSerive;
 
 	//
@@ -44,9 +52,12 @@ public class KhController {
 	@GetMapping(value = "/adminMain")
 	public String adminMain(HttpServletRequest request, HttpSession session) {
 
-		if (session.getId() == null) {
+		if (session.getAttribute("unq_num") == null) {
 			session.invalidate(); // 기존 세션을 무효화
 			session = request.getSession(true); // 새로운 세션 생성
+			session.setMaxInactiveInterval(30 * 60); // 30분 동안 활동이 없으면 세션 만료 설정
+			session.setAttribute("sessionTime", session.getMaxInactiveInterval());
+		} else {
 			session.setMaxInactiveInterval(30 * 60); // 30분 동안 활동이 없으면 세션 만료 설정
 			session.setAttribute("sessionTime", session.getMaxInactiveInterval());
 		}
@@ -159,9 +170,9 @@ public class KhController {
 			System.out.println("DELETE IS COMPLETED");
 		}
 
-		if (lgn.getMbr_se().equals("1")) {
+		if (lgn.getMbr_se() == 1) {
 			return "redirect:/kh/admin/stdntList";
-		} else if (lgn.getMbr_se().equals("2")) {
+		} else if (lgn.getMbr_se() == 2) {
 			return "redirect:/kh/admin/empList?mbr_se=2";
 		} else {
 			return "redirect:/kh/admin/empList?mbr_se=3";
@@ -397,31 +408,109 @@ public class KhController {
 		sList.setStart(paging.getStart());
 		sList.setEnd(paging.getEnd());
 		
+		List<Kh_ScholarshipList> schList = khTableSerive.getSchList(sList);
+		
 		model.addAttribute("rawList", sList);
 		model.addAttribute("page", paging);
 		model.addAttribute("currentPage", sList.getCurrentPage());
-		//model.addAttribute("schList", schList);
-		
-		model.addAttribute("totSchList", totSchList);
-
+		model.addAttribute("schList", schList);
 		
 		return "kh/adminSchList";
 	}
 	
-	@GetMapping(value = "/aplyScholarship")
-	public String aplyScholarship(Kh_ScholarshipList sList, Model model) {
+	@GetMapping(value = "/applyScholarship")
+	public String aplyScholarship(@RequestParam("lctr_num") long lctr_num, HttpSession session, Model model) {
 		log.info("KhController aplyScholarship() is called");
 		
-		return "kh/aplyScholarshipForm";
+		Kh_ScholarshipList sList 		= new Kh_ScholarshipList();
+		long unq_num 					= Long.parseLong(session.getAttribute("unq_num").toString());
+		
+		sList.setLctr_num(lctr_num);
+		sList.setUnq_num(unq_num);
+		
+		Kh_ScholarshipList schDetail	= khTableSerive.getSchDetail(sList);
+		model.addAttribute("schDetail", schDetail);
+		
+		return "kh/applyScholarshipForm";
 	}
 
 	
-	@GetMapping(value = "/inputInfo")
-	public String inputStudentInfo() {
-		log.info("KhController inputStudentInfo() is called");
-
+	@PostMapping(value = "/inputInfo")
+	public String inputScholarshipInfo( @RequestParam(name = "proofFile") MultipartFile proofFile,
+									  	@RequestParam(name = "bankFile") MultipartFile bankFile,
+									  	Kh_ScholarshipList schDetail,
+									  	Model model) {
 		
-		return "kh/adminStdntInfoInput";
+		log.info("KhController inputScholarshipInfo() is called");
+		
+		String path 			= uploadPath + "proofFile/";
+		File Folder 			= new File(path);
+		// 해당 디렉토리가 없다면 디렉토리를 생성.
+		if (!Folder.exists()) {
+			try {
+				Folder.mkdir(); 								//새폴더생성
+				System.out.println("New Directory is created");
+			} catch(Exception e){
+				e.getStackTrace();
+			} 
+		}
+		
+		path 					= uploadPath + "bankFile/";
+		Folder 					= new File(path);
+		// 해당 디렉토리가 없다면 디렉토리를 생성.
+		if (!Folder.exists()) {
+			try {
+				Folder.mkdir(); 								//새폴더생성
+				System.out.println("New Directory is created");
+			} catch(Exception e){
+				e.getStackTrace();
+			} 
+		}
+		
+		String uuid = UUID.randomUUID().toString();
+		String proofOriginalFileName = proofFile.getOriginalFilename();
+		String proofExtension 		= proofOriginalFileName.substring(proofOriginalFileName.lastIndexOf("."));
+		String proofSavePath 		= uploadPath + "proofFile/" + uuid + proofExtension;
+
+		if (!proofFile.isEmpty()) {
+			try {
+				proofFile.transferTo(new File(proofSavePath));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		uuid = UUID.randomUUID().toString();
+		String bankOriginalFileName = bankFile.getOriginalFilename();
+		String bankExtension 		= bankOriginalFileName.substring(bankOriginalFileName.lastIndexOf("."));
+		String bankSavePath 		= uploadPath + "bankFile/" + uuid + bankExtension;
+
+		if (!bankFile.isEmpty()) {
+			try {
+				bankFile.transferTo(new File(bankSavePath));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		int sprtCost = 0;
+		if(schDetail.getPtcp_type() != 0) {
+			schDetail.setPtcp_img(proofSavePath);
+			sprtCost = (int) (schDetail.getFnsh_cost() * 0.5);	//참여 50% 감면
+		} else {
+			schDetail.setPriority_img(proofSavePath);			//우대 80% 감면
+			sprtCost = (int) (schDetail.getFnsh_cost() * 0.8);
+		}
+		schDetail.setBank_img(bankSavePath);
+		schDetail.setSprt_cost(sprtCost);
+		
+		System.out.println("schDetail -> " + schDetail);
+		
+		model.addAttribute("schDetail", schDetail);
+		
+		khTableSerive.insertSchDetail(schDetail);
+		
+		return "kh/applyScholarshipClosing";
 	}
 	
 	

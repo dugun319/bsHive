@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.postGre.bsHive.Amodel.File;
 import com.postGre.bsHive.Amodel.Pst;
 import com.postGre.bsHive.MhDao.MhDao;
 
@@ -116,9 +117,81 @@ public class MhServiceImp implements MhService {
 
 	@Override
 	public List<Pst> fnqView(Pst pst) {
+		System.out.println("fnqView service pst->" +pst);
 		List<Pst> fnqView = null;
 		fnqView = md.fnqView(pst);
+		System.out.println("fnqView service:" +fnqView);
 		return fnqView;
+	}
+
+	@Override
+	public int faqInsert(Pst pst) {
+		int faqInsert = 0;
+		faqInsert = md.faqInsert(pst);
+		return faqInsert;
+	}
+
+	@Override
+	public int faqDelete(int pst_num) {
+		int faqDelete = 0;
+		faqDelete = md.faqDelete(pst_num);
+		return faqDelete;
+	}
+
+	@Override
+	public int updatefaq(Pst pst) {
+		int updatefaq =0;
+		updatefaq = md.updatefaq(pst);
+		return updatefaq;
+	}
+
+	@Override
+	public int totaloneList() {
+		int totaloneList = 0;
+		totaloneList = md.totaloneList();
+		return totaloneList;
+	}
+
+	@Override
+	public List<Pst> listOne(Pst pst) {
+		List<Pst> listOne = null;
+		listOne = md.listOne(pst);
+		return listOne;
+	}
+
+	@Override
+	public List<Pst> oneView(Pst pst) {
+		List<Pst> oneView = null;
+		oneView = md.oneView(pst);
+		return oneView;
+	}
+
+	@Override
+	public int oneDelete(int pst_num) {
+		int oneDelete = 0;
+		oneDelete = md.oneDelete(pst_num);
+		return oneDelete;
+	}
+
+	@Override
+	public int oneInsert(Pst pst) {
+		int oneInsert = 0;
+		oneInsert = md.oneInsert(pst);
+		return oneInsert;
+	}
+
+	@Override
+	public int updateone(Pst pst) {
+		int updateone = 0;
+		updateone = md.updateone(pst);
+		return updateone;
+	}
+
+	@Override
+	public int noticeCreate(Pst pst, List<File> fileList) {
+		int noticeCreate = 0;
+		noticeCreate = md.noticeCreate(pst, fileList);
+		return noticeCreate;
 	}
 
 }

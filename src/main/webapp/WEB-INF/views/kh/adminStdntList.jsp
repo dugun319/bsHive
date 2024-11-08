@@ -9,7 +9,7 @@
 <link href="<%=request.getContextPath()%>/css/kh_adminStdntList.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 	function delLgnId(param) {
-		alert("로그인 ID를 삭제합니다");
+		confirm("로그인 ID를 삭제합니다");
 		console.log(param);
 		location.href = "/kh/admin/delLgnId?mbr_se=1&eml=" + encodeURIComponent(param);
 	}

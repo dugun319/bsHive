@@ -40,22 +40,28 @@ public class Onln_Lctr_List {
 	private int play_hr;			// 재생시간
 	
 	// 콘텐츠챕터 CONTS_CH TBL
-	private String ch_id;		// 챕터 ID(PK)
+	private int    ch_num;		// 챕터 ID(PK)
 	private String ch_nm;		// 챕터이름
 	
 	
 	// =========== 승은씨의 강의시청 ================
 	
 	// 강의시청 LCTR_VIEW TBL
-	private String unit_num;	// 차시번호
-	private String max_dtl;		// 최대시간
-	private String last_dtl;	// 최종시간			
+	private int unit_num;	// 차시번호
+	private int max_dtl;		// 최대시간
+	private int last_dtl;	// 최종시간			
 	private int lctr_pace;		// 차시진도율
 	private String conts_type;	// 컨텐츠구분
+	
+	
 	
 	// Page 정보
 	private int		start;
 	private int		end;
 	private String	currentPage;
 		
+	private String play_start; //시작시간
+	
+	
+	
 }

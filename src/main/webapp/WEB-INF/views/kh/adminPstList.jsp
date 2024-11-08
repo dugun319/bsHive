@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	function updateDelYnPst(pst_num, pst_clsf, del_yn) {
 		console.log(pst_num);
-		alert("게시물을 삭제합니다");		
+		confirm("게시물을 삭제합니다");		
 		location.href = "/kh/admin/updateDelYnPst?pst_num=" 
 						+ pst_num 
 						+ "&pst_clsf=" 

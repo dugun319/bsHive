@@ -12,4 +12,5 @@ public class Onln_Lctr {
 	private String 	end_ymd;			// 종료일
 	private int 	rcrt_nope;			// 모집인원수
 	private String 	fnsh_crtr;			// 수료기준
+	private int		unq_num2;			// 강사고유번호
 }

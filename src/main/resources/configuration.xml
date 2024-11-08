@@ -17,13 +17,15 @@
 		<typeAlias alias="Conts_Ch"					type="com.postGre.bsHive.Amodel.Conts_Ch"/>
 		<typeAlias alias="Crans_Qitem"				type="com.postGre.bsHive.Amodel.Crans_Qitem"/>
 		<typeAlias alias="Emp"						type="com.postGre.bsHive.Amodel.Emp"/>
+		<typeAlias alias="Evl_Qitem"				type="com.postGre.bsHive.Amodel.Evl_Qitem"/>
+		<typeAlias alias="Evl_Sbmsn"				type="com.postGre.bsHive.Amodel.Evl_Sbmsn"/>
 		<typeAlias alias="File"						type="com.postGre.bsHive.Amodel.File"/>
 		<typeAlias alias="Lctr_Aply"				type="com.postGre.bsHive.Amodel.Lctr_Aply"/>
-		<typeAlias alias="Lctr_Evl"				type="com.postGre.bsHive.Amodel.Lctr_Evl"/>
+		<typeAlias alias="Lctr_Evl"					type="com.postGre.bsHive.Amodel.Lctr_Evl"/>
 		<typeAlias alias="Lctr_View"				type="com.postGre.bsHive.Amodel.Lctr_View"/>
 		<typeAlias alias="Lctr_Week"				type="com.postGre.bsHive.Amodel.Lctr_Week"/>
-		<typeAlias alias="Lctr"				type="com.postGre.bsHive.Amodel.Lctr"/>
-		<typeAlias alias="Lctrm"				type="com.postGre.bsHive.Amodel.Lctrm"/>
+		<typeAlias alias="Lctr"						type="com.postGre.bsHive.Amodel.Lctr"/>
+		<typeAlias alias="Lctrm"					type="com.postGre.bsHive.Amodel.Lctrm"/>
 		<typeAlias alias="Lgn"						type="com.postGre.bsHive.Amodel.Lgn"/>
 		<typeAlias alias="Ofl_Lctr"					type="com.postGre.bsHive.Amodel.Ofl_Lctr"/>
 		<typeAlias alias="Ofl_Syllabus"				type="com.postGre.bsHive.Amodel.Ofl_Syllabus"/>
@@ -33,6 +35,7 @@
 		<typeAlias alias="Pst_Img"					type="com.postGre.bsHive.Amodel.Pst_Img"/>
 		<typeAlias alias="Pst"						type="com.postGre.bsHive.Amodel.Pst"/>
 		<typeAlias alias="Scholarship"				type="com.postGre.bsHive.Amodel.Scholarship"/>
+		<typeAlias alias="Sort_Code"				type="com.postGre.bsHive.Amodel.Sort_Code"/>
 		<typeAlias alias="Stdnt"					type="com.postGre.bsHive.Amodel.Stdnt"/>
 		<typeAlias alias="Syllabus_Unit"			type="com.postGre.bsHive.Amodel.Syllabus_Unit"/>
 		<typeAlias alias="Test_Qitem"				type="com.postGre.bsHive.Amodel.Test_Qitem"/>
@@ -40,22 +43,25 @@
 		<typeAlias alias="Test"						type="com.postGre.bsHive.Amodel.Test"/>
 		
 		<typeAlias alias="Onln_Lctr_List" 			type="com.postGre.bsHive.Adto.Onln_Lctr_List"/>
-		<typeAlias alias="LgnEmp" 					type="com.postGre.bsHive.Adto.LgnEmp"/>		
 		<typeAlias alias="Kh_PrdocList" 			type="com.postGre.bsHive.Adto.Kh_PrdocList"/>
 		<typeAlias alias="Kh_ScholarshipList"		type="com.postGre.bsHive.Adto.Kh_ScholarshipList"/>
 		<typeAlias alias="Kh_StdntList"				type="com.postGre.bsHive.Adto.Kh_StdntList"/>
 		<typeAlias alias="Kh_EmpList"				type="com.postGre.bsHive.Adto.Kh_EmpList"/>
 		<typeAlias alias="Kh_LctrList"				type="com.postGre.bsHive.Adto.Kh_LctrList"/>
-		<typeAlias alias="User_Table"				type="com.postGre.bsHive.Adto.User_Table"/>
-		<typeAlias alias="Mn_LctrAplyOflWeek"		type="com.postGre.bsHive.Adto.Mn_LctrAplyOflWeek"/>
-		<typeAlias alias="Hs_Lec" 					type="com.postGre.bsHive.Adto.Hs_Lec"/>
-		<typeAlias alias="Hs_Attend"				type="com.postGre.bsHive.Adto.Hs_Attend"/>
-		<typeAlias alias="All_Lctr"					type="com.postGre.bsHive.Adto.All_Lctr"/>
 		<typeAlias alias="Kh_pstList"				type="com.postGre.bsHive.Adto.Kh_pstList"/>
 		
+		<typeAlias alias="Hb_Evl"					type="com.postGre.bsHive.Adto.Hb_Evl"/>
+		<typeAlias alias="Hb_Test"					type="com.postGre.bsHive.Adto.Hb_Test"/>
 		
+		<typeAlias alias="Mn_LctrAplyOflWeek"		type="com.postGre.bsHive.Adto.Mn_LctrAplyOflWeek"/>
+		<typeAlias alias="Mn_LctrInfoPage"			type="com.postGre.bsHive.Adto.Mn_LctrInfoPage"/>
 		
+		<typeAlias alias="Hs_Lec" 					type="com.postGre.bsHive.Adto.Hs_Lec"/>
+		<typeAlias alias="Hs_Attend"				type="com.postGre.bsHive.Adto.Hs_Attend"/>
+		<typeAlias alias="Hs_Assignment" 			type="com.postGre.bsHive.Adto.Hs_Assignment"/>
 		
+		<typeAlias alias="Jh_myClassroomList"        type="com.postGre.bsHive.Adto.Jh_myClassroomList"/>
+		<typeAlias alias="User_Table"				type="com.postGre.bsHive.Adto.User_Table"/>
 	</typeAliases>
 	
 	

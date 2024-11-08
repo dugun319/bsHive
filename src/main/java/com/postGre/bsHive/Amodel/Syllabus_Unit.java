@@ -6,7 +6,9 @@ import lombok.Data;
 public class Syllabus_Unit {
 	// 온라인강의차시
 	
-	private String unit_num;	//차시번호
+	private int unit_num;	//차시번호
 	private int lctr_num;		//강의번호
-	private String conts_id;	//콘텐츠ID
+	private String vdo_id;		//비디오 ID
+	private String conts_nm;	//콘텐츠명
+	private String play_hr;		//재생시간
 }

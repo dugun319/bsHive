@@ -4,74 +4,333 @@
  
  <mapper namespace="com.postGre.bsHive.jh_Mapper">
  
+ 
+ 
+ 	<!-- 로그인 -->
 	<select id="login" resultType="user_table" parameterType="user_table">
 		select *
 		FROM "LGN"
 		where "EML" =#{eml}
-		AND "PSWD" =#{pswd}
 		AND "MBR_SE" =#{mbr_se}
-		
 	</select>
 	
+	
+
+	<select id="classRegistrationStatus" resultType="map" parameterType="int">
+	    SELECT 
+	        LA."LCTR_NUM",         
+	        L."LCTR_NAME",         
+	        E."EMP_NM",            
+	        LA."APLY_YMD",    
+	        L."APLY_YDM",         
+	        L."END_DATE",            
+	        L."PSCP_NOPE",
+	        LA."UNQ_NUM"         
+	    FROM 
+	        "LCTR_APLY" LA
+	    INNER JOIN 
+	        "LCTR" L ON LA."LCTR_NUM" = L."LCTR_NUM" 
+	    INNER JOIN 
+	        "EMP" E ON L."UNQ_NUM2" = E."UNQ_NUM"    
+	    WHERE 
+	        LA."UNQ_NUM" = #{unq_num}
+	        AND L."APLY_TYPE" = '1'
+	</select>
 
 
-	 <select id="myClass" parameterType="int" resultType="Lctr_Aply">	
- 		SELECT * FROM "LCTR_APLY"
-		where "UNQ_NUM" =#{unq_num}
+	
+	<select id="lectureRegistrationStatus" resultType="map" parameterType="int">
+		SELECT 
+		    L."LCTR_NUM",                             
+		    CASE 
+		        WHEN L."APLY_TYPE" = '0' THEN '개설신청'
+		        WHEN L."APLY_TYPE" = '3' THEN '보완요청'
+		        ELSE '기타'
+		    END AS "APLY_TYPE",                  
+		    L."LCTR_NAME",                            
+		    L."PSCP_NOPE"        
+		FROM 
+		    "LCTR" L
+	
+		WHERE 
+		    L."UNQ_NUM2" = #{unq_num}      
+		    AND CAST(L."APLY_TYPE" AS INTEGER) IN (0, 3); 
+	</select>
 
+
+
+	<select id="myOnlineClass" parameterType="int" resultType="jh_myClassroomList">	
+		SELECT 
+			LA."LCTR_NUM",             
+			L."LCTR_NAME",             
+			E."EMP_NM",             
+			OL."BGNG_YMD",             
+			OL."END_YMD",             
+			LA."PACE",             
+			CASE 
+		       	WHEN LEFT(LA."UNQ_NUM"::text, 1) = '1' AND L."APLY_TYPE" IN ('2', '4', '5') THEN 
+		            CASE L."APLY_TYPE"
+		                WHEN '2' THEN '진행중'
+		                WHEN '4' THEN '강의 종료'
+		                WHEN '5' THEN '폐강'
+		            END
+		        WHEN LEFT(LA."UNQ_NUM"::text, 1) != '1' THEN 
+		            CASE L."APLY_TYPE"	
+		                WHEN '1' THEN '모집중'
+		                WHEN '2' THEN '진행중'
+		                WHEN '3' THEN '보완요청'
+		                WHEN '4' THEN '강의 종료'
+		                WHEN '5' THEN '폐강'
+		            END
+		    		END AS "APLY_TYPE",             
+	    	LA."FNSH_YN",             
+	    	LA."UNQ_NUM"              
+		FROM 
+	    	"LCTR_APLY" LA           
+		JOIN 
+			"LCTR" L               
+		ON 
+	    	LA."LCTR_NUM" = L."LCTR_NUM"
+		JOIN 
+	    	"EMP" E                   
+		ON 
+	    	L."UNQ_NUM2" = E."UNQ_NUM"
+		JOIN 
+	    	"ONLN_LCTR" OL           
+		ON 
+		    LA."LCTR_NUM" = OL."LCTR_NUM"
+		WHERE 
+		    LA."UNQ_NUM" = #{unq_num}
+	    	AND (
+	        	(LEFT(LA."UNQ_NUM"::text, 1) = '1' AND L."APLY_TYPE" IN ('2', '4', '5'))
+	        OR
+	        	(LEFT(LA."UNQ_NUM"::text, 1) != '1')
+    		);
+	</select>
+		
+	
+		
+	<select id="myOfflineClass" parameterType="int" resultType="jh_myClassroomList">	
+		SELECT 
+		    LA."LCTR_NUM",             
+		    L."LCTR_NAME",             
+		    E."EMP_NM",             
+		    OFF."BGNG_YMD",             
+		    OFF."END_YMD",             
+		    LA."PACE",             
+		    CASE 
+		        WHEN LEFT(LA."UNQ_NUM"::text, 1) = '1' AND L."APLY_TYPE" IN ('2', '4', '5') THEN 
+		            CASE L."APLY_TYPE"
+		                WHEN '2' THEN '진행중'
+		                WHEN '4' THEN '강의 종료'
+		                WHEN '5' THEN '폐강'
+		            END
+		        WHEN LEFT(LA."UNQ_NUM"::text, 1) != '1' THEN 
+		            CASE L."APLY_TYPE"	
+		                WHEN '1' THEN '모집중'
+		                WHEN '2' THEN '진행중'
+		                WHEN '4' THEN '강의 종료'
+		                WHEN '5' THEN '폐강'
+		            END
+		    		END AS "APLY_TYPE",             
+		    LA."FNSH_YN",             
+		    LA."UNQ_NUM"              
+		FROM 
+		    "LCTR_APLY" LA           
+		JOIN 
+		    "LCTR" L               
+		ON 
+		    LA."LCTR_NUM" = L."LCTR_NUM"
+		JOIN 
+		    "EMP" E                   
+		ON 
+		    L."UNQ_NUM2" = E."UNQ_NUM"
+		JOIN 
+		    "OFL_LCTR" OFF        
+		ON 
+		    LA."LCTR_NUM" = OFF."LCTR_NUM"
+		WHERE 
+		    LA."UNQ_NUM" = #{unq_num}
+		    AND (
+		        (LEFT(LA."UNQ_NUM"::text, 1) = '1' AND L."APLY_TYPE" IN ('2', '4', '5'))
+		    OR
+		        (LEFT(LA."UNQ_NUM"::text, 1) != '1')
+		    )
  	</select>
 	
 	
 	
+	<select id="myProfOnlineClass" parameterType="int" resultType="jh_myClassroomList">	
+		SELECT L."LCTR_NUM", L."UNQ_NUM2", L."LCTR_NAME"
+		FROM "LCTR" L
+		JOIN "ONLN_LCTR" ONL ON L."LCTR_NUM" = ONL."LCTR_NUM"
+		WHERE L."UNQ_NUM2" = #{unq_num}
+	</select>
+	
+	
+	
+	<select id="myProfOfflineClass" parameterType="int" resultType="jh_myClassroomList">	
+		SELECT L."LCTR_NUM", L."UNQ_NUM2", L."LCTR_NAME"
+		FROM "LCTR" L
+		JOIN "OFL_LCTR" OFL ON L."LCTR_NUM" = OFL."LCTR_NUM"
+		WHERE L."UNQ_NUM2" = #{unq_num}
+	</select>	
 
-<insert id="join" parameterType="User_Table">
+
+
+	<insert id="join" parameterType="User_Table">
     <!-- 시퀀스 번호를 생성하고 저장 -->
-    <selectKey keyProperty="unq_num" order="BEFORE" resultType="int">
-        SELECT generate_unq_num(CAST(#{mbr_se} AS integer))::integer
-    </selectKey>
+	    <selectKey keyProperty="unq_num" order="BEFORE" resultType="int">
+	        SELECT generate_unq_num(CAST(#{mbr_se} AS integer))::integer
+	    </selectKey>
 
-    <!-- LGN 테이블에 삽입 -->
-    INSERT INTO "LGN" 
-    VALUES (
-        #{unq_num},  
-        #{eml},
-        #{pswd},
-        0,
-        #{mbr_se}
-    );
+	    <!-- LGN 테이블에 삽입 -->
+	    INSERT INTO "LGN" 
+	    VALUES (
+	        #{unq_num},  
+	        #{eml},
+	        #{pswd},
+	        0,
+	        #{mbr_se}
+	    );
+	
+	    <if test="mbr_se == 1">
+	        INSERT INTO "STDNT" 
+	        VALUES (
+	            #{unq_num},  
+	            #{nm},
+	            0,
+	            #{addr},
+	            #{daddr},
+	            #{zip},
+	            #{telno}
+	        );
+	    </if>
+	
+	    <if test="mbr_se == 2">
+	        INSERT INTO "EMP" 
+	        VALUES (
+	            #{unq_num},  
+	            #{nm},
+	            #{telno},
+	            0,
+	            #{addr},
+	            #{daddr},
+	            #{zip}
+	        );
+	    </if>
+	</insert>
 
-    <if test="mbr_se == 1">
-        INSERT INTO "STDNT" 
-        VALUES (
-            #{unq_num},  
-            #{nm},
-            0,
-            #{addr},
-            #{daddr},
-            #{zip},
-            #{telno}
-        );
-    </if>
 
-    <if test="mbr_se == 2">
-        INSERT INTO "EMP" 
-        VALUES (
-            #{unq_num},  
-            #{nm},
-            #{telno},
-            0,
-            #{addr},
-            #{daddr},
-            #{zip}
-        );
-    </if>
-</insert>
+
+	<select id="checkEmailDuplicate" parameterType="String" resultType="int">
+	    SELECT COUNT(*) FROM "LGN" WHERE "EML" = #{email}
+	</select>
 
 
 
+	<select id="findAccount" parameterType="User_Table" resultType="int">
+		SELECT COUNT(*) 
+		FROM 
+		    "LGN" L
+		LEFT JOIN 
+		    "EMP" E ON L."UNQ_NUM" = E."UNQ_NUM"
+		LEFT JOIN 
+		    "STDNT" S ON L."UNQ_NUM" = S."UNQ_NUM"
+		WHERE 
+		    L."EML" =#{eml} 
+		    AND L."DEL_YN" = '0'  
+		    AND (E."EMP_NM" =#{nm} OR S."STDNT_NM" =#{nm});
+	</select>	
 	
 	
 	
+	<update id="updateTempPswd" parameterType="User_table">
+		UPDATE "LGN"
+	    SET "PSWD" = #{pswd}
+	    WHERE "EML" = #{eml}
+	</update>
+		
+		
+		
+	<select id="realPwChk" parameterType="user_Table" resultType="user_Table">
+		SELECT 
+		    "LGN"."UNQ_NUM" AS unq_num,
+		    CASE 
+		        WHEN SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '1' THEN "STDNT"."STDNT_NM"
+		        ELSE "EMP"."EMP_NM"
+		    END AS nm,
+		    CASE 
+		        WHEN SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '1' THEN "STDNT"."STDNT_TELNO"
+		        ELSE "EMP"."EMP_TELNO"
+		    END AS telno,
+		    CASE 
+		        WHEN SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '1' THEN "STDNT"."STDNT_ADDR"
+		        ELSE "EMP"."EMP_ADDR"
+		    END AS addr,
+		    CASE 
+		        WHEN SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '1' THEN "STDNT"."STDNT_DADDR"
+		        ELSE "EMP"."EMP_DADDR"
+		    END AS daddr,
+		    CASE 
+		        WHEN SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '1' THEN "STDNT"."STDNT_ZIP"
+		        ELSE "EMP"."EMP_ZIP"
+		    END AS zip,
+		    "LGN"."PSWD" AS pswd 
+		FROM "LGN"
+		LEFT JOIN "STDNT" ON "LGN"."UNQ_NUM" = "STDNT"."UNQ_NUM" AND SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '1'
+		LEFT JOIN "EMP" ON "LGN"."UNQ_NUM" = "EMP"."UNQ_NUM" AND SUBSTRING("LGN"."UNQ_NUM"::TEXT, 1, 1) = '2'
+		WHERE "LGN"."EML" = #{eml}
+	</select>	
 	
+		
+	
+	<update id="updateMyInfor" parameterType="User_Table">
+	    <choose>
+	        <when test="unq_num.toString().startsWith('1')">
+	            UPDATE "STDNT"
+	            SET 
+	                "STDNT_NM" = #{nm},
+	                "STDNT_TELNO" = #{telno},
+	                "STDNT_ADDR" = #{addr},
+	                "STDNT_DADDR" = #{daddr},
+	                "STDNT_ZIP" = #{zip}
+	            WHERE "UNQ_NUM" = #{unq_num};
+	        </when>
+	        <when test="unq_num.toString().startsWith('2')">
+	            UPDATE "EMP"
+	            SET 
+	                "EMP_NM" = #{nm},
+	                "EMP_TELNO" = #{telno},
+	                "EMP_ADDR" = #{addr},
+	                "EMP_DADDR" = #{daddr},
+	                "EMP_ZIP" = #{zip}
+	            WHERE "UNQ_NUM" = #{unq_num};
+	        </when>
+	    </choose>
+	</update>
+
+
+
+	<update id="realDeleteAccount" parameterType="String">
+		UPDATE "LGN"
+	    SET 
+			"DEL_YN" = '1'
+		WHERE "EML" = #{eml}
+	</update>
+	
+	
+		
+	<update id="realchangePassword" parameterType="map">
+	    UPDATE "LGN"
+	    SET "PSWD" = #{new_pswd}
+	    WHERE "EML" = #{eml}
+	</update>
+	
+	
+
+
+
+
 	
 </mapper> 

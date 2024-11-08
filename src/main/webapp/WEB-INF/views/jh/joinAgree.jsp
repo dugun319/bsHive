@@ -1,31 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="jh_jstl.jsp" %>    
+<%@ include file="../header.jsp" %>
+<%@ include file="jstl.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link rel="stylesheet" type="text/css" href="/css/jh_mypage.css">
 <link rel="stylesheet" type="text/css" href="/css/jh_joinAgree.css">
 <script type="text/javascript" src="/js/jh_joinAgree.js"></script>	
 </head>
 <body>
-
-<header class="header">
-    <h1>헤더</h1>
-</header>
 	
 <div class="body">
     <div class="title">회원가입</div> <!-- 제목 추가 -->
-
     <div class="main-container"> <!-- 리스트와 콘텐츠를 감싸는 컨테이너 -->
         <div class="list">
-            <div class="active">회원가입</div>
-            <a href="/loginForm"><div>로그인</div></a>
-            <a href="/loginForm"><div>아이디 찾기</div></a>
-            <a href="/loginForm"><div>비밀번호 찾기</div></a>
+            <%@ include file="loginSideBar.jsp" %>
         </div>
         
 		<div class="content">
@@ -110,30 +101,24 @@
 				</div>
 			</div>
 
-<div class="check2">
-    <input type="checkbox" id="agree3" required="required" onclick="toggleAgreeCheckboxes()">
-    <span>전체 약관에 모두 동의합니다.</span>
-</div>
+			<div class="check2">
+			    <input type="checkbox" id="agree3" required="required" onclick="toggleAgreeCheckboxes()">
+			    <span>전체 약관에 모두 동의합니다.</span>
+			</div>
 
 
 
 			<div class="form-group">
 				<div class="moveBtn">
 					<a href="/"><button id="backBtn">취소</button></a>
-					<a href="/sign_up_form"><button id="submitBtn">다음</button></a>
+					<a href="/jh/signUpForm?mbr_se=${param.mbr_se}"><button id="submitBtn">다음</button></a>
 				</div>
 			</div>
 		</div>
     </div>
 </div>
-
-<footer class="footer">
-        &copy; 2024 MyPage Corp. All rights reserved.
-</footer>
-
-
-
-
-	
 </body>
+<footer>
+	<%@ include file="../footer.jsp" %>
+</footer>
 </html>

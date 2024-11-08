@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.postGre.bsHive.Adto.LgnEmp;
-import com.postGre.bsHive.Adto.Onln_Lctr_List;
+import com.postGre.bsHive.Adto.User_Table;
+import com.postGre.bsHive.Amodel.Lctr;
+import com.postGre.bsHive.Amodel.Onln_Lctr;
+import com.postGre.bsHive.Amodel.Syllabus_Unit;
 import com.postGre.bsHive.JwDao.JwDao;
 
 import lombok.RequiredArgsConstructor;
@@ -15,42 +17,57 @@ import lombok.RequiredArgsConstructor;
 public class JwServiceImpl implements JwService {
 	private final JwDao jd;
 
-	// 강의계획서 작성 정보 insert 
+// 1. 강의계획서
+	// 교수정보 불러오기
 	@Override
-	public int insertLCTR(LgnEmp lgnEmp2) {
-		int result = 0;
+	public User_Table getUserTable(int unq_num) {
+		System.out.println("JwServiceImpl getUserTable Start...");
+		
+		User_Table user_Table =  jd.getUserTable(unq_num);
+		System.out.println("JwServiceImpl getUserTable user_Table->"+user_Table);
+		
+		return user_Table;
+	}
+
+	// 온라인강의 TBL insert 
+	@Override
+	public int insertLCTR(Onln_Lctr onln_lctr) {
+		int Lctrinsert = 0;
 		System.out.println("JwServiceImpl insertLCTR Start...");
-
-		result = jd.insertLctr(lgnEmp2);
-		System.out.println("JwServiceImpl insertLCTR result->"+result);
 		
-		return result;
+		Lctrinsert = jd.insertLCTR(onln_lctr);
+		System.out.println("JwServiceImpl insertLCTR Lctrinsert->"+Lctrinsert);
+		
+		return Lctrinsert;
 	}
 	
-	// 온라인 강의정보 불러오기 
+	// DB에 입력된 강의번호 가져오기
 	@Override
-	public List<Onln_Lctr_List> listOnlnLct(Onln_Lctr_List ol) {
-		List<Onln_Lctr_List> OnlnLctrList = null;
-		System.out.println("JwServiceImpl listOnlnLct Start...");
-
-		OnlnLctrList = jd.listOnlnLctr(ol);
-		System.out.println("JwServiceImpl listOnlnLct OnlnLctrList.size->"+OnlnLctrList.size());
+	public int getLctrNum() {
+		int getLctrNum = 0;
+		System.out.println("JwServiceImpl getLctrNum Start...");
 		
-		return OnlnLctrList;
+		getLctrNum = jd.getLctrNum();
+		
+		return getLctrNum;
 	}
-
-	// 온라인강의 차시정보 불러오기
+	
+	// 온라인 콘텐츠 TBL insert
 	@Override
-	public List<Onln_Lctr_List> UnitOnlnList(Onln_Lctr_List ol) {
-		List<Onln_Lctr_List> OnlnUnitList = null;
-		System.out.println("JwServiceImpl listOnlnUnit Start...");
+	public int insertOnlnCont(Syllabus_Unit syllabus_Unit) {
+		int onlnContInsert = 0;
+		System.out.println("JwServiceImpl insertOnlnCont Start...");
 		
-		OnlnUnitList = jd.listOnlnUnit(ol);
-		System.out.println("JwServiceImpl listOnlnUnit OnlnUnitList.size()->"+OnlnUnitList.size());
+		onlnContInsert = jd.insertOnlnCont(syllabus_Unit);
+		System.out.println("JwServiceImpl insertOnlnCont onlnContInsert->"+onlnContInsert);
 		
-		return OnlnUnitList;
+		return onlnContInsert;
 	}
 
 	
+
 	
+	
+	
+
 }

@@ -1,17 +1,15 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 
 .content {
-    display: flex;  /* Flexbox 레이아웃 사용 */
-    flex-direction: column;  /* 세로 방향으로 배치 */
-    margin: 0 auto;  /* 중앙 정렬 */
-    width: 400px;  /* 너비 설정 */
+    flex: 1; 
+    gap: 20px; 
     height: auto;
-}
+    overflow-x: auto; 
+    padding-top: 80px; 
+    border-top: 2px solid black;
+    flex-direction: column; 
+} 
 
 
-.form-group {
-    margin-bottom: 15px;  /* 각 항목 간의 간격 */
-}
 
 label {
     display: inline-block;
@@ -42,10 +40,7 @@ button:hover {
     background-color: #0056b3;  /* 버튼 호버 시 색상 변경 */
 }
 
-.check_font {
-    font-size: 0.9em;  /* 글자 크기 조정 */
-    color: red;  /* 에러 메시지 색상 */
-}
+
 
 .moveBtn {
     display: flex;  /* 버튼을 수평으로 나란히 배치 */
@@ -89,6 +84,7 @@ button:hover {
 	font-size: 14px;
 	color: red; /* 기본 메시지 색상 설정 */
 	margin-top: 5px; /* 메시지와 입력 필드 사이의 여백 */
+	font-size: 0.9em;  /* 글자 크기 조정 */
 }
 
 
@@ -121,18 +117,14 @@ input[type="password"]:focus {
 	width: 120px;
 }
 
-
 select {
-	padding: 8px;
-	/* 입력 필드의 내부 여백을 설정합니다. */
-	border: 1px solid #ccc;
-	/* 입력 필드의 테두리 색을 연한 회색으로 설정합니다. */
-	width: 200px;
-	font-size: 16px;
-	height: 35px;
-    font-style: normal;
-	line-height: normal; /* 기본 line-height 사용 */
-    vertical-align: middle; /* 텍스트를 수직 중앙 정렬 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 200px;
+    font-size: 16px;
+    height: 45px; /* 높이 조정 */
+    line-height: 1.5; /* 텍스트 높이 조정 */
+    vertical-align: middle;
 }
 
 .moveBtn{
@@ -168,9 +160,7 @@ select {
 
 
 
-#user_email3 {
-	width: 50px;
-}
+
 
 .moveBtn {
 	text-align: center;
@@ -189,5 +179,10 @@ select {
 
 
 form {
-	width: 700px;
+	width: 800px;
 }
+
+
+
+
+

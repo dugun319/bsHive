@@ -20,23 +20,23 @@
 	}
 	
 	function goRequest(lctr_num) {
-		alert("담당교수에게 강의계획에 대한 보완을 요청하겠습니까?");
+		confirm("담당교수에게 강의계획에 대한 보완을 요청하겠습니까?");
 		var url = "/kh/admin/goRequest?lctr_num=" + lctr_num;
 		window.open(url, "_blank", 'width=500,height=500,location=no,status=no,scrollbars=no,top=100,left=300');
 	}
 	
 	function openLctr(lctr_num) {
-		alert("강의개설을 승인하겠습니까?");
+		confirm("강의개설을 승인하겠습니까?");
 		location.href = "/kh/admin/openLctr?lctr_num=" + lctr_num;
 	}
 	
 	function closeLctr(lctr_num) {
-		alert("강의를 폐강하겠습니까?");
+		confirm("강의를 폐강하겠습니까?");
 		location.href = "/kh/admin/closeLctr?lctr_num=" + lctr_num;
 	}
 	
 	function startLctr(lctr_num) {
-		alert("강의를 시작하겠습니까?");
+		confirm("강의를 시작하겠습니까?");
 		location.href = "/kh/admin/startLctr?lctr_num=" + lctr_num;
 	}
 	

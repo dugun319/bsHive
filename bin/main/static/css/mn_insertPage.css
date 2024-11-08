@@ -1,0 +1,194 @@
+@charset "UTF-8";
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px; /* Fixed header height */
+    z-index: 300;
+}
+
+.insert_page_container{
+	display: grid;
+    grid-template-columns: minmax(auto, 1700px);
+    justify-content: center;
+    max-width: 100%;
+    margin: 0 auto; /* Margin for centering */
+    background-color: #fdfdfd;
+    padding: 100px 0 0;
+}
+
+.insert_page_grid_container{
+	display: grid;
+    grid-template-columns: 410px 1180px;
+    gap: 80px;
+    width: 100%;
+    margin: 0 0 100px;
+    padding: 0 15px;
+}
+
+.insert_page_content{
+	border-top: 2px solid #323232;
+}
+
+.insert_page_main_sidebar {
+	margin: 0 auto;
+}
+
+
+/* 공통 스타일 적용 */
+.insert_page_input_container, .insert_page_box .insert_page_input_container, .insert_page_input_3 .insert_page_input_container {
+    position: relative;
+    margin: 20px 0;
+}
+
+/* 텍스트 입력 필드 스타일 */
+.insert_page_input_container input[type="text"],
+.insert_page_box .insert_page_input_container input[type="text"],
+.insert_page_input_3 .insert_page_input_container input[type="text"] {
+    width: 100%;
+    padding: 24px 12px 12px;
+    font-size: 16px;
+    border: 0.5px solid #e2e8ee;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* 입력 필드 포커스 시 테두리 색 변경 */
+.insert_page_input_container input[type="text"]:focus,
+.insert_page_box .insert_page_input_container input[type="text"]:focus,
+.insert_page_input_3 .insert_page_input_container input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+/* label 스타일 */
+.insert_page_input_container .input-label,
+.insert_page_box .insert_page_input_container .input-label,
+.insert_page_input_3 .insert_page_input_container .input-label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* 입력 필드 포커스 시 label 위치 조정 */
+.insert_page_input_container input[type="text"]:focus + .input-label,
+.insert_page_input_container input[type="text"]:not(:placeholder-shown) + .input-label,
+.insert_page_box .insert_page_input_container input[type="text"]:focus + .input-label,
+.insert_page_box .insert_page_input_container input[type="text"]:not(:placeholder-shown) + .input-label,
+.insert_page_input_3 .insert_page_input_container input[type="text"]:focus + .input-label,
+.insert_page_input_3 .insert_page_input_container input[type="text"]:not(:placeholder-shown) + .input-label {
+    top: 18px;
+    left: 10px;
+    font-size: 12px;
+    color: #007bff;
+}
+
+/* placeholder 색상 설정 */
+.insert_page_input_container input[type="text"]:focus::placeholder,
+.insert_page_box .insert_page_input_container input[type="text"]:focus::placeholder,
+.insert_page_input_3 .insert_page_input_container input[type="text"]:focus::placeholder {
+    color: #aaa;
+}
+
+.insert_page_input_container input[type="text"]::placeholder,
+.insert_page_box .insert_page_input_container input[type="text"]::placeholder,
+.insert_page_input_3 .insert_page_input_container input[type="text"]::placeholder {
+    color: transparent;
+}
+
+/* 입력 컨테이너 스타일 */
+.input-container {
+    position: relative;
+    margin: 10px 0;
+    display: inline-block;
+}
+
+/* 입력 필드 스타일 */
+.input-container input {
+    width: 100%;
+    padding: 24px 12px 12px;
+    font-size: 16px;
+    border: 0.5px solid #e2e8ee;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.input-container input:focus {
+    border-color: #007bff;
+}
+
+/* 라벨 스타일 */
+.input-label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-container input:focus + .input-label,
+.input-container input:not(:placeholder-shown) + .input-label,
+.focused {
+    top: 18px;
+    left: 10px;
+    font-size: 12px;
+    color: #007bff;
+}
+
+/* placeholder 숨기기 */
+.input-container input::placeholder {
+    color: transparent;
+}
+
+.insert_page_time_but {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.insert_page_time_but:hover {
+    background-color: #0056b3;
+}
+
+.insert_page_input_date_text {
+    width: 150px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.insert_page_title {
+	font-size: 24px;
+	font-weight: 600;
+	color: #323232;
+}
+
+.insert_page_lctr_input1 {
+	width: 500px;
+}
+
+.insert_page_lctr_content{
+	display: flex;	
+}

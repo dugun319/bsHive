@@ -68,6 +68,12 @@ footer {
 	font-weight: 700;
 }
 
+#extentionButton {
+	font-size: 12px;
+	font-weight: 700;
+	background-color: #f5f5f5;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -138,7 +144,7 @@ setInterval(fetchAndUpdateRemainingTime, 1000);
 					width="18px"
 					height="18px"/>
 			<span id="sessionTimer"></span>
-			<button type="button" onclick="sessionExtension();">시간연장</button>
+			<button id="extentionButton"	type="button" onclick="sessionExtension();">시간연장</button>
 		</div>
 	</header>
 </body>

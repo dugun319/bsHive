@@ -11,7 +11,7 @@
 	function delLgnId(param, mbr_se) {
 		console.log(param);
 		console.log(mbr_se);
-		alert("로그인 ID를 삭제합니다");		
+		confirm("로그인 ID를 삭제합니다");		
 		location.href = "/kh/admin/delLgnId?mbr_se=" + mbr_se + "&eml=" + encodeURIComponent(param);
 	}
 

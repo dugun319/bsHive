@@ -7,7 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>BsHiVE</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-ui.js"></script>
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -34,9 +36,11 @@
 	.header_container {
 		display: flex;
 		justify-content: space-between;
-		background: rgba(253, 253, 253, 1);
+		background: rgba(253, 253, 253);
 		align-items: center;
+		height: 100px;
 		max-height: 100px;
+		width: 100%;
 	}
 	
 	.header_menu_2 {
@@ -137,30 +141,30 @@
 			</ul>
 		</nav>
 		<div class="header_menu_3">
-			<%-- <div class="header_box_1">
-				<input type="text" class="header_input_1">
-				<img alt="검색_icon" src="<%=request.getContextPath()%>/images/main/검색_icon.png" class="header_box_1_img">
-			</div> --%>
-			<c:choose>
-				<c:when test="${not empty sessionScope.user }">
-					<!-- 세션에 유저정보가 있을시 -->
-					<c:choose>
-						<c:when test="${sessionScope.user.mbr_se == 3 }">
-							<a class="lpgin_mypage_but"><img alt="관리자페이지" src="<%=request.getContextPath()%>/images/main/관리자.png" class="lpgin_but_img">&nbsp;관리자페이지</a>
-						</c:when>
-						<c:otherwise>
-							<a class="lpgin_but"><img alt="마이페이지" src="<%=request.getContextPath()%>/images/main/마이페이지.png" class="lpgin_but_img">&nbsp;마이페이지</a>
-						</c:otherwise>
-					</c:choose>
-					<a class="lpgin_mypage_but"><img alt="로그아웃" src="<%=request.getContextPath()%>/images/main/로그아웃.png" class="lpgin_but_img">&nbsp;로그아웃</a>
-				</c:when>
-				<c:otherwise>
-					<!-- 세션에 저장된 user정보가 없을시 -->
-					<a class="lpgin_mypage_but"><img alt="회원가입" src="<%=request.getContextPath()%>/images/main/회원.png" class="lpgin_but_img">&nbsp;회원가입</a>
-					<a class="lpgin_mypage_but"><img alt="자물쇠" src="<%=request.getContextPath()%>/images/main/자물쇠.png" class="lpgin_but_img">&nbsp;로그인</a>
-				</c:otherwise>
-			</c:choose>
-		</div>
+            <%-- <div class="header_box_1">
+                <input type="text" class="header_input_1">
+                <img alt="검색_icon" src="<%=request.getContextPath()%>/images/main/검색_icon.png" class="header_box_1_img">
+            </div> --%>
+            <c:choose>
+                <c:when test="${not empty sessionScope.user }">
+                    <!-- 세션에 유저정보가 있을시 -->
+                    <c:choose>
+                        <c:when test="${sessionScope.user.mbr_se == 3 }">
+                            <a class="lpgin_mypage_but"><img alt="관리자페이지" src="<%=request.getContextPath()%>/images/main/관리자.png" class="lpgin_but_img">&nbsp;관리자페이지</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/jh/myPage" class="lpgin_mypage_but"><img alt="마이페이지" src="<%=request.getContextPath()%>/images/main/마이페이지.png" class="lpgin_but_img">&nbsp;마이페이지</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <a href="/jh/logout" class="lpgin_mypage_but"><img alt="로그아웃" src="<%=request.getContextPath()%>/images/main/로그아웃.png" class="lpgin_but_img">&nbsp;로그아웃</a>
+                </c:when>
+                <c:otherwise>
+                    <!-- 세션에 저장된 user정보가 없을시 -->
+                    <a href="/jh/signUpSelect" class="lpgin_mypage_but"><img alt="회원가입" src="<%=request.getContextPath()%>/images/main/회원.png" class="lpgin_but_img">&nbsp;회원가입</a>
+                    <a href="/jh/loginForm" class="lpgin_mypage_but"><img alt="자물쇠" src="<%=request.getContextPath()%>/images/main/자물쇠.png" class="lpgin_but_img">&nbsp;로그인</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
 	</div>
 </body>
 </html>

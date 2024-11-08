@@ -1,12 +1,14 @@
 
- .content {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 20px; /* 각 요소 사이 간격 설정 */
-	margin: 0;
-	height: auto;
-}
+
+.content {
+    flex: 1; 
+    gap: 20px; 
+    height: auto;
+    overflow-x: auto; 
+    padding-top: 80px; 
+    border-top: 2px solid black;
+    flex-direction: column; 
+} 
 
 .form-group {
 	display: flex;

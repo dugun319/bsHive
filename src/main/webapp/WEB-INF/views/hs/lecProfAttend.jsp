@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/css/offLctrBanner.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,33 +8,7 @@
 <title>출석입력(교수용)</title>
 
 <style type="text/css">
-	body {
-        width: 1920px !important; /* body 폭 설정 */
-        margin: 0; /* 기본 여백 제거 */
-        padding: 0; /* 기본 패딩 제거 */
-        box-sizing: border-box; /* 박스 모델 설정 */
-    }
-    
-	.container1 {
-        display: grid;
-        grid-template-columns: 410px 1180px; /* 왼쪽 메뉴와 오른쪽 콘텐츠 영역 비율 */
-        grid-gap: 15px; /* 좌우 간격 */
-        width: 1700px; /* 콘텐츠 영역 폭 */
-        margin: 50px auto; /* 가운데 정렬 및 상단 여백 */
-    }
-    
-    .main {
-        width: 1180px; /* 오른쪽 콘텐츠 영역 폭 */
-    }
-	
-	a {
-		color: black;	/* 글자 색상 설정 */
-		text-decoration: none;	/* 밑줄제거 */
-	}
-	
-	a:hover {
-		font-weight: bold;
-	}
+
 </style>
 </head>
 <header>
@@ -44,13 +19,14 @@
 	$(document).ready(function () {
 		$('#lctrWeekSelect').change(function() {
 			let lctr_weeks = $(this).val();
+			let lctr_num = $(this).data('lctr-num');  // 이미 HTML에서 data-lctr-num으로 서버값을 전달받음
 			$('#lctrWeeksHidden').val(lctr_weeks); // 선택된 주차를 hidden input에 설정
 			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/hs/lecWeekProf",
 				type: "POST",
 				dataType: "JSON",
-				data: {lctr_weeks : lctr_weeks},
+				data: {lctr_weeks : lctr_weeks, lctr_num: lctr_num},
 				success:function(lecWeekAttend) {
 					console.log('AJAX 호출 성공:', lecWeekAttend);
 					
@@ -114,13 +90,20 @@
                 attendanceData.push({ unq_num: studentId, atndc_type: attendanceType });
             });
 			
-            if ($('#attendFormUpd input[name="lctr_weeks"]').length === 0) {
+            if ($('#attendFormUpd input[name="lctr_weeks"]').length === 0 && $('#attendFormUpd input[name="lctr_num"]').length === 0) {
             
 	         	// lctr_weeks 값을 추가
 	            $('<input>').attr({
 	                type: 'hidden',
 	                name: 'lctr_weeks',
 	                value: $('#lctrWeeksHidden').val() // 현재 hidden input의 값을 사용
+	            }).appendTo('#attendFormUpd');
+	         	
+	         	// lctr_weeks 값을 추가
+	            $('<input>').attr({
+	                type: 'hidden',
+	                name: 'lctr_num',
+	                value: $('#lctrNumHidden').val() // 현재 hidden input의 값을 사용
 	            }).appendTo('#attendFormUpd');
             }
             
@@ -137,6 +120,11 @@
 	})
 </script>
 <body>
+	<div class="lctrList_main_banner">
+		<div class="lctrList_main_banner_text3"><div class="lctrList_main_banner_do"></div>${lctr.lctr_name }</div>
+		<div class="lctrList_main_banner_text">offline</div><div class="lctrList_main_banner_text2">출결입력</div>
+		<img alt="메인배너" src="<%=request.getContextPath()%>/images/main/수강신청_banner.jpg" class="lctrList_main_banner_img">
+	</div>
 	<div class="container1">
 		<div class="sideLeft">
 			<%@ include file="../sidebarLctr.jsp" %>
@@ -147,7 +135,7 @@
 			<table>
 				<tr>
 					<th>
-						<select class="form-select" id="lctrWeekSelect" aria-label="Default select example">
+						<select class="form-select" id="lctrWeekSelect" aria-label="Default select example" data-lctr-num="${lctr.lctr_num }">
 							<option>주차 선택</option>
 							<c:forEach var="hs_attend" items="${weekList }">
 								<option value="${hs_attend.lctr_weeks }"
@@ -170,6 +158,7 @@
 				<tbody id="attendList"><!-- 출결 목록이 여기에 동적으로 추가됩니다. --></tbody>
 			</table>
 			<input type="hidden" id="lctrWeeksHidden" name="lctr_weeks" value="">
+			<input type="hidden" id="lctrNumHidden" name="lctr_num" value="">
 			<button type="submit" class="btn btn-outline-secondary">등록</button>
 		</form>
 		</div>

@@ -33,13 +33,13 @@ public class Hs_Lec {
 	private String 	lctr_weeks;	// 주차
 	private String 	lctr_ymd;	// 강의일자
 	private String 	lctr_plan;	// 강의계획
-	private String 	lctr_data;	// 수업자료
+	private String 	file_group;	// 수업자료 (파일첨부)
 	
 	// 강의실 TBL
 	private int 	lctrm_num;	//강의실번호
 	private String 	bgng_tm;    //시작시간
 	private String 	end_tm;     //종료시간
-	private String 	dow;		//강의요일
+	private String 	dow_day;	//강의요일
 	private String 	lctrm_rmrk; //강의실비고
 	
 	// 오프라인 강의계획서 TBL
@@ -49,4 +49,9 @@ public class Hs_Lec {
 	private String 	evl_mthd;		// 평가방법
 	private String 	ref_data_cn;	// 참고자료내용
 	private String 	excptn_mttr;	// 특이사항
+	
+	// 공통분류코드
+	private int 	bcode;			//대분류
+	private int 	mcode;			//중분
+	private String 	content;		//코드
 }

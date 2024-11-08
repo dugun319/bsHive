@@ -20,7 +20,15 @@
         let currentIndex = 0;
         let currentEventIndex = 0; // 이벤트 네비게이터의 현재 인덱스 추가
 
-                                                  
+		function showImage(index) {
+		        images.forEach((img, i) => {
+		            img.classList.toggle('active', i === index);
+		        });
+		        navigators.forEach((navigator, i) => {
+		            navigator.classList.toggle('active', i === index); // 활성화된 상태 추가
+		        });
+		        updateBannerPosition(); // 위치 업데이트
+		}                           
 
         function showEventImage(index) {
             eventImages.forEach((img, i) => {
@@ -170,7 +178,7 @@
         </div>
         <div class="main_footer_container">
         	<div class="main_footer_content">
-        		
+    			<div></div>
         	</div>
         </div>
         <footer>

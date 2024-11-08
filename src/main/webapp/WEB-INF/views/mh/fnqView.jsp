@@ -21,18 +21,18 @@
             </tr>
             <tr>
                 <td>내용</td>
-                <td><textarea rows="10" name="pst_cn" readonly>${board.pst_cn }</textarea></td>
+                <td style="width: 100%; padding: 10px; border: 1px solid #ddd;">
+    <div style="width: 100%; height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ccc;">
+        <span name="pst_cn" readonly="readonly" th:utext>${board.pst_cn}</span>
+    </div>
             </tr>
 
-            <tr>
-                <td colspan="2">
-                    <button onclick="location.href='/mh/fnqModify?pst_num=${board.pst_num}'">수정</button>
-                    &nbsp;&nbsp; 
-                    <a href="fnqList">목록보기</a>&nbsp;&nbsp; 
-                    <a href="fnqDelete?pst_num=${board.pst_num }">삭제</a>&nbsp;&nbsp;
-                </td>
-            </tr>
-                        </c:forEach>
+              </c:forEach>
         </table>
+        <c:forEach items="${fnqView }" var="board">
+        <c:if test="${writer == board.unq_num }"><button onclick="location.href='/mh/fnqModify?pst_num=${board.pst_num}'">수정</button></c:if>
+        <a href="fnqList">목록보기</a>
+         <c:if test="${writer == board.unq_num }"><a href="faqDelete?pst_num=${board.pst_num }" class="delete">삭제</a></c:if>
+    </c:forEach>
 </body>
 </html>

@@ -26,7 +26,22 @@
 		<c:set var="num" value="${num + 1}" />
 		</c:forEach>
 </table>
-    <input type="submit" value="글작성">
+					<table id="paging">
+
+				<c:if test="${page.startPage > page.pageBlock }">
+					<a
+						href="yakList?currentPage=${page.startPage-page.pageBlock}">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+					<a href="yakList?currentPage=${i}">[${i}]</a>
+				</c:forEach>
+				<c:if test="${page.endPage < page.totalPage }">
+					<a
+						href="yakList?currentPage=${page.startPage+page.pageBlock}">[다음]</a>
+				</c:if>
+
+        </table>
+    <c:if test="${admin == 3 }"><input type="submit" value="글작성"></c:if>
     </form>
 </body>
 </html>

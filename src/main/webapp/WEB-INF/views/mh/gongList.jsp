@@ -2,20 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../header.jsp"%>
 <%@ include file="sidebarPst.jsp"%>
-<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="content">
-
-		<div class="block_1">
-			<hr />
-			<h2>공지사항</h2>
-
-			<table class="border">
+<h2>공지사항</h2>
+	<table>
 				<form action="gongWrite">
 				<tr>
 					<td>번호</td>
@@ -34,11 +29,23 @@
 				</c:forEach>
 				
 			</table>
-			<input type="submit" value="글작성"></form>
-		</div>
+	<table id="paging">
 
-	</div>
+				<c:if test="${page.startPage > page.pageBlock }">
+					<a
+						href="gongList?currentPage=${page.startPage-page.pageBlock}">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+					<a href="gongList?currentPage=${i}">[${i}]</a>
+				</c:forEach>
+				<c:if test="${page.endPage < page.totalPage }">
+					<a
+						href="gongList?currentPage=${page.startPage+page.pageBlock}">[다음]</a>
+				</c:if>
 
+        </table>
+			<c:if test="${admin == 3 }"><input type="submit" value="글작성"></c:if></form>
+			 
 
 </body>
 </html>

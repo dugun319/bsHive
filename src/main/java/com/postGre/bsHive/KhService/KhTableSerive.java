@@ -32,7 +32,9 @@ public interface KhTableSerive {
 	
 	//Scholarship
 	int 					getTotSchList(Kh_ScholarshipList sList);
-	
+	Kh_ScholarshipList 		getSchDetail(Kh_ScholarshipList sList);
+	void 					insertSchDetail(Kh_ScholarshipList schDetail);
+	List<Kh_ScholarshipList> getSchList(Kh_ScholarshipList sList);
 	
 	// Lecture
 	
@@ -47,6 +49,12 @@ public interface KhTableSerive {
 	int 					getTotBoardList(Kh_pstList pList);
 	List<Kh_pstList> 		getBoardList(Kh_pstList pList);
 	void 					updateDelYnPst(Kh_pstList pList);
+
+	
+
+	
+
+	
 
 	
 }

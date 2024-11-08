@@ -254,10 +254,10 @@
 				"LCTR_NUM",
 				"CRTR_CNT"
 				)
-				(SELECT COALESCE(MAX("SN"), 0) + 1,
+				(
+				(SELECT COALESCE(MAX("SN"), 0) + 1 FROM public."ATNDC_TYPE"),
 				#{lctr_num},
 				#{crtr_cnt}
-				FROM public."ATNDC_TYPE"
 				)
 
 	</insert>
@@ -309,7 +309,7 @@
 	
 <!-- =========================   Scholarship   ===============================	 -->	
 
-	<select id="getTotSchList" 		parameterType="Kh_ScholarshipList" 	resultType="int">
+	<select id="getTotSchList" 		parameterType="Kh_ScholarshipList" 		resultType="int">
 		SELECT COUNT(*) 
 		FROM public."SCHOLARSHIP"
 		<where> 					
@@ -320,6 +320,111 @@
 	</select>
 
 
+	
+	<select id="getSchDetail" 		parameterType="Kh_ScholarshipList" 		resultType="Kh_ScholarshipList">
+		SELECT 	l."LCTR_NUM",
+				lc."LCTR_NAME",
+				l."UNQ_NUM",
+				s."STDNT_NM",
+				l."ATNDC_SCR",
+				l."ASMT_SCR",
+				l."FNSH_YN",
+				l."PACE",
+				ol."FNSH_COST"
+		FROM public."LCTR_APLY" l
+		LEFT OUTER JOIN public."OFL_LCTR" ol
+			ON ol."LCTR_NUM" 	= l."LCTR_NUM"
+		LEFT OUTER JOIN public."LCTR" lc
+			ON lc."LCTR_NUM" 	= l."LCTR_NUM"
+		LEFT OUTER JOIN public."STDNT" s
+			ON s."UNQ_NUM" 		= #{unq_num}
+		WHERE l."LCTR_NUM"		= #{lctr_num}
+			AND l."UNQ_NUM"		= #{unq_num}
+	</select>
+	
+	
+	
+	<insert id="insertSchDetail"		parameterType="Kh_ScholarshipList">
+		INSERT INTO 
+			public."SCHOLARSHIP"(
+									"SCHOLARSHIP_NUM", 
+									"LCTR_NUM", 
+									"PTCP_TYPE", 
+									"PRIORITY_TYPE", 
+									"SPRT_COST", 
+									"BANK_IMG", 
+									"PRIORITY_IMG", 
+									"PTCP_IMG", 
+									"GIVE_STTS", 
+									"BANK_NUM", 
+									"BANK_NAME", 
+									"UNQ_NUM"
+								)
+			VALUES 	(
+					(SELECT COALESCE(MAX("SCHOLARSHIP_NUM"), 0) + 1 FROM public."SCHOLARSHIP"),
+					#{lctr_num},
+					#{ptcp_type},
+					#{priority_type},
+					#{sprt_cost},
+					#{bank_img},
+					#{priority_img},
+					#{ptcp_img},
+					'0',
+					#{bank_num},
+					#{bank_name},
+					#{unq_num}
+					)
+
+	</insert>
+	
+	
+	
+	<select id="getSchList" 	parameterType="Kh_ScholarshipList" 		resultType="Kh_ScholarshipList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, schAll.*
+				FROM (	SELECT 	s."SCHOLARSHIP_NUM",
+								s."LCTR_NUM",
+								s."PTCP_TYPE",
+								s."PRIORITY_TYPE",
+								s."SPRT_COST",
+								s."BANK_IMG",
+								s."PRIORITY_IMG",
+								s."PTCP_IMG",
+								s."GIVE_STTS",
+								s."BANK_NUM",
+								s."BANK_NAME",
+								s."UNQ_NUM",
+								lc."LCTR_NAME",
+								l."ATNDC_SCR",
+								l."ASMT_SCR",
+								l."FNSH_YN",
+								l."PACE",
+								st."STDNT_NM"
+						FROM public."SCHOLARSHIP" s
+						LEFT OUTER JOIN public."LCTR_APLY" l
+							ON l."UNQ_NUM" 		= s."UNQ_NUM"
+						LEFT OUTER JOIN public."LCTR" lc
+							ON lc."LCTR_NUM" 	= s."LCTR_NUM"
+						LEFT OUTER JOIN public."STDNT" st
+							ON st."UNQ_NUM" 	= s."UNQ_NUM"
+						WHERE s."GIVE_STTS"		= '0'
+							OR s."GIVE_STTS"	= '1'
+					<where> 					
+						<if test="keyword !=null">
+							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
+					</where>
+					ORDER BY "SCHOLARSHIP_NUM"
+				) schAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
 	
 	
 	

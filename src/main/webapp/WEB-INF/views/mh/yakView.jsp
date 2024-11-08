@@ -21,15 +21,18 @@
             </tr>
             <tr>
                 <td>내용</td>
-                <td><textarea rows="10" name="pst_cn" readonly>${board.pst_cn }</textarea></td>
+                <td style="width: 100%; padding: 10px; border: 1px solid #ddd;">
+    <div style="width: 100%; height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ccc;">
+        <span name="pst_cn" readonly="readonly" th:utext>${board.pst_cn}</span>
+    </div>
             </tr>
 
             <tr>
                 <td colspan="2">
-                    <button onclick="location.href='/mh/yakModify?pst_num=${board.pst_num}'">수정</button>
+         <c:if test="${writer == board.unq_num }"><button onclick="location.href='/mh/yakModify?pst_num=${board.pst_num}'">수정</button></c:if>
                     &nbsp;&nbsp; 
                     <a href="yakList">목록보기</a>&nbsp;&nbsp; 
-                    <a href="yakDelete?pst_num=${board.pst_num }">삭제</a>&nbsp;&nbsp;
+         <c:if test="${writer == board.unq_num }"><a href="yakDelete?pst_num=${board.pst_num }">삭제</a>&nbsp;&nbsp;</c:if>
                 </td>
             </tr>
                         </c:forEach>

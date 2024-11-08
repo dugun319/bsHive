@@ -4,51 +4,64 @@
  
  <mapper namespace="com.postGre.bsHive.jwMapper">
  
- 	<insert id="insertLctr" parameterType="LCTR">
- 		INSERT into "LCTR"(
+ 	<select id="selectUserTable" parameterType="int" resultType="User_Table">
+ 		SELECT	"UNQ_NUM"
+ 		FROM	"EMP"
+ 		WHERE	"UNQ_NUM" = CAST(#{unqNum} AS INTEGER)
+
+ 	</select>
+
+ 	<insert id="insertOnln_Lctr" parameterType="Onln_Lctr">
+ 		INSERT into "ONLN_LCTR"(
  							"LCTR_NUM",
- 							"UNQ_NUM2",
- 							"APLY_TYPE",
- 							"APLY_YDM",
- 							"END_DATE",
- 							"PSCP_NOPE",
- 							"SBJCT_NM",
- 							"LCTR_NAME"
+ 							"LCTR_EXPLN",
+ 							"LCTR_DATA",
+ 							"BGNG_YMD",
+ 							"END_YMD",
+ 							"RCRT_NOPE",
+ 							"FNSH_CRTR",
+ 							"UNQ_NUM2"
  						  )
 	 
  		VALUES (
  				 #{lctr_num},
- 				 #{unq_num2},
- 				 #{aply_type},
- 				 openDate,
- 				 openDate,
- 				 #{pscp_nope},
- 				 #{sbjct_nm},
- 				 #{lctr_name}		
+ 				 #{lctr_expln},
+ 				 #{lctr_data},
+ 				 #{bgng_ymd},
+ 				 #{end_ymd},
+ 				 #{rcrt_nope},
+ 				 #{fnsh_crtr},
+ 				 #{unq_num2}		
  			   )
  	</insert>
  	
- 
- 
- 	<select id="selectOnlnLctr" parameterType="Onln_Lctr_List" resultType="Onln_Lctr_List">
- 		SELECT o."LCTR_NUM"
- 			 , l."LCTR_NAME"
- 			 , o."BGNG_YMD"
- 			 , o."END_YMD"
- 			 , o."RCRT_NOPE"
- 			 , l."PSCP_NOPE"
- 		FROM "ONLN_LCTR" o
- 		LEFT OUTER JOIN "LCTR" l on o."LCTR_NUM" = l."LCTR_NUM"
+ 	
+ 	<select id="selLctrNum" resultType="Integer">
+ 		SELECT		o."LCTR_NUM"
+		FROM		"ONLN_LCTR" o
+		LEFT JOIN 	"SYLLABUS_UNIT" s ON o."LCTR_NUM" = s."LCTR_NUM"
+		WHERE 		s."LCTR_NUM" IS NULL;
  	</select>
+ 	 	
+ 	
+ 	<insert id="insertCont" parameterType="Syllabus_Unit">
+ 		INSERT into "SYLLABUS_UNIT" (
+ 								  "UNIT_NUM",
+ 								  "LCTR_NUM",
+ 								  "VDO_ID",
+ 								  "CONTS_NM",
+ 								  "PLAY_HR"
+ 								  )
+ 		VALUES (
+ 				(CAST(#{unit_num} AS TEXT) || CAST(nextval('syllabus_unit_unit_num_seq') AS TEXT))::integer,
+ 				#{lctr_num}, 
+ 				#{vdo_id},
+ 				#{conts_nm},
+ 				#{play_hr}
+ 				)
+ 	
+ 	</insert>
  
- 	<select id="selectOnlnUnit" parameterType="int" resultType="Onln_Lctr_List">
- 		SELECT u."UNIT_NUM"
- 			 , o."CONTS_NM"
- 			 , o."PLAY_HR"
- 		FROM "SYLLABUS_UNIT" u
- 		LEFT OUTER JOIN "ONLN_CONTS" o on u."CONTS_ID" = o."CONTS_ID"
- 		ORDER BY CAST(u."UNIT_NUM" AS INTEGER) ASC
- 	</select>
- 	 
+ 
  
  </mapper>

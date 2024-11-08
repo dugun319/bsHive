@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.postGre.bsHive.hbMapper">
+ <select id="getCourseEval"  resultType="Evl_qitem">
+        SELECT * FROM "EVL_QITEM"
+ 	</select>
+<insert id="addCourseEval" parameterType="Evl_sbmsn">
+    INSERT INTO public."EVL_SBMSN" ("EVL_OX","EVL_DETNUM","LCTR_NUM","UNQ_NUM","EVL_NUM")
+    VALUES (#{evl_ox},#{evl_detnum},#{lctr_num}, #{unq_num}, #{evl_num})
+</insert>
+    <select id="studentClassList" resultType="Hb_Evl">
+	  	SELECT s.*, e."EVL_OX", e."EVL_DETNUM", e."EVL_NUM", t."STDNT_NM"
+	    FROM public."LCTR_APLY" s
+	    JOIN public."EVL_SBMSN" e ON s."UNQ_NUM" = e."UNQ_NUM"
+	    JOIN public."STDNT" t ON s."UNQ_NUM" = t."UNQ_NUM"
+    </select>
+    <select id="getstudentClassList" resultType="Hb_Evl">
+     SELECT 
+     la."LCTR_NUM",
+     la."UNQ_NUM",
+     la."APLY_STTS",
+     la."ATNDC_SCR",
+     la."ASMT_SCR",
+     la."FNSH_YN",
+     la."PACE",
+     la."EVL_TOTAL",
+	 l."LCTR_NAME",
+	 S."STDNT_NM"
+FROM 
+   "LCTR_APLY" la
+JOIN 
+    "LCTR" l ON la."LCTR_NUM"= l."LCTR_NUM"
+  JOIN
+  	"STDNT" S ON la."UNQ_NUM" = S."UNQ_NUM" 
+  	 WHERE ((la."LCTR_NUM" / 100) % 10) BETWEEN 5 AND 9
+    </select>
+    <select id="getClassName" resultType="String">
+    SELECT l."LCTR_NAME"
+    FROM public."LCTR" l1
+  	 JOIN public."LCTR_APLY" e ON l."LCTR_NUM" = e."LCTR_NUM"
+    </select>
+ <select id="getDetailGrade" resultType="Hb_Evl">
+	    SELECT
+	        l.*, s.*
+	    FROM public."LCTR_APLY" l
+	    JOIN public."STDNT" s ON l."UNQ_NUM" = s."UNQ_NUM"
+	    WHERE s."UNQ_NUM" = CAST(#{unq_num} AS INTEGER) 
+	    AND l."LCTR_NUM" = CAST(#{lctr_num} AS INTEGER)
+</select>
+
+ </mapper>

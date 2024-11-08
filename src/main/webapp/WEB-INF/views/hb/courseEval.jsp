@@ -5,28 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>학생용 강의 평가 페이지입니다</title>
+    
     <style>
-        body {
-        	width:1920px;
-            margin: 0;
-            display: flex;
-            flex-direction: column; /* 세로 방향 정렬 */
-            height: 100vh; /* 전체 화면 높이 사용 */
-        }
-        .content {
-            display: flex; /* 사이드바와 메인 콘텐츠를 나란히 배치 */
-            flex: 1; /* 남은 공간을 차지 */
-        }
-        .sidebar {
-            width: 410px; /* 사이드바 너비 */
-            padding: 15px;
-            background-color: #f9f9f9; /* 사이드바 배경색 */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택 사항) */
-        }
-        main {
-            width: 1180px; /* 메인 콘텐츠 너비 */
-            padding: 15px;
-        }
         h2 {
             color: #333;
         }
@@ -64,10 +44,22 @@
             opacity: 0.8;
         }
     </style>
+    <script type="text/javascript">
+        // 강의 평가 제출 완료 후 알림 띄우기
+        function showSubmitConfirmation() {
+            // 평가 제출 후 성공 메시지
+            const submitConfirmation = confirm("강의 평가가 제출되었습니다. 성적을 확인하시겠습니까?");
+            
+            // 확인을 누르면 성적 확인 페이지로 이동
+            if (submitEvaluation) {
+                window.location.href = "showResult.jsp";  // 성적 확인 페이지로 리디렉션
+            }
+        }
+    </script>
 </head>
 <body>
     <header> <%@ include file="../header.jsp" %> </header>
-    <div class="content">
+    <div class="container1">
         <div class="sidebar">
             <%@ include file="../sidebarLctr.jsp" %> <!-- 사이드바 포함 -->
         </div>
@@ -82,25 +74,27 @@
                 <hr>
             </div>
             <p>
-            <form action="submitEvaluation" method="post">
-                <table>
+            당신의 학번 :  <strong>${unqNum}</strong>
+            
+              <form action="submitEvaluation" method="post" onsubmit="showSubmitConfirmation()">
+             <table>
                     <tr>
                         <th>문항</th>
                         <th>점수</th>
                     </tr>
-                    <c:forEach var="question" items="${questions}" varStatus="status">
-                        <tr>
-                            <td>${status.index + 1}. ${question}</td>
-                            <td>
-                                <c:forEach var="score" begin="1" end="5">
-                                    <label>
-                                        <input type="radio" name="scores[${status.index}]" value="${score}" required>
-                                      ${score}점
-                                    	</label>
-                                </c:forEach>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <c:forEach var="question" items="${evalQuestions}">
+				    <tr>
+				        <td>${question.evl_detnum}: ${question.evl_detail}</td>
+				        <td>
+				            <c:forEach var="score" begin="1" end="5">
+				                <label>
+								<input type="radio" name="evaluationScores[${question.evl_detnum}]" value="${score}" required>
+                                        ${score}점
+                                    </label>
+				            </c:forEach>
+				        </td>
+				    </tr>
+				</c:forEach>
                 </table>
                 <input type="submit"  value="제출">
                 <input type="reset" value="초기화">

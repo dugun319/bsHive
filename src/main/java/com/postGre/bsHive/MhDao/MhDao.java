@@ -2,6 +2,7 @@ package com.postGre.bsHive.MhDao;
 
 import java.util.List;
 
+import com.postGre.bsHive.Amodel.File;
 import com.postGre.bsHive.Amodel.Pst;
 
 public interface MhDao {
@@ -35,5 +36,25 @@ public interface MhDao {
 	int totalFaqList();
 
 	List<Pst> fnqView(Pst pst);
+
+	int faqInsert(Pst pst);
+
+	int faqDelete(int pst_num);
+
+	int updatefaq(Pst pst);
+
+	int totaloneList();
+
+	List<Pst> listOne(Pst pst);
+
+	List<Pst> oneView(Pst pst);
+
+	int oneDelete(int pst_num);
+
+	int oneInsert(Pst pst);
+
+	int updateone(Pst pst);
+
+	int noticeCreate(Pst pst, List<File> fileList);
 
 }

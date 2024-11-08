@@ -14,11 +14,10 @@
 		order  by "WRT_YMD" desc
 	</select>
 	
-	<select id="joinAplyLctrAllList" resultType="Mn_LctrAplyOflWeek">
+	<select id="joinAplyLctrAllList" resultType="Mn_LctrAplyOflWeek" parameterType="Map">
 		SELECT 
 		    lc."LCTR_NUM",
 		    lc."LCTR_NAME",
-		    lc."SBJCT_NM",
 		    ofl."BGNG_YMD",
 		    ofl."END_YMD",
 		    lc."END_DATE"
@@ -28,5 +27,222 @@
 		    "OFL_LCTR" ofl ON lc."LCTR_NUM" = ofl."LCTR_NUM"
 		WHERE 
 		    lc."APLY_TYPE" = '1'
+		ORDER BY 
+    		ofl."BGNG_YMD" DESC
+		LIMIT #{endIndex} OFFSET #{startIndex}
 	</select>
+	
+	<select id="lctrSearchListMap" resultType="Mn_LctrAplyOflWeek" parameterType="String">
+		SELECT 
+		    lc."LCTR_NUM",
+		    lc."LCTR_NAME",
+		    ofl."BGNG_YMD",
+		    ofl."END_YMD",
+		    lc."END_DATE"
+		FROM 
+		    "LCTR" lc
+		JOIN 
+		    "OFL_LCTR" ofl ON lc."LCTR_NUM" = ofl."LCTR_NUM"
+		WHERE 
+		    lc."APLY_TYPE" = '1'
+		AND
+			lc."LCTR_NAME" LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="listLctrmAllList" resultType="Lctrm">
+		SELECT *
+		FROM "LCTRM"
+	</select>
+	
+	<select id="selLctrmList" resultType="Sort_Code">
+		SELECT *
+		FROM   "SORT_CODE"
+		WHERE  "BCODE" = 260
+		ORDER BY "MCODE" ASC
+	</select>
+	
+	<select id="getSelLctrRomNum" resultType="Lctrm" parameterType="String"> 
+		SELECT *
+		FROM   "LCTRM"
+		WHERE  "LCTRM_NUM" = CAST(#{roomNumber} AS INTEGER)
+	</select>
+	
+	<insert id="insertLctrRomNum" parameterType="Mn_LctrAplyOflWeek">
+		<!-- INSERT INTO "LCTR"
+		VALUES (#{lctr_num,jdbcType=INTEGER},
+				'#{unq_num}',
+				'0',
+				NOW(),
+				'#{pscp_nope}',
+				'#{lctr_name}',
+				'#{unq_num2}',
+				'#{end_date}' )
+		
+		INSERT INTO "OFL_LCTR"
+		VALUES ((SELECT "LCTR_NUM"
+				FROM   "LCTR"
+				WHERE  "LCTR_NUM" = '#{lctr_num}'),
+				'#{bgng_ymd}',
+				'#{end_ymd}',
+				'#{fnsh_cost}',
+				'#{fnsh_crtr}')
+				
+		INSERT INTO "OFL_SYLLABUS"
+		VALUES ((SELECT "LCTR_NUM"
+				FROM   "OFL_LCTR"
+				WHERE  "LCTR_NUM" = '#{lctr_num}'),
+				'#{lctr_otln}',
+				'#{edu_prps}',
+				'#{edu_cn}',
+				'#{evl_mthd}',
+				'#{ref_data_cn}',
+				'#{excptn_mttr}')
+		
+		INSERT INTO "LCTRM"
+		VALUES ('#{lctrm_num}',
+				(SELECT "LCTR_NUM"
+				FROM   "OFL_SYLLABUS"
+				WHERE  "LCTR_NUM" = '#{lctr_num}'),
+				'#{bgng_tm}',
+				'#{end_tm}',
+				'#{dow}') -->
+		INSERT INTO "LCTR" (
+	        "LCTR_NUM", "UNQ_NUM", "APLY_TYPE", "APLY_YDM", "PSCP_NOPE", "LCTR_NAME", "UNQ_NUM2", "END_DATE"
+	    )
+	    VALUES (#{lctr_num,jdbcType=INTEGER},
+				#{unq_num,jdbcType=INTEGER},
+				0,
+				NOW(),
+				#{pscp_nope},
+				#{lctr_name},
+				#{unq_num2},
+				#{end_date} );
+		
+		INSERT INTO "OFL_LCTR" (
+								"LCTR_NUM", "BGNG_YMD", "END_YMD", "FNSH_COST", "FNSH_SCR")
+		VALUES ((SELECT "LCTR_NUM"
+				FROM   "LCTR"
+				WHERE  "LCTR_NUM" = #{lctr_num,jdbcType=INTEGER}),
+				#{bgng_ymd},
+				#{end_ymd},
+				CAST(#{fnsh_cost} AS INTEGER),
+				#{fnsh_scr});
+				
+		INSERT INTO "OFL_SYLLABUS" (
+									"LCTR_NUM", "LCTR_OTLN", "EDU_PRPS", "EDU_CN", "EVL_MTHD", "REF_DATA_CN", "EXCPTN_MTTR")
+		VALUES ((SELECT "LCTR_NUM"
+				FROM   "OFL_LCTR"
+				WHERE  "LCTR_NUM" = #{lctr_num,jdbcType=INTEGER}),
+				#{lctr_otln},
+				#{edu_prps},
+				#{edu_cn},
+				#{evl_mthd},
+				#{ref_data_cn},
+				#{excptn_mttr});
+		
+		INSERT INTO "LCTRM" (
+							"LCTRM_NUM", "LCTR_NUM", "BGNG_TM", "END_TM", "DOW_DAY")
+		VALUES (#{lctrm_num},
+				(SELECT "LCTR_NUM"
+				FROM   "OFL_SYLLABUS"
+				WHERE  "LCTR_NUM" = #{lctr_num,jdbcType=INTEGER}),
+				#{bgng_tm},
+				#{end_tm},
+				#{dow_day});
+		
+		
+	</insert>
+	
+	<insert id="insertLctrWeek" parameterType="Lctr_Week">
+		INSERT INTO "LCTR_WEEK"(
+								"LCTR_WEEKS",
+								"LCTR_NUM",
+								"LCTR_YMD",
+								"LCTR_PLAN",
+								"LCTRM_NUM",
+								"FILE_GROUP")
+		VALUES (#{lctr_weeks},
+				(SELECT "LCTR_NUM"
+				FROM   "LCTRM"
+				WHERE  "LCTR_NUM" = #{lctr_num,jdbcType=INTEGER}),
+				#{lctr_ymd},
+				#{lctr_plan},
+				#{lctrm_num},
+				#{file_group})
+	</insert>
+	
+	<select id="getSelStdnt" parameterType="int" resultType="Stdnt">
+		select *
+		from   "EMP"
+		where  "UNQ_NUM" = #{userSess}
+	</select>
+	
+	<select id="selcountLctr" resultType="int">
+		SELECT 
+		    count(*)
+		FROM 
+		    "LCTR" lc
+		JOIN 
+		    "OFL_LCTR" ofl ON lc."LCTR_NUM" = ofl."LCTR_NUM"
+		WHERE 
+		    lc."APLY_TYPE" = '1'
+	</select>
+	
+	<select id="selListPage" parameterType="int" resultType="Mn_LctrInfoPage">
+		SELECT DISTINCT l."LCTR_NUM",
+						l."LCTR_NAME", 
+						e."EMP_NM", 
+						ol."BGNG_YMD", 
+						ol."END_YMD", 
+						lm."DOW_DAY", 
+						lm."BGNG_TM", 
+						lm."END_TM", 
+						l."PSCP_NOPE", 
+						ol."FNSH_COST",
+						os."LCTR_OTLN",
+						os."EDU_PRPS",
+						os."EDU_CN",
+						os."EVL_MTHD",
+						os."REF_DATA_CN",
+						os."EXCPTN_MTTR" 
+		FROM "LCTR" AS l
+		JOIN "OFL_SYLLABUS"  AS os ON l."LCTR_NUM" 	 = os."LCTR_NUM"
+		JOIN "OFL_LCTR" 	 AS ol ON l."LCTR_NUM" 	 = ol."LCTR_NUM"
+		JOIN "LCTR_WEEK" 	 AS lw ON l."LCTR_NUM" 	 = lw."LCTR_NUM"
+		JOIN "LCTRM" 		 AS lm ON lw."LCTR_NUM" = lm."LCTR_NUM"
+		JOIN "EMP" 		 	 AS e  ON l."UNQ_NUM2" 	 = e."UNQ_NUM"
+		WHERE l."LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<select id="selWeeksList" parameterType="int" resultType="Lctr_Week">
+		select "LCTR_WEEKS"
+			 , "LCTR_NUM"
+			 , "LCTR_YMD"
+			 , "LCTR_PLAN"
+			 , "LCTRM_NUM"
+			 , "FILE_GROUP"
+		from   "LCTR_WEEK"
+		where  "LCTR_NUM" = #{lctrNumInt}
+	</select>
+	
+	 <select id="getNextFileGroupNum" resultType="Int">
+        SELECT
+        NEXTVAL('seq_file_group')
+    </select>
+    
+    <select id="getMaxFileSeq" parameterType="int"
+        resultType="java.lang.Integer">
+        SELECT COALESCE(MAX("FILE_NO"), 0) 
+        FROM "FILE" 
+        WHERE
+        "FILE_GROUP" = #{file_group}
+    </select>
+    
+    <insert id="FileUpload" parameterType="File">
+        INSERT INTO
+        "FILE"(
+		"FILE_GROUP", "FILE_NO", "FILE_UNQ", "DWNLD_FILE_NM", "FILE_SIZE", "FILE_PATH_NM")
+        VALUES
+        (#{file_group},#{file_no},#{file_unq},#{dwnld_file_nm},#{file_size},#{file_path_nm})
+    </insert>
 </mapper>

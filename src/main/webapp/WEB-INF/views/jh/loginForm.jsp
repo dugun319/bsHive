@@ -72,9 +72,7 @@
 	            <ul class="sign_up_find_idpw">
 	                <li><a href="/jh/signUpSelect">회원가입</a></li>
 	                <li><span>&nbsp;|&nbsp;</span></li>
-	                <li><a href="/joinAgree">아이디 찾기</a></li>
-	                <li><span>&nbsp;|&nbsp;</span></li>
-	                <li><a href="/joinAgree">비밀번호 찾기</a></li>
+	                <li><a href="/jh/findPw">비밀번호 찾기</a></li>
 	            </ul>
 	        </div>
         </div>

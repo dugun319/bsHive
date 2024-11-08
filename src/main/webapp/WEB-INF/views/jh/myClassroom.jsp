@@ -1,76 +1,128 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
 <%@ include file="jstl.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link rel="stylesheet" type="text/css" href="/css/jh_mypage.css">
-
+<link rel="stylesheet" type="text/css" href="/css/jh_myClassroom.css">
 </head>
 <body>
 
-<header class="header">
-    <h1>Çì´õ</h1>
-</header>
-
 <div class="body">
-    <div class="title">³ªÀÇ °­ÀÇ½Ç</div> <!-- Á¦¸ñ Ãß°¡ -->
-
-    <div class="main-container"> <!-- ¸®½ºÆ®¿Í ÄÜÅÙÃ÷¸¦ °¨½Î´Â ÄÁÅ×ÀÌ³Ê -->
+    <div class="title">ë‚˜ì˜ ê°•ì˜ì‹¤</div>
+    <div class="main-container"> 
         <div class="list">
-            <a href="/jh/myPage"><div>¸¶ÀÌÆäÀÌÁö</div></a>
-            <div>È¸¿øÁ¤º¸º¯°æ</div>
-            <div>ºñ¹Ğ¹øÈ£ º¯°æ</div>
-            <div>¼ö°­½ÅÃ»ÇöÈ²</div>
-            <div class="active">³ªÀÇ °­ÀÇ½Ç</div>
-            <div>³»°¡ µî·ÏÇÑ ±Û</div>
-            <div>È¸¿øÅ»Åğ</div>
+            <%@ include file="myPageSideBar.jsp" %>
         </div>
 
         <div class="content">
-		   
-		   
-		   <!-- ¹ŞÀº ÂÊÁöÇÔ ¼½¼Ç -->
 		    <div class="block_1">
-		    <hr/>
-		        <h2>°­ÀÇ¸ñ·Ï</h2>
-		        <table class="border">
-		        <colgroup>
-			        <col style="width: 100px;"> <!-- °­ÀÇ¹øÈ£ ¿­ÀÇ ³Êºñ -->
-			        <col style="margin-left: 30px;"> <!-- ÇĞ»ı°íÀ¯¹øÈ£ ¿­ÀÇ ¿ŞÂÊ °ø¹é -->
-			    </colgroup>
-		            <thead>
-		                <tr>
-		                    <td>°­ÀÇ¹øÈ£</td>
-		                    <td>ÇĞ»ı°íÀ¯¹øÈ£</td>
-		                </tr>
-		            </thead>
-		            <tbody>
-		                <c:forEach var="myClass" items="${myClass}">
-		                    <tr>
-		                    	<td>${myClass.lctr_num}</td>
-		                    	<td>${myClass.unq_num}</td>
-		               			<td><a style="cursor: pointer;" href="/se/lctrViewList?unq_num=${myClass.unq_num}&lctr_num=${myClass.lctr_num}">Å×½ºÆ®½ÃÃ»</a></td>
-						 	</tr>					
-		                </c:forEach>
-		            </tbody>
-		        </table>
+				<div class="select button">
+				    <a href="/jh/myClassroom" class="${myOnlineClass ? 'active' : ''}">ì˜¨ë¼ì¸ ê°•ì˜</a>
+				    <a href="/jh/myOfflineClass" class="${myOfflineClass ? 'active' : ''}">ì˜¤í”„ë¼ì¸ ê°•ì˜</a>
+				</div>
+
+				<!-- ì˜¨ë¼ì¸ ê°•ì˜ ë¶ˆëŸ¬ì˜¤ê¸°-->
+				<c:if test="${!myOfflineClass}"> 
+	    			<h2>ì˜¨ë¼ì¸ ê°•ì˜ëª©ë¡</h2>
+				    <table class="border">
+				        <thead>
+							<tr>
+							    <th>ìˆœë²ˆ</th> <!-- ìˆœë²ˆ ì¶”ê°€ -->
+							    <th>ê°•ì˜ë²ˆí˜¸</th>
+							    <th>ê°•ì˜ëª…</th>
+							    <th>ê°•ì‚¬ëª…</th>
+							    <th>ì‹œì‘ì¼</th>
+							    <th>ì¢…ë£Œì¼</th>
+							    <th>ê°•ì˜ì§„ë„ìœ¨</th>
+							    <th>ê°•ì˜ìƒíƒœ</th>
+							    <th>ìˆ˜ë£Œì—¬ë¶€</th>
+							    <th>ë‚˜ì˜ ê³ ìœ ë²ˆí˜¸(í•™ìƒ)</th>
+							</tr>
+				        </thead>
+				        <tbody>
+				            <c:forEach var="myClass" items="${myClass}" varStatus="status">
+				                <tr>
+				                    <td>${status.index + 1}</td> <!-- ìˆœë²ˆ í‘œì‹œ -->
+				                    <td>${myClass.lctr_num}</td>
+									<td>
+										<c:choose>
+									        <c:when test="${fn:length(myClass.lctr_name) > 15}">
+									            ${fn:substring(myClass.lctr_name, 0, 15)}...
+									        </c:when>
+									        <c:otherwise>
+									            ${myClass.lctr_name}
+									        </c:otherwise>
+									    </c:choose>
+									</td>
+				                    <td>${myClass.emp_nm}</td>
+				                    <td>${myClass.bgng_ymd}</td>
+				                    <td>${myClass.end_ymd}</td>
+				                    <td>${myClass.pace}</td>
+				                    <td>${myClass.aply_type}</td>
+				                    <td>${myClass.fnsh_yn}</td>
+				                    <td>${myClass.unq_num}</td>
+				                    <td style="display: none;">${myClass.unq_num}</td>
+				                </tr>					
+				            </c:forEach>
+				        </tbody>
+				    </table>
+				</c:if>
+	
+				<c:if test="${myOfflineClass}">
+				    <h2>ì˜¤í”„ë¼ì¸ ê°•ì˜ëª©ë¡</h2>
+				    <table class="border">
+				        <thead>
+							<tr>
+							    <th>ìˆœë²ˆ</th> <!-- ìˆœë²ˆ ì¶”ê°€ -->
+							    <th>ê°•ì˜ë²ˆí˜¸</th>
+							    <th>ê°•ì˜ëª…</th>
+							    <th>ê°•ì‚¬ëª…</th>
+							    <th>ì‹œì‘ì¼</th>
+							    <th>ì¢…ë£Œì¼</th>
+							    <th>ê°•ì˜ì§„ë„ìœ¨</th>
+							    <th>ê°•ì˜ìƒíƒœ</th>
+							    <th>ìˆ˜ë£Œì—¬ë¶€</th>
+							    <th>ë‚˜ì˜ ê³ ìœ ë²ˆí˜¸(í•™ìƒ)</th>
+							</tr>
+				        </thead>
+				        <tbody>
+				            <c:forEach var="myClass" items="${myClass}" varStatus="status">
+				                	<tr onclick="location.href='/hs/hsClassMain?lctr_num=${myClass.lctr_num }';" style="cursor: pointer;">
+				                    <td>${status.index + 1}</td> <!-- ìˆœë²ˆ í‘œì‹œ -->
+				                    <td>${myClass.lctr_num}</td>
+			                    	<td>
+										<c:choose>
+									        <c:when test="${fn:length(myClass.lctr_name) > 15}">
+									            ${fn:substring(myClass.lctr_name, 0, 15)}...
+									        </c:when>
+									        <c:otherwise>
+									            ${myClass.lctr_name}
+									        </c:otherwise>
+									    </c:choose>
+									</td>
+				                    <td>${myClass.emp_nm}</td>
+				                    <td>${myClass.bgng_ymd}</td>
+				                    <td>${myClass.end_ymd}</td>
+				                    <td>${myClass.pace}</td>
+				                    <td>${myClass.aply_type}</td>
+				                    <td>${myClass.fnsh_yn}</td>
+				                    <td>${myClass.unq_num}</td>
+				                    <td style="display: none;">${myClass.unq_num}</td>
+				                </tr>					
+				            </c:forEach>
+				        </tbody>
+				    </table>
+				</c:if>
 		    </div>
-		    
-        </div>
+        </div>      
     </div>
 </div>
-
-<footer class="footer">
-        &copy; 2024 MyPage Corp. All rights reserved.
-</footer>
-
-
-
-
-	
 </body>
+<footer>
+	<%@ include file="../footer.jsp" %>
+</footer>
 </html>

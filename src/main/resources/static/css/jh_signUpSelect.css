@@ -11,6 +11,7 @@
             align-items: center; /* 수직 중앙 정렬 */
             height: 100vh; /* 화면 전체 높이 */
             position: relative; /* 자식 요소의 위치 조정 */
+            max-width: 100%; /* 최대 너비를 화면 너비로 제한 */
         }
 
         .image_container {

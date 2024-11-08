@@ -1,0 +1,54 @@
+@charset "UTF-8";
+	.lctrList_main_banner_text {
+		position: absolute;
+		z-index: 3;
+		font-size: 60px;
+		right: 580px;
+		top: 220px;
+		font-weight: 800;
+		color: #fdfdfd;
+	}
+	
+	.lctrList_main_banner_text2 {
+		position: absolute;
+		z-index: 3;
+		font-size: 60px;
+		right: 320px;
+		top: 220px;
+		font-weight: 100;
+		color: #fdfdfd;
+	}
+	
+	.lctrList_main_banner_text3 {
+		position: absolute;
+		z-index: 3;
+		font-size: 20px;
+		right: 600px;
+		top: 195px;
+		font-weight: 100;
+		color: #fdfdfd;
+	}
+	
+	.lctrList_main_banner_do {
+		position: absolute;
+		z-index: 3;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background-color: #daaf67;
+		right: 150px;
+		top: 8px;
+	}
+	
+	.lctrList_main_banner_img{
+		display: flex;
+		width: 100%;
+		height: auto;
+		opacity: 0.6;
+	}
+	
+	.lctrList_main_banner {
+		margin: 100px 0 0;
+		background-color: #323232;
+		position: relative;
+	}

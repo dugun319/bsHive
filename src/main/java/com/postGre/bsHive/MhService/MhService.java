@@ -2,6 +2,9 @@ package com.postGre.bsHive.MhService;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.postGre.bsHive.Amodel.File;
 import com.postGre.bsHive.Amodel.Pst;
 
 import jakarta.transaction.Transactional;
@@ -39,5 +42,25 @@ public interface MhService {
 	List<Pst> listFaq(Pst pst);
 
 	List<Pst> fnqView(Pst pst);
+
+	int faqInsert(Pst pst);
+
+	int faqDelete(int pst_num);
+
+	int updatefaq(Pst pst);
+
+	int totaloneList();
+
+	List<Pst> listOne(Pst pst);
+
+	List<Pst> oneView(Pst pst);
+
+	int oneDelete(int pst_num);
+
+	int oneInsert(Pst pst);
+
+	int updateone(Pst pst);
+
+	int noticeCreate(Pst pst, List<File> fileList);
 
 }
