@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
+import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
@@ -170,6 +171,13 @@ public class KhTableSeriveImplement implements KhTableSerive {
 		List<Kh_ScholarshipList> schList	= khTableDao.getSchList(sList);
 		
 		return schList;
+	}
+
+	@Override
+	public List<Kh_Lctrm> getLctrmList(String yearAndSemester) {
+		List<Kh_Lctrm> lctrmList	= khTableDao.getLctrmList(yearAndSemester);
+		
+		return lctrmList;
 	}
 
 }

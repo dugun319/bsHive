@@ -2,9 +2,12 @@ package com.postGre.bsHive.Acontroller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +24,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.Session;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
+import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Adto.Kh_pstList;
+import com.postGre.bsHive.Adto.Person;
 import com.postGre.bsHive.Amodel.Lgn;
 import com.postGre.bsHive.KhService.KhTableSerive;
 import com.postGre.bsHive.SeService.Paging;
@@ -348,10 +356,39 @@ public class KhController {
 	//
 	
 	
-	@GetMapping(value = "/lctrRoom")
-	 public String getLctrRoom(Model model) { 
+	@RequestMapping(value = "/lctrRoom", method = { RequestMethod.GET, RequestMethod.POST })
+	 public String getLctrmList(HttpServletRequest request, Model model) throws JsonMappingException, JsonProcessingException { 
 		
 		log.info("KhController getLctrRoom() is called");
+		
+		String attendanceData 	= "[{\"id\" : \"아이디1\", \"name\" : \"이름1\"}, {\"id\" : \"아이디2\", \"name\" : \"이름2\"}]";
+		JSONArray jArray		= new JSONArray(attendanceData);		
+		System.out.println("jArray -> " + jArray);
+		System.out.println("jArray jArray.get(0) -> " + jArray.get(0));
+		System.out.println("jArray jArray.length() -> " + jArray.length());
+		JSONObject jObject	= (JSONObject) jArray.get(0);
+		System.out.println("jObject.getString(\"name\") -> " + jObject.getString("name"));
+		
+		
+		ObjectMapper objectMapper 	= new ObjectMapper();
+		String userArray 			=  "[{\"id\" : \"아이디1\", \"name\" : \"이름1\"}, {\"id\" : \"아이디2\", \"name\" : \"이름2\"}]";
+		Person[] person 			= objectMapper.readValue(userArray, Person[].class);
+		List<Person> personList		= Arrays.asList(objectMapper.readValue(userArray, Person[].class));
+		
+		System.out.println("person -> " + person);
+		System.out.println("persList -> " + personList);
+		
+		String yearAndSemester 	= "";
+		
+		if(request.getContentLength() > 0) {
+			yearAndSemester		= request.getParameter("year") + request.getParameter("semester");
+			System.out.println("yearAndSemester -> " + yearAndSemester);
+		}
+
+		List<Kh_Lctrm> lctrmList 	= khTableSerive.getLctrmList(yearAndSemester);
+		
+		
+		
 		
 		return "kh/adminLctrRm"; 
 	 }
@@ -428,8 +465,8 @@ public class KhController {
 		sList.setLctr_num(lctr_num);
 		sList.setUnq_num(unq_num);
 		
-		Kh_ScholarshipList schDetail	= khTableSerive.getSchDetail(sList);
-		model.addAttribute("schDetail", schDetail);
+		Kh_ScholarshipList schList	= khTableSerive.getSchDetail(sList);
+		model.addAttribute("schList", schList);
 		
 		return "kh/applyScholarshipForm";
 	}

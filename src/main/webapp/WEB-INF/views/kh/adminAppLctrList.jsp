@@ -11,7 +11,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<style type="text/css">
+	table, th, td{
+		border-bottom: 2px solid #999999;
+		border-collapse: collapse;
+		text-align: center;
+		font-size: 16px;
+		font-weight: 600;
+	}
+</style>
 <script type="text/javascript">
 	function goSyllabus(lctr_num) {
 		var url = "/kh/admin/goSyllabus?lctr_num=" + lctr_num;

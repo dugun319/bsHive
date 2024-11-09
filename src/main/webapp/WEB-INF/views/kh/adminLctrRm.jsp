@@ -70,6 +70,27 @@ li.panel {
         	<%@ include file="tree.jsp"%>
         </div>
         <div class="main-content">
+        
+        	<div id="searchDiv">
+				<form action="/kh/admin/lctrRoom" method="post">
+					<select name="year"		id="year">
+						<option value="24">2024년도</option>
+						<option value="23">2023년도</option>
+						<option value="22">2022년도</option>
+					</select>
+					<select name="semester"	id="semester">
+						<option value="1">1학기</option>
+						<option value="2">2학기</option>
+						<option value="3">3학기</option>
+						<option value="4">4학기</option>
+						<option value="5">5학기</option>
+						<option value="6">6학기</option>
+						<option value="7">7학기</option>
+					</select>
+					<button type="submit"		id="searchButton">SEARCH</button>
+				</form>
+			</div>
+        
         	<div class="code-html">
             <div class="panel panel-primary">
                 <div class="example">
@@ -131,20 +152,7 @@ li.panel {
         
         
 <%--       
-	        <div id="searchDiv">
-				<form action="/kh/admin/boardList" method="post">
-					<select name="search"	id="search">
-						<option value="PST_NUM">게시물번호</option>
-						<option value="UNQ_NUM">작성자고유번호</option>
-						<option value="PST_TTL">제목</option>
-						<option value="PST_CN">내용</option>
-						<option value="WRT_YMD">내용</option>
-						<option value="">전체검색</option>
-					</select>
-					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
-					<button type="submit"		id="searchButton">SEARCH</button>
-				</form>
-			</div>
+	        
 
        	
 			<table>

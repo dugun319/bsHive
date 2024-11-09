@@ -14,6 +14,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONStringer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -166,6 +170,15 @@ public class HsController {
 		
 		String attendanceData = attend.getAttendanceData();
 		
+		JSONArray jArray	= new JSONArray(attendanceData);		
+		System.out.println("jArray -> " + jArray);
+		
+		System.out.println("jArray jArray.get(0) -> " + jArray.get(0));
+		System.out.println("jArray jArray.length() -> " + jArray.length());
+		
+		JSONObject jObject	= (JSONObject) jArray.get(0);
+		System.out.println("jObject.getString(\"name\") -> " + jObject.getString("name"));
+				
 		try {
 	        // JSON 문자열을 List<Hs_Attend>로 변환
 	        ObjectMapper objectMapper = new ObjectMapper();

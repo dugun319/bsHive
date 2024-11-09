@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
+import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_StdntList;
@@ -36,6 +37,11 @@ public interface KhTableDao {
 	void 					updateOflLctr(Kh_LctrList lcList);
 
 	
+	// LCTRM
+	
+	List<Kh_Lctrm> 			getLctrmList(String yearAndSemester);
+	
+	
 	// PRDOC
 	List<Kh_PrdocList> 		getPrdocList(Kh_PrdocList prList);
 	int 					getTotPrdocList(Kh_PrdocList prList);
@@ -51,6 +57,8 @@ public interface KhTableDao {
 	int 					getTotBoardList(Kh_pstList pList);
 	List<Kh_pstList> 		getBoardList(Kh_pstList pList);
 	void 					updateDelYnPst(Kh_pstList pList);
+
+	
 
 	
 

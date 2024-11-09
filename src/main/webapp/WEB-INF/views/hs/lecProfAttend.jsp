@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/css/offLctrBanner.css" rel="stylesheet" type="text/css">
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>출석입력(교수용)</title>
-
+<link href="/css/offLctrBanner.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 
 </style>
@@ -15,12 +15,13 @@
 	<%@ include file="../header.jsp" %>
 </header>
 <script type="text/javascript">
+	
 	// 아작스로 주차 별 list 불러오기
 	$(document).ready(function () {
 		$('#lctrWeekSelect').change(function() {
 			let lctr_weeks = $(this).val();
-			let lctr_num = $(this).data('lctr-num');  // 이미 HTML에서 data-lctr-num으로 서버값을 전달받음
-			$('#lctrWeeksHidden').val(lctr_weeks); // 선택된 주차를 hidden input에 설정
+			let lctr_num = $(this).data('lctr-num');  	// 이미 HTML에서 data-lctr-num으로 서버값을 전달받음
+			$('#lctrWeeksHidden').val(lctr_weeks); 		// 선택된 주차를 hidden input에 설정
 			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/hs/lecWeekProf",

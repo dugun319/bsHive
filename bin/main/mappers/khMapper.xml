@@ -268,43 +268,25 @@
 			WHERE "LCTR_NUM" 	= #{lctr_num};
 	</update>
 	
-	
-
-<!-- =========================   PRDOC   ===============================	 -->
 
 
+<!-- =========================   LectureRoom   ===============================	 -->	
 
-
- 	<select id="getPrdocList" 		parameterType="Kh_PrdocList" 	resultType="Kh_PrdocList">
-		SELECT * 
-		FROM (
-				SELECT (ROW_NUMBER() OVER()) AS rn, prdocAll.*
-				FROM (
-						SELECT *
-						FROM public."PRDOC"
-						<where> 					
-							<if test="keyword !=null">
-							${search} LIKE '%'||#{keyword}||'%'
-							</if>
-						</where>
-						ORDER BY "APLY_NUM"
-					 ) prdocAll
-		     )
+	<select id="getLctrmList" 	parameterType="String" 			resultType="Kh_Lctrm">
+		SELECT (
+				l."LCTRM_NUM",
+				l."LCTR_NUM",
+				l."BGNG_TM",
+				l."END_TM",
+				l."DOW_DAY",
+				lc."LCTR_NAME"
+				)
+		FROM public."LCTRM" l
+		LEFT OUTER JOIN public."LCTR" lc
+			ON l."LCTR_NUM"	= lc."LCTR_NUM"
+		WHERE	l."LCTR_NUM"::TEXT LIKE #{yearAndSemester}||'%'
 		
-		WHERE rn 
-    		BETWEEN #{start} AND #{end}
-	</select>
-	
-	<select id="getTotPrdocList" 	parameterType="Kh_PrdocList" 		resultType="int">
-		SELECT COUNT(*) 
-		FROM public."PRDOC"
-		<where> 					
-			<if test="keyword !=null">
-			#{search} LIKE '%'||#{keyword}||'%'
-			</if>
-		</where>
-	</select>
-	
+	</select>	
 	
 	
 <!-- =========================   Scholarship   ===============================	 -->	
@@ -425,6 +407,44 @@
 	
 	
 	
+	
+
+<!-- =========================   PRDOC   ===============================	 -->
+
+
+
+
+ 	<select id="getPrdocList" 		parameterType="Kh_PrdocList" 	resultType="Kh_PrdocList">
+		SELECT * 
+		FROM (
+				SELECT (ROW_NUMBER() OVER()) AS rn, prdocAll.*
+				FROM (
+						SELECT *
+						FROM public."PRDOC"
+						<where> 					
+							<if test="keyword !=null">
+							${search} LIKE '%'||#{keyword}||'%'
+							</if>
+						</where>
+						ORDER BY "APLY_NUM"
+					 ) prdocAll
+		     )
+		
+		WHERE rn 
+    		BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="getTotPrdocList" 	parameterType="Kh_PrdocList" 		resultType="int">
+		SELECT COUNT(*) 
+		FROM public."PRDOC"
+		<where> 					
+			<if test="keyword !=null">
+			#{search} LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+
 	
 	
 	

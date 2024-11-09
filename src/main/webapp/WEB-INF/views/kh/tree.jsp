@@ -58,7 +58,7 @@
 	
 	$(function() {
 		$("#tui-tree-node-10").click(function() {
-			location.href="/kh/admin/";
+			location.href="/kh/admin/prdocList";
 			});
 	});
 	

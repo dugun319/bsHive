@@ -49,6 +49,9 @@
 		<typeAlias alias="Kh_EmpList"				type="com.postGre.bsHive.Adto.Kh_EmpList"/>
 		<typeAlias alias="Kh_LctrList"				type="com.postGre.bsHive.Adto.Kh_LctrList"/>
 		<typeAlias alias="Kh_pstList"				type="com.postGre.bsHive.Adto.Kh_pstList"/>
+		<typeAlias alias="Kh_Lctrm"					type="com.postGre.bsHive.Adto.Kh_Lctrm"/>
+		
+		
 		
 		<typeAlias alias="Hb_Evl"					type="com.postGre.bsHive.Adto.Hb_Evl"/>
 		<typeAlias alias="Hb_Test"					type="com.postGre.bsHive.Adto.Hb_Test"/>

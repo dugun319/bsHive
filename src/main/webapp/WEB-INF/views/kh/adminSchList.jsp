@@ -101,12 +101,111 @@
 					<button type="submit"		id="searchButton">SEARCH</button>
 				</form>
 			</div>
-        
+			
+			<div>
+			
+			<table>
+				<tr>
+					<th class="cell1">강의번호</th>
+					<th class="cell2">담당교수</th>
+					<th class="cell3">전화번호</th>
+					<th class="cell4">개설일</th>
+					<th class="cell5">강의정원</th>
+					<th class="cell6">강의명</th>
+					<th class="cell7">강의상태</th>
+					<th class="cell8">강의계획서</th>
+					<th class="cell9">
+					<c:set var="status"	value="${aplyType}" />
+						<c:choose>
+							<c:when test="${status eq '0'}">
+								보완요청
+							</c:when>
+							<c:when test="${status eq '1'}">
+								강의진행
+							</c:when>
+							<c:when test="${status eq '3'}">
+								폐강
+							</c:when>
+							<c:otherwise>보완요청</c:otherwise>
+						</c:choose>
+					</th>
+					<th class="cell10">
+						<c:choose>
+							<c:when test="${status eq '0'}">
+								승인
+							</c:when>
+							<c:when test="${status eq '1'}">
+								폐강
+							</c:when>
+							<c:when test="${status eq '2'}">
+								폐강
+							</c:when>
+							<c:when test="${status eq '3'}">
+								승인
+							</c:when>
+							<c:otherwise>승인</c:otherwise>
+						</c:choose>
+					</th>			
+				</tr>
+				
+				<c:forEach	var="lctrList"	items="${lctrList}"	varStatus="status" >
+					
+					<tr>
+						<td class="cell1">${lctrList.lctr_num}</td>						
+						<td class="cell2">${lctrList.emp_nm}</td>
+						<td class="cell3">${lctrList.emp_telno}</td>
+						<td class="cell4">${lctrList.aply_ydm}</td>						
+						<td class="cell5">${lctrList.pscp_nope}</td>
+						<td class="cell6">${lctrList.lctr_name}</td>
+						<td class="cell7">
+							<c:set var="status"	value="${lctrList.aply_type}" />
+							<c:choose>
+								<c:when test="${status eq '0'}">
+									개설신청
+								</c:when>
+								<c:when test="${status eq '1'}">
+									모집중
+								</c:when>
+								<c:when test="${status eq '2'}">
+									진행중
+								</c:when>
+								<c:when test="${status eq '3'}">
+									보완요청
+								</c:when>
+								<c:when test="${status eq '4'}">
+									강의종료
+								</c:when>
+								<c:otherwise>폐강</c:otherwise>
+							</c:choose>
+						</td>
+						
+						<td class="cell8">
+							<button type="button" id="syllabus"	onclick="goSyllabus('${lctrList.lctr_num}')">강의계획서</button>
+						</td>
+						<td class="cell9">
+						<c:set var="status"	value="${lctrList.aply_type}" />
+							<c:choose>
+								<c:when test="${status eq '0'}">
+									<button type="button" class="btn btn-primary"	id="modalBtn"	data-lctrNum="${lctrList.lctr_num}" data-empNm="${lctrList.emp_nm}" style="font-size: 12px;">
+										보완요청
+									</button>
+								</c:when>
+								<c:when test="${status eq '1'}">
+									<button	id="canButton"	onclick="startLctr('${lctrList.lctr_num}')">강의시작</button>
+								</c:when>
+								<c:when test="${status eq '3'}">
+									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
+								</c:when>
+							</c:choose>	
+						</td>
+					</tr>
+				</c:forEach>
+				</table>
+			
+        </div>
         
         </div>
     </div>
-
-    
     
     <footer id="pagingDiv">
     	<div id="paging">
