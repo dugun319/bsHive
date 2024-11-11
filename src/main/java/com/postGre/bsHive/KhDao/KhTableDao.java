@@ -45,6 +45,7 @@ public interface KhTableDao {
 	// PRDOC
 	List<Kh_PrdocList> 		getPrdocList(Kh_PrdocList prList);
 	int 					getTotPrdocList(Kh_PrdocList prList);
+	Kh_PrdocList 			getPrdocDetail(Kh_PrdocList prList);
 	
 	
 	//Scholarship
@@ -52,11 +53,19 @@ public interface KhTableDao {
 	Kh_ScholarshipList 		getSchDetail(Kh_ScholarshipList sList);
 	void 					insertSchDetail(Kh_ScholarshipList schDetail);
 	List<Kh_ScholarshipList> getSchList(Kh_ScholarshipList sList);
+	String 					getScholarahipImgPath(Kh_ScholarshipList schList);
+	void 					updateGiveStss(Kh_ScholarshipList schList);
 	
 	// Board
 	int 					getTotBoardList(Kh_pstList pList);
 	List<Kh_pstList> 		getBoardList(Kh_pstList pList);
 	void 					updateDelYnPst(Kh_pstList pList);
+
+	
+
+	
+
+	
 
 	
 

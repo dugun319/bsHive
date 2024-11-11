@@ -7,12 +7,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/kh_adminStdntList.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	function delLgnId(param) {
 		confirm("로그인 ID를 삭제합니다");
 		console.log(param);
 		location.href = "/kh/admin/delLgnId?mbr_se=1&eml=" + encodeURIComponent(param);
 	}
+	
+	$(function(){
+		const sBox 			= $("#search");
+		const len 			= sBox.find("option").length;
+		const rawSearch		= '${rawList.search}';
+		
+		sBox.find("option").each(function() {
+		    if ($(this).val() == rawSearch) {
+		        $(this).prop("selected", true);
+		    }
+		});
+	});
 
 </script>
 </head>
@@ -69,25 +83,24 @@
 					</tr>
 				</c:forEach>
 			</table>
-        </div>
         
-    </div>
-    <footer id="pagingDiv">
+        
     	<div id="paging">
-				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/stdntList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Previous]</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/stdntList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}">[${i }]</a>
-				</c:forEach>
-				
-				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/stdntList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Next]</a>
-				</c:if>
-			</div>    
-    </footer>
-	
-	
+			<c:if test="${page.startPage > page.pageBlock }">
+				<a href="/kh/admin/stdntList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Previous]</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
+				<a href="/kh/admin/stdntList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}">[${i }]</a>
+			</c:forEach>
+			
+			<c:if test="${page.startPage < page.pageBlock }">
+				<a href="/kh/admin/stdntList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Next]</a>
+			</c:if>
+		</div> 
+		
+		</div>         
+    </div>
+
 </body>
 </html>

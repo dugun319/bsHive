@@ -11,7 +11,7 @@ spring:
 
   file:
     upload:
-      path: C:/upload/ 
+      path: /upload/ 
         
         
   datasource:

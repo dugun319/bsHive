@@ -180,4 +180,22 @@ public class KhTableSeriveImplement implements KhTableSerive {
 		return lctrmList;
 	}
 
+	@Override
+	public String getScholarahipImgPath(Kh_ScholarshipList schList) {
+		String filePath = khTableDao.getScholarahipImgPath(schList);
+		
+		return filePath;
+	}
+
+	@Override
+	public void updateGiveStss(Kh_ScholarshipList schList) {
+		khTableDao.updateGiveStss(schList);
+	}
+
+	@Override
+	public Kh_PrdocList getPrdocDetail(Kh_PrdocList prList) {
+		Kh_PrdocList prDetail = khTableDao.getPrdocDetail(prList);
+		return prDetail;
+	}
+
 }

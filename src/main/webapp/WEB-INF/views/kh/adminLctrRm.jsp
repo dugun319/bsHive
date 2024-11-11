@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 <html>
@@ -7,6 +10,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/kh_adminPstList.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/kh_tui-rolling-style.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/kh_common_rolling.css" />
 <script type="text/javascript">
@@ -20,6 +25,18 @@
 						+ "&del_yn=" 
 						+ del_yn;
 	}
+	
+	$(function(){
+		const sBox 			= $("#search");
+		const len 			= sBox.find("option").length;
+		const rawSearch		= '${rawList.search}';
+		
+		sBox.find("option").each(function() {
+		    if ($(this).val() == rawSearch) {
+		        $(this).prop("selected", true);
+		    }
+		});
+	});
 
 </script>
 
@@ -49,13 +66,15 @@ ul, ol, li {
 li.panel { 
 	width: 1130px; 
 	margin:0; 
-	padding:0; 
+	padding:20px; 
 	float:left; 
 	height:150px;  
 	border-radius: 0; 
 	box-shadow: none; 
 	border:0; background-color: #999999;
-	color:#fff; 
+	color:#fff;
+	font-size: 20px;
+	font-weight: 900;
 }
 
 </style>
@@ -95,12 +114,72 @@ li.panel {
             <div class="panel panel-primary">
                 <div class="example">
                     <div id="rolling" class="rolling">
+                    
                         <ul>
-                            <li class="panel">월요일</li>
-                            <li class="panel">화요일</li>
-                            <li class="panel">수요일</li>
-                            <li class="panel">목요일</li>
-                            <li class="panel">금요일</li>
+                            <li class="panel">
+                            	월요일
+                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
+                    			<c:set var="dow_day"	value="${lctrmList.dow_day}" />
+                            	<c:if test="${dow_day eq '1'}">
+                            	${lctrmList.lctr_num }
+                            	${lctrmList.lctr_name }
+                            	${lctrmList.bgng_tm }
+                            	${lctrmList.end_tm }
+                            	</c:if>
+                            	</c:forEach>
+                            </li>
+                            
+                            <li class="panel">
+                            	화요일
+                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
+                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
+                            	<c:if test="${dow_day eq '2'}">
+                            	${lctrmList.lctr_num }
+                            	${lctrmList.lctr_name }
+                            	${lctrmList.bgng_tm }
+                            	${lctrmList.end_tm }
+                            	</c:if>
+                            	</c:forEach>
+                            </li>
+                            
+                            <li class="panel">
+                            	수요일
+                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
+                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
+                            	<c:if test="${dow_day eq '3'}">
+                            	${lctrmList.lctr_num }
+                            	${lctrmList.lctr_name }
+                            	${lctrmList.bgng_tm }
+                            	${lctrmList.end_tm }
+                            	</c:if>
+                            	</c:forEach>
+                            </li>
+                            
+                            <li class="panel">
+                            	목요일
+                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
+                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
+                            	<c:if test="${dow_day eq '4'}">
+                            	${lctrmList.lctr_num }
+                            	${lctrmList.lctr_name }
+                            	${lctrmList.bgng_tm }
+                            	${lctrmList.end_tm }
+                            	</c:if>
+                            	</c:forEach>
+                            </li>
+                            
+                            <li class="panel">
+                            	금요일
+                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
+                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
+                            	<c:if test="${dow_day eq '5'}">
+                            	${lctrmList.lctr_num }
+                            	${lctrmList.lctr_name }
+                            	${lctrmList.bgng_tm }
+                            	${lctrmList.end_tm }
+                            	</c:if>
+                            	</c:forEach>
+                            </li>
                         </ul>
                     </div>
                     <div class="btn-group" id="control1">
@@ -148,78 +227,59 @@ li.panel {
             };
 
         </script>
-        
+     	</div> 
+     </div>
+       
         
         
 <%--       
 	        
 
        	
-			<table>
-				<tr>
-					<th class="cell1">게시물번호</th>
-					<th class="cell2">작성자고유번호</th>
-					<th class="cell3">이름</th>
-					<th class="cell4">전화번호</th>
-					<th class="cell5" style="text-align: center;">제목</th>
-					<th class="cell6">작성일</th>
-					<th class="cell7">삭제여부</th>
-				</tr>
-				
-				<c:forEach	var="pstList"	items="${pstList}"	varStatus="status" >
-					<tr>
-						<td class="cell1">${pstList.pst_num}</td>						
-						<td class="cell2">${pstList.unq_num}</td>
-						<td class="cell3">
-						<c:set var="status"	value="${pstList.pst_clsf}" />
-							<c:choose>
-								<c:when test="${status eq '1'}">
-									${pstList.empName}
-								</c:when>
-								<c:when test="${status eq '2'}">
-									${pstList.empName}
-								</c:when>
-								<c:when test="${status eq '3'}">
-									${pstList.empName}
-								</c:when>
-								<c:otherwise>${pstList.studentName}</c:otherwise>
-							</c:choose>
-						</td>
-						<td class="cell4">
-						<c:set var="status"	value="${pstList.pst_clsf}" />
-							<c:choose>
-								<c:when test="${status eq '1'}">
-									${pstList.empTelNo}
-								</c:when>
-								<c:when test="${status eq '2'}">
-									${pstList.empTelNo}
-								</c:when>
-								<c:when test="${status eq '3'}">
-									${pstList.empTelNo}
-								</c:when>
-								<c:otherwise>${pstList.studentTelNo}</c:otherwise>
-							</c:choose>
-						</td>
-												
-						<td class="cell5">${pstList.pst_ttl}</td>
-						<td class="cell6">${pstList.wrt_ymd}</td>						
-						<td class="cell7">
-						<c:set var="status"	value="${pstList.del_yn}" />
-							<c:choose>
-								<c:when test="${status eq '0'}">
-									<button type="button" id="del"		onclick="updateDelYnPst('${pstList.pst_num}', '${pstList.pst_clsf}', '1')">게시물삭제</button>
-								</c:when>
-								<c:otherwise>
-									<button type="button" id="recover"	onclick="updateDelYnPst('${pstList.pst_num}', '${pstList.pst_clsf}', '0')">게시물복원</button>
-								</c:otherwise>
-							</c:choose>
-							</td>
-					</tr>
-				</c:forEach>
-			</table>
-        </div>
+			<div id="rolling" class="rolling">
+                    <c:forEach	var="lctrList"	items="${lctrList}"	varStatus="status" >
+                    <c:set var="dow_day"	value="${lctrmList.dow_day}" />
+                        <ul>
+                            <li class="panel">월요일</li>
+                            <c:if test="${dow_day eq '1'}">
+                            	${lctrList.lctr_num }
+                            	${lctrList.lctr_name }
+                            	${lctrList.bgng_tm }
+                            	${lctrList.end_tm }
+                            </c:if>
+                            <li class="panel">화요일</li>
+                            <c:if test="${dow_day eq '2'}">
+                            	${lctrList.lctr_num }
+                            	${lctrList.lctr_name }
+                            	${lctrList.bgng_tm }
+                            	${lctrList.end_tm }
+                            </c:if>
+                            <li class="panel">수요일</li>
+                            <c:if test="${dow_day eq '3'}">
+                            	${lctrList.lctr_num }
+                            	${lctrList.lctr_name }
+                            	${lctrList.bgng_tm }
+                            	${lctrList.end_tm }
+                            </c:if>
+                            <li class="panel">목요일</li>
+                            <c:if test="${dow_day eq '4'}">
+                            	${lctrList.lctr_num }
+                            	${lctrList.lctr_name }
+                            	${lctrList.bgng_tm }
+                            	${lctrList.end_tm }
+                            </c:if>
+                            <li class="panel">금요일</li>
+                            <c:if test="${dow_day eq '5'}">
+                            	${lctrList.lctr_num }
+                            	${lctrList.lctr_name }
+                            	${lctrList.bgng_tm }
+                            	${lctrList.end_tm }
+                            </c:if>
+                        </ul>
+                    </c:forEach>
+                    </div>
  --%>        
-    </div>
+    
 
 	
 	

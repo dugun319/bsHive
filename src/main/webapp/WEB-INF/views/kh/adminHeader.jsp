@@ -11,7 +11,6 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <style type="text/css">
 body{
 	margin: 0px;
@@ -31,7 +30,11 @@ header{
 }
 
 
-footer {
+#paging {
+	width: 1260px;
+	position: absolute;
+	bottom: 60px;
+	left: 550px;
 	text-align: center;
 	margin-top: 15px;
 	font-size: 18px;

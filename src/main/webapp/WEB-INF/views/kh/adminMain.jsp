@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 	<header>
@@ -21,22 +23,6 @@
         	<iframe width="1200" height="700" src="https://www.youtube.com/embed/tHRy7nmr6Zk?si=vO7dBQiJYT4p0oKt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </div>
-    <footer id="pagingDiv">
-    	<div id="paging">
-				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/prdocList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Previous]</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/prdocList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}">[${i }]</a>
-				</c:forEach>
-				
-				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/prdocList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}">[Next]</a>
-				</c:if>
-			</div>    
-    </footer>
-	
 	
 </body>
 </html>

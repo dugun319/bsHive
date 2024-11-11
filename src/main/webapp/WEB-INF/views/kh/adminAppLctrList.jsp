@@ -69,6 +69,19 @@
 		window.close();
 	}
 
+	$(function(){
+		const sBox 			= $("#search");
+		const len 			= sBox.find("option").length;
+		const rawSearch		= '${rawList.aply_type}';
+		
+		sBox.find("option").each(function() {
+		    if ($(this).val() == rawSearch) {
+		        $(this).prop("selected", true);
+		    }
+		});
+	});
+	
+	
 </script>
 </head>
 <body>
@@ -251,27 +264,26 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+		
+		<div id="paging">
+			<c:if test="${page.startPage > page.pageBlock }">
+				<a href="/kh/admin/appLctrList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&lectureType=${rawList.lectureType}&aply_type=${rawList.aply_type}">[Previous]</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
+				<a href="/kh/admin/appLctrList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&lectureType=${rawList.lectureType}&aply_type=${rawList.aply_type}">[${i }]</a>
+			</c:forEach>
+			
+			<c:if test="${page.startPage < page.pageBlock }">
+				<a href="/kh/admin/appLctrList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&lectureType=${rawList.lectureType}&aply_type=${rawList.aply_type}">[Next]</a>
+			</c:if>
+		</div>
+			
         </div>
+        
     </div>
 
-    
-    
-    <footer id="pagingDiv">
-    	<div id="paging">
-				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/appLctrList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&lectureType=${rawList.lectureType}&aply_type=${rawList.aply_type}">[Previous]</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/appLctrList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&lectureType=${rawList.lectureType}&aply_type=${rawList.aply_type}">[${i }]</a>
-				</c:forEach>
-				
-				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/appLctrList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&lectureType=${rawList.lectureType}&aply_type=${rawList.aply_type}">[Next]</a>
-				</c:if>
-			</div>    
-    </footer>
-	
 	
 </body>
 </html>

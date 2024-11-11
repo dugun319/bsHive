@@ -279,6 +279,34 @@ public class KhTableDaoImplement implements KhTableDao {
 	}
 
 
+	@Override
+	public String getScholarahipImgPath(Kh_ScholarshipList schList) {
+		String filePath	= null;
+		
+		try {
+			filePath = session.selectOne("com.postGre.bsHive.kh_TableMapper.getScholarahipImgPath", schList);
+			System.out.println("KhTableDaoImplement getScholarahipImgPath() filePath -> " + filePath);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getScholarahipImgPath() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return filePath;
+	}
+
+
+	@Override
+	public void updateGiveStss(Kh_ScholarshipList schList) {
+		try {
+			System.out.println("com.postGre.bsHive.kh_TableMapper.updateGiveStss -> " + schList);
+			session.update("com.postGre.bsHive.kh_TableMapper.updateGiveStss", schList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement updateGiveStss() e.getMessage() -> " + e.getMessage());
+		}
+		
+		
+	}
+
+
 	
 	
 	
@@ -324,6 +352,20 @@ public class KhTableDaoImplement implements KhTableDao {
 		return totPrdocList;
 	}
 
+
+	@Override
+	public Kh_PrdocList getPrdocDetail(Kh_PrdocList prList) {
+		Kh_PrdocList prDetail 	= null;
+		
+		try {
+			prDetail = session.selectOne("com.postGre.bsHive.kh_TableMapper.getPrdocDetail", prList);
+			System.out.println("KhTableDaoImplement getPrdocDetail() prDetail -> " + prDetail);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getPrdocDetail() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return prDetail;
+	}
 	
 	
 	
@@ -368,7 +410,6 @@ public class KhTableDaoImplement implements KhTableDao {
 		}
 		
 	}
-
 
 
 

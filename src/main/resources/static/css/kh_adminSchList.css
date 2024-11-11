@@ -1,0 +1,171 @@
+#searchDiv{
+	margin: 15px;
+}
+
+#searchDiv select{
+	width: 120px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#searchDiv input{
+	width: 400px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#searchDiv button{
+	width: 100px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #fdfdfd;
+	background-color: #134b84;
+}
+
+table, th, td{
+	border-bottom: 2px solid #999999;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+
+.cell1{
+	width: 110px;
+	height: 55px; 	
+	max-width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+}
+
+.cell2{
+	width: 110px;
+	height: 55px;
+	max-width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell3{
+	width: 110px;
+	height: 55px;
+	max-width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell4{
+	width: 110px;
+	height: 55px;
+	max-width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell5{
+	width: 90px;
+	height: 55px;
+	max-width: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell6{
+	width: 90px;
+	height: 55px;
+	max-width: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell7{
+	width: 90px;
+	height: 55px;
+	max-width: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell8{
+	width: 90px;
+	height: 55px;
+	max-width: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell9{
+	width: 90px;
+	height: 55px;
+	max-width: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell10{
+	width: 70px;
+	height: 55px;
+	max-width: 70px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell11{
+	width: 70px;
+	height: 55px;
+	max-width: 70px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell12{
+	width: 70px;
+	height: 55px;
+	max-width: 70px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell13{
+	width: 160px;
+	height: 55px;
+	max-width: 160px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+table button{
+	width: 60px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	background-color: #999999;
+	color: #323232;
+}
+
+table button:hover{
+	width: 65px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #fdfdfd;
+	background-color: #134b84;
+}

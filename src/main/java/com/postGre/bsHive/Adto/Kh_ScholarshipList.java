@@ -33,6 +33,8 @@ public class Kh_ScholarshipList {
 	private int		start;				//시작번호
 	private int		end;				//끝번호
 	
+	private String	imgType;			// image load type
+	
 	private String	currentPage;		//현제 페이지
 	
 	

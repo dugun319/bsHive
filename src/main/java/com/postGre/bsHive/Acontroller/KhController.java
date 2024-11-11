@@ -232,6 +232,8 @@ public class KhController {
 
 		Kh_LctrList lctrDetail = khTableSerive.getLctrDetail(lcList);
 		model.addAttribute("lctrDetail", lctrDetail);
+		
+		System.out.println(lctrDetail);
 
 		return "kh/syllabusPage";
 	}
@@ -387,8 +389,7 @@ public class KhController {
 
 		List<Kh_Lctrm> lctrmList 	= khTableSerive.getLctrmList(yearAndSemester);
 		
-		
-		
+		model.addAttribute("lctrmList", lctrmList);
 		
 		return "kh/adminLctrRm"; 
 	 }
@@ -398,37 +399,11 @@ public class KhController {
 	
 
 	//
-	// prdoc
+	// scholarship
 	//
 
-	@GetMapping(value = "/prdocList")
-	public String getPrdocList(Kh_PrdocList prList, Model model) {
-		log.info("KhController getPrdocList() is called");
-
-		String rawKeyword = prList.getKeyword();
-		if (rawKeyword != null && rawKeyword.length() == 0) {
-			prList.setKeyword(null);
-			prList.setSearch(null);
-		}
-
-		int totPrdocList = khTableSerive.getTotPrdocList(prList);
-		Paging paging = new Paging(totPrdocList, prList.getCurrentPage());
-
-		System.out.println(paging);
-		prList.setStart(paging.getStart());
-		prList.setEnd(paging.getEnd());
-
-		List<Kh_PrdocList> prdocList = khTableSerive.getPrdocList(prList);
-
-		model.addAttribute("rawList", prList);
-		model.addAttribute("page", paging);
-		model.addAttribute("currentPage", prList.getCurrentPage());
-		model.addAttribute("prdocList", prdocList);
-
-		return "kh/adminPrdocList";
-	}
 	
-	@GetMapping(value = "/schList")
+	@RequestMapping(value = "/schList", method = { RequestMethod.GET, RequestMethod.POST })
 	public String getSchList(Kh_ScholarshipList sList, Model model) {
 		log.info("KhController getSchList() is called");
 		
@@ -454,6 +429,63 @@ public class KhController {
 		
 		return "kh/adminSchList";
 	}
+	
+	
+	@GetMapping(value = "/loadImg")
+	public String getScholarahipImgPath(HttpServletRequest request, Model model) {	
+		log.info("KhController loadImg() is called");
+		
+		
+		
+		int scholarship_num = Integer.parseInt(request.getParameter("num").toString());
+		String imgType		= request.getParameter("type"); 
+		
+		System.out.println("KhController loadImg() scholarship_num -> " + scholarship_num);
+		System.out.println("KhController loadImg() imgType -> " + imgType);
+		
+		if(imgType.equals("participate")) {
+			imgType	= "PTCP_IMG";
+		} else if(imgType.equals("priority")) {
+			imgType	= "PRIORITY_IMG";
+		} else {
+			imgType	= "BANK_IMG";
+		}
+		
+		Kh_ScholarshipList schList = new Kh_ScholarshipList();
+		schList.setScholarship_num(scholarship_num);
+		schList.setImgType(imgType);
+		
+		String filePath = khTableSerive.getScholarahipImgPath(schList);
+		
+		model.addAttribute("filePath", filePath);
+		
+		return "kh/loadImg";
+	}
+	
+	
+
+	@GetMapping(value = "/updateGiveStss")
+	public String updateGiveStss(HttpServletRequest request, Model model) {	
+		log.info("KhController updateGiveStss() is called");
+		
+		int scholarship_num = Integer.parseInt(request.getParameter("num"));
+		int gStts		= Integer.parseInt(request.getParameter("gStts"));
+		
+		Kh_ScholarshipList schList = new Kh_ScholarshipList();
+		schList.setScholarship_num(scholarship_num);
+		schList.setGive_stts(gStts);		
+		
+		khTableSerive.updateGiveStss(schList);
+		
+		System.out.println("KhController updateGiveStss() scholarship_num -> " + scholarship_num);
+		System.out.println("KhController updateGiveStss() gStts -> " + gStts);
+		
+		
+		
+		return "redirect:/kh/admin/schList?give_stts=" + gStts;
+	}
+	
+	
 	
 	@GetMapping(value = "/applyScholarship")
 	public String aplyScholarship(@RequestParam("lctr_num") long lctr_num, HttpSession session, Model model) {
@@ -552,14 +584,57 @@ public class KhController {
 	
 	
 	
+
+	//
+	// prdoc
+	//
+	
+	@RequestMapping(value = "/prdocList", method = { RequestMethod.GET, RequestMethod.POST })
+	public String getPrdocList(Kh_PrdocList prList, Model model) {
+		log.info("KhController getPrdocList() is called");
+		
+		System.out.println("KhController getPrdocList() -> " + prList);
+		
+		String rawKeyword = prList.getKeyword();
+		if (rawKeyword != null && rawKeyword.length() == 0) {
+			prList.setKeyword(null);
+			prList.setSearch(null);
+		}
+
+		int totPrdocList = khTableSerive.getTotPrdocList(prList);
+		Paging paging = new Paging(totPrdocList, prList.getCurrentPage());
+
+		System.out.println(paging);
+		prList.setStart(paging.getStart());
+		prList.setEnd(paging.getEnd());
+
+		List<Kh_PrdocList> prdocList = khTableSerive.getPrdocList(prList);
+
+		model.addAttribute("rawList", prList);
+		model.addAttribute("page", paging);
+		model.addAttribute("currentPage", prList.getCurrentPage());
+		model.addAttribute("prdocList", prdocList);
+
+		return "kh/adminPrdocList";
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+	@GetMapping(value = "/goCertification")
+	 public String goCertification(Kh_PrdocList prList, Model model) {
+		
+		log.info("KhController goCertification() is called");
+		
+		int prdocType			= prList.getPrdoc_type();
+		Kh_PrdocList prDetail	= khTableSerive.getPrdocDetail(prList);
+				
+		model.addAttribute("prDetail", prDetail);
+		
+		if(prdocType == 100) {
+			return "kh/certCompletion"; 
+		} else {
+			return "kh/certAward"; 
+		}
+	 }
 	
 	
 	

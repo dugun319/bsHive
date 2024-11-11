@@ -62,9 +62,9 @@ table, th, td{
 }
 
 .cell4{
-	width: 90px;
+	width: 120px;
 	height: 55px;
-	max-width: 90px;
+	max-width: 120px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -89,9 +89,9 @@ table, th, td{
 }
 
 .cell7{
-	width: 70px;
+	width: 100px;
 	height: 55px;
-	max-width: 70px;
+	max-width: 100px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -123,6 +123,7 @@ table, th, td{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
 
 table button{
 	width: 100px;

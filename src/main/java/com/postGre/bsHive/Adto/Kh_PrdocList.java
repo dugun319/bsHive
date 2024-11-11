@@ -5,13 +5,18 @@ import lombok.Data;
 @Data
 public class Kh_PrdocList {			
 	private int		aply_num;		//신청번호
-	private long 	unq_num;		//강의번호
-	private long 	lctr_num;		//고유번호
+	private long 	unq_num;		//고유번호
+	private long 	lctr_num;		//강의번호
+	private String 	lctr_name;		//강의번호
+	private String 	end_date;		//종료일
 	private int 	prdoc_type;		//증명서타입
 	private String 	aply_ymd;		//신청일
 	private String 	issu_ymd;		//발급일
 	private int 	issu_stts;		//발급상태	
 	
+	//STUDENT
+	private String	stdnt_nm;		//학생이름
+	private String 	stdnt_telno;	//연락처
 	
 	//LCTR_APLY
 	private int 	atndc_scr;		// 출석점수
@@ -20,11 +25,15 @@ public class Kh_PrdocList {
 	private int 	pace;			// 강의진도율
 	
 	
-	
 	//LCTR_EVL
 	private int		evl_total; 		//총점
 	private int 	evl_ox;			//강의평가유무
 
+	//Scholarship
+	private int 	ptcp_type;		//참여유형
+	private int		priority_type;	//우대유형
+	private String	ptcpType;		//참여유형	
+	private String	priorityType;	//우대유형	
 	
 	private String	search;			//분류
 	private String	keyword;		//Search Keyword

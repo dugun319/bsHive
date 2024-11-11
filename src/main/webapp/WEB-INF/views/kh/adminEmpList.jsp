@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link href="<%=request.getContextPath()%>/css/kh_adminStdntList.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 	function delLgnId(param, mbr_se) {
@@ -14,6 +16,18 @@
 		confirm("로그인 ID를 삭제합니다");		
 		location.href = "/kh/admin/delLgnId?mbr_se=" + mbr_se + "&eml=" + encodeURIComponent(param);
 	}
+	
+	$(function(){
+		const sBox 			= $("#search");
+		const len 			= sBox.find("option").length;
+		const rawSearch		= '${rawList.search}';
+		
+		sBox.find("option").each(function() {
+		    if ($(this).val() == rawSearch) {
+		        $(this).prop("selected", true);
+		    }
+		});
+	});
 
 </script>
 </head>
@@ -71,25 +85,25 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+		<div id="paging">
+			<c:if test="${page.startPage > page.pageBlock }">
+				<a href="/kh/admin/empList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[Previous]</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
+				<a href="/kh/admin/empList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[${i }]</a>				</c:forEach>
+			
+			<c:if test="${page.startPage < page.pageBlock }">
+				<a href="/kh/admin/empList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[Next]</a>
+			</c:if>
+		</div>
+		  
         </div>
         
+        
+        
     </div>
-    <footer id="pagingDiv">
-    	<div id="paging">
-				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/empList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[Previous]</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/empList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[${i }]</a>
-				</c:forEach>
-				
-				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/empList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&mbr_se=${mbr_se}">[Next]</a>
-				</c:if>
-			</div>    
-    </footer>
-	
 	
 </body>
 </html>

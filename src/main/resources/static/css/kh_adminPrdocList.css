@@ -1,0 +1,144 @@
+#searchDiv{
+	margin: 15px;
+}
+
+#searchDiv select{
+	width: 120px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#searchDiv input{
+	width: 400px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#searchDiv button{
+	width: 100px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #fdfdfd;
+	background-color: #134b84;
+}
+
+table, th, td{
+	border-bottom: 2px solid #999999;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.cell1{
+	width: 140px;
+	height: 55px; 	
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+}
+
+.cell2{
+	width: 140px;
+	height: 55px;
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell3{
+	width: 80px;
+	height: 55px;
+	max-width: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell4{
+	width: 140px;
+	height: 55px;
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell5{
+	width: 140px;
+	height: 55px;
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell6{
+	width: 160px;
+	height: 55px;
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell7{
+	width: 100px;
+	height: 55px;
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell8{
+	width: 120px;
+	height: 55px;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell9{
+	width: 80px;
+	height: 55px;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cell10{
+	width: 120px;
+	height: 55px;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+table button{
+	width: 100px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	background-color: #999999;
+	color: #323232;
+}
+
+table button:hover{
+	width: 100px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #fdfdfd;
+	background-color: #134b84;
+}

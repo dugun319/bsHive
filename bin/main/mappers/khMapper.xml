@@ -22,11 +22,9 @@
 					LEFT OUTER JOIN public."LGN" l
 						ON s."UNQ_NUM" = l."UNQ_NUM"
 					WHERE l."DEL_YN" = 0
-					<where> 					
-						<if test="keyword !=null">
-							s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
-						</if>
-					</where>
+					<if test="keyword !=null">
+						AND	s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+					</if>
 					ORDER BY "UNQ_NUM"
 				) 
 
@@ -48,11 +46,9 @@
 						LEFT OUTER JOIN public."LGN" l
 							ON s."UNQ_NUM" = l."UNQ_NUM"
 						WHERE l."DEL_YN" = 0
-						<where> 					
-							<if test="keyword !=null">
-								s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
-							</if>
-						</where>
+						<if test="keyword !=null">
+							AND	s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+						</if>
 						ORDER BY "UNQ_NUM"
 					 ) stdntAll
 		     )
@@ -84,11 +80,9 @@
 					ON e."UNQ_NUM" = l."UNQ_NUM"
 						AND l."MBR_SE" = #{mbr_se}
 					WHERE l."DEL_YN" = 0
-					<where> 					
-						<if test="keyword !=null">
-							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
-						</if>
-					</where>
+					<if test="keyword !=null">
+						AND	e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+					</if>
 					ORDER BY "UNQ_NUM"
 				) 
 
@@ -111,11 +105,9 @@
 					ON e."UNQ_NUM" = l."UNQ_NUM"
 						AND l."MBR_SE" = #{mbr_se}
 					WHERE l."DEL_YN" = 0
-					<where> 					
-						<if test="keyword !=null">
-							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
-						</if>
-					</where>
+					<if test="keyword !=null">
+						AND	e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+					</if>
 					ORDER BY "UNQ_NUM"
 				) empAll
 		     )
@@ -157,7 +149,7 @@
 				ON l."UNQ_NUM2" = e."UNQ_NUM"
 				WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) BETWEEN #{lectureType}::TEXT AND #{lectureTypeEnd}::TEXT
 				<if test="aply_type !=null">
-					AND l."APLY_TYPE" = #{aply_type}
+					AND l."APLY_TYPE" = #{aply_type}::INTEGER
 				</if>
 				)
 		<where> 					
@@ -188,9 +180,8 @@
 						ON l."UNQ_NUM2" = e."UNQ_NUM"
 						WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) BETWEEN #{lectureType}::TEXT AND #{lectureTypeEnd}::TEXT
 						<if test="aply_type !=null">
-							AND l."APLY_TYPE" = #{aply_type}
+							AND l."APLY_TYPE" = #{aply_type}::INTEGER
 						</if>
-						
 						)lctrAll
 				<where> 					
 					<if test="keyword !=null">
@@ -230,17 +221,16 @@
 		WHERE l."LCTR_NUM" 		= #{lctr_num}
 	</select>
 	
-	
 	<update id="updateAplyType"			parameterType="Kh_LctrList">
 		UPDATE public."LCTR"
-			SET "APLY_TYPE" 	= #{aply_type}
+			SET "APLY_TYPE" 	= #{aply_type}::INTEGER
 			WHERE "LCTR_NUM" 	= #{lctr_num};
 	</update>
 	
 	
 	<update id="openLecture"			parameterType="Kh_LctrList">
 		UPDATE public."LCTR"
-			SET "APLY_TYPE" 	= #{aply_type},
+			SET "APLY_TYPE" 	= #{aply_type}::INTEGER,
 				"UNQ_NUM" 		= #{unq_num},
 				"APLY_YDM" 		= #{aply_ydm},
 				"END_DATE" 		= #{end_date}
@@ -273,14 +263,12 @@
 <!-- =========================   LectureRoom   ===============================	 -->	
 
 	<select id="getLctrmList" 	parameterType="String" 			resultType="Kh_Lctrm">
-		SELECT (
-				l."LCTRM_NUM",
+		SELECT 	l."LCTRM_NUM",
 				l."LCTR_NUM",
 				l."BGNG_TM",
 				l."END_TM",
 				l."DOW_DAY",
 				lc."LCTR_NAME"
-				)
 		FROM public."LCTRM" l
 		LEFT OUTER JOIN public."LCTR" lc
 			ON l."LCTR_NUM"	= lc."LCTR_NUM"
@@ -293,12 +281,43 @@
 
 	<select id="getTotSchList" 		parameterType="Kh_ScholarshipList" 		resultType="int">
 		SELECT COUNT(*) 
-		FROM public."SCHOLARSHIP"
-		<where> 					
-			<if test="keyword !=null">
-			#{search} LIKE '%'||#{keyword}||'%'
-			</if>
-		</where>
+		FROM (	SELECT 	s."SCHOLARSHIP_NUM",
+						s."LCTR_NUM",
+						s."PTCP_TYPE",
+						s."PRIORITY_TYPE",
+						s."SPRT_COST",
+						s."BANK_IMG",
+						s."PRIORITY_IMG",
+						s."PTCP_IMG",
+						s."GIVE_STTS",
+						s."BANK_NUM",
+						s."BANK_NAME",
+						s."UNQ_NUM",
+						lc."LCTR_NAME",
+						l."ATNDC_SCR",
+						l."ASMT_SCR",
+						l."FNSH_YN",
+						l."PACE",
+						st."STDNT_NM"
+				FROM public."SCHOLARSHIP" s
+				LEFT OUTER JOIN public."LCTR_APLY" l
+					ON s."UNQ_NUM" 		= l."UNQ_NUM"
+					AND s."LCTR_NUM"	= l."LCTR_NUM"
+				LEFT OUTER JOIN public."LCTR" lc
+					ON s."LCTR_NUM" 	= lc."LCTR_NUM"
+				LEFT OUTER JOIN public."STDNT" st
+					ON s."UNQ_NUM" 	= st."UNQ_NUM"
+				<if test="give_stts !=null">
+			 	<where>
+					s."GIVE_STTS" 	= #{give_stts}::TEXT
+				</where>
+				</if>				
+				<if test="keyword !=null">
+				<where>
+					e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+				</where>
+				</if>
+				)
 	</select>
 
 
@@ -315,11 +334,9 @@
 				ol."FNSH_COST"
 		FROM public."LCTR_APLY" l
 		LEFT OUTER JOIN public."OFL_LCTR" ol
-			ON ol."LCTR_NUM" 	= l."LCTR_NUM"
+			ON l."LCTR_NUM" 	= ol."LCTR_NUM"
 		LEFT OUTER JOIN public."LCTR" lc
-			ON lc."LCTR_NUM" 	= l."LCTR_NUM"
-		LEFT OUTER JOIN public."STDNT" s
-			ON s."UNQ_NUM" 		= #{unq_num}
+			ON l."LCTR_NUM" 	= lc."LCTR_NUM"
 		WHERE l."LCTR_NUM"		= #{lctr_num}
 			AND l."UNQ_NUM"		= #{unq_num}
 	</select>
@@ -385,18 +402,24 @@
 								st."STDNT_NM"
 						FROM public."SCHOLARSHIP" s
 						LEFT OUTER JOIN public."LCTR_APLY" l
-							ON l."UNQ_NUM" 		= s."UNQ_NUM"
+							ON s."UNQ_NUM" 		= l."UNQ_NUM"
+							AND s."LCTR_NUM"	= l."LCTR_NUM"
 						LEFT OUTER JOIN public."LCTR" lc
-							ON lc."LCTR_NUM" 	= s."LCTR_NUM"
+							ON s."LCTR_NUM" 	= lc."LCTR_NUM"
 						LEFT OUTER JOIN public."STDNT" st
-							ON st."UNQ_NUM" 	= s."UNQ_NUM"
-						WHERE s."GIVE_STTS"		= '0'
-							OR s."GIVE_STTS"	= '1'
-					<where> 					
+							ON s."UNQ_NUM" 	= st."UNQ_NUM"
+					
+					 	<if test="give_stts !=null">
+						 	<where>
+								s."GIVE_STTS" 	= #{give_stts}::TEXT
+							</where>
+						</if>				
 						<if test="keyword !=null">
-							e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+							<where>
+								e."${search}"::TEXT LIKE '%'||#{keyword}||'%'
+							</where>
 						</if>
-					</where>
+					
 					ORDER BY "SCHOLARSHIP_NUM"
 				) schAll
 		     )
@@ -405,6 +428,19 @@
     		BETWEEN #{start} AND #{end}
 	</select>
 	
+	
+	
+	<select id="getScholarahipImgPath" 	parameterType="Kh_ScholarshipList" 		resultType="String">
+		SELECT 	"${imgType}"
+		FROM public."SCHOLARSHIP"
+		WHERE 	"SCHOLARSHIP_NUM" = #{scholarship_num}
+	</select>
+	
+	<update id="updateGiveStss"			parameterType="Kh_ScholarshipList">
+		UPDATE public."SCHOLARSHIP"
+			SET "GIVE_STTS" 			= #{give_stts}
+			WHERE "SCHOLARSHIP_NUM" 	= #{scholarship_num};
+	</update>
 	
 	
 	
@@ -419,13 +455,41 @@
 		FROM (
 				SELECT (ROW_NUMBER() OVER()) AS rn, prdocAll.*
 				FROM (
-						SELECT *
-						FROM public."PRDOC"
-						<where> 					
-							<if test="keyword !=null">
-							${search} LIKE '%'||#{keyword}||'%'
-							</if>
-						</where>
+						SELECT 	p."APLY_NUM",
+								p."UNQ_NUM",
+								p."LCTR_NUM",
+								p."PRDOC_TYPE",
+								p."APLY_YMD",
+								p."ISSU_YMD",
+								p."ISSU_STTS",
+								lc."LCTR_NAME",
+								st."STDNT_NM",
+								st."STDNT_TELNO",
+								la."ATNDC_SCR",
+								la."ASMT_SCR",
+								la."PACE",
+								la."FNSH_YN",
+								le."EVL_TOTAL",
+								le."EVL_OX",
+								sc."PTCP_TYPE",
+								sc."PRIORITY_TYPE"
+						FROM public."PRDOC" p
+						LEFT OUTER JOIN public."STDNT" st
+							ON p."UNQ_NUM" 		= st."UNQ_NUM"
+						LEFT OUTER JOIN public."LCTR" lc
+							ON p."LCTR_NUM" 	= lc."LCTR_NUM"
+						LEFT OUTER JOIN public."LCTR_APLY" la
+							ON p."UNQ_NUM" 		= la."UNQ_NUM"
+							AND p."LCTR_NUM"	= la."LCTR_NUM"
+						LEFT OUTER JOIN public."LCTR_EVL" le
+							ON p."UNQ_NUM" 		= le."UNQ_NUM"
+						LEFT OUTER JOIN public."SCHOLARSHIP" sc
+							ON p."UNQ_NUM" 		= sc."UNQ_NUM"
+							AND p."LCTR_NUM"	= sc."LCTR_NUM"
+						WHERE p."PRDOC_TYPE"	= #{prdoc_type}::TEXT
+						<if test="keyword !=null">
+							AND ${search} LIKE '%'||#{keyword}||'%'
+						</if>
 						ORDER BY "APLY_NUM"
 					 ) prdocAll
 		     )
@@ -436,15 +500,84 @@
 	
 	<select id="getTotPrdocList" 	parameterType="Kh_PrdocList" 		resultType="int">
 		SELECT COUNT(*) 
-		FROM public."PRDOC"
-		<where> 					
-			<if test="keyword !=null">
-			#{search} LIKE '%'||#{keyword}||'%'
-			</if>
-		</where>
+		FROM (
+				SELECT	p."APLY_NUM",
+						p."UNQ_NUM",
+						p."LCTR_NUM",
+						p."PRDOC_TYPE",
+						p."APLY_YMD",
+						p."ISSU_YMD",
+						p."ISSU_STTS",
+						lc."LCTR_NAME",
+						st."STDNT_NM",
+						st."STDNT_TELNO",
+						la."ATNDC_SCR",
+						la."ASMT_SCR",
+						la."PACE",
+						la."FNSH_YN",
+						le."EVL_TOTAL",
+						le."EVL_OX",
+						sc."PTCP_TYPE",
+						sc."PRIORITY_TYPE"
+				FROM public."PRDOC" p
+				LEFT OUTER JOIN public."STDNT" st
+					ON p."UNQ_NUM" 		= st."UNQ_NUM"
+				LEFT OUTER JOIN public."LCTR" lc
+					ON p."LCTR_NUM" 	= lc."LCTR_NUM"
+				LEFT OUTER JOIN public."LCTR_APLY" la
+					ON p."UNQ_NUM" 		= la."UNQ_NUM"
+					AND p."LCTR_NUM"	= la."LCTR_NUM"
+				LEFT OUTER JOIN public."LCTR_EVL" le
+					ON p."UNQ_NUM" 		= le."UNQ_NUM"
+				LEFT OUTER JOIN public."SCHOLARSHIP" sc
+					ON p."UNQ_NUM" 		= sc."UNQ_NUM"
+					AND p."LCTR_NUM"	= sc."LCTR_NUM"
+				WHERE p."PRDOC_TYPE"	= #{prdoc_type}::TEXT
+				<if test="keyword !=null">
+							AND ${search} LIKE '%'||#{keyword}||'%'
+				</if>
+				ORDER BY "APLY_NUM"
+				)
+
 	</select>
 	
+	<select id="getPrdocDetail" 	parameterType="Kh_PrdocList" 		resultType="Kh_PrdocList">
+		SELECT	p."APLY_NUM",
+				p."UNQ_NUM",
+				p."LCTR_NUM",
+				p."PRDOC_TYPE",
+				p."APLY_YMD",
+				p."ISSU_YMD",
+				p."ISSU_STTS",
+				lc."LCTR_NAME",
+				lc."END_DATE",
+				st."STDNT_NM",
+				st."STDNT_TELNO",
+				la."ATNDC_SCR",
+				la."ASMT_SCR",
+				la."PACE",
+				la."FNSH_YN",
+				le."EVL_TOTAL",
+				le."EVL_OX",
+				sc."PTCP_TYPE",
+				sc."PRIORITY_TYPE"
+		FROM public."PRDOC" p
+		LEFT OUTER JOIN public."STDNT" st
+			ON p."UNQ_NUM" 		= st."UNQ_NUM"
+		LEFT OUTER JOIN public."LCTR" lc
+			ON p."LCTR_NUM" 	= lc."LCTR_NUM"
+		LEFT OUTER JOIN public."LCTR_APLY" la
+			ON p."UNQ_NUM" 		= la."UNQ_NUM"
+			AND p."LCTR_NUM"	= la."LCTR_NUM"
+		LEFT OUTER JOIN public."LCTR_EVL" le
+			ON p."UNQ_NUM" 		= le."UNQ_NUM"
+		LEFT OUTER JOIN public."SCHOLARSHIP" sc
+			ON p."UNQ_NUM" 		= sc."UNQ_NUM"
+			AND p."LCTR_NUM"	= sc."LCTR_NUM"
+		WHERE p."PRDOC_TYPE"	= #{prdoc_type}::TEXT
+			AND p."APLY_NUM"	= #{aply_num}
 
+	</select>
 	
 	
 	
@@ -473,11 +606,11 @@
 				WHERE p."PST_CLSF" 	= #{ pst_clsf}
 <!-- 					AND e."EMP_NM" is NOT NULL
 					OR	s."STDNT_NM" is NOT NULL -->
-				<where> 					
-					<if test="keyword !=null">
+				<if test="keyword !=null">
+					<where> 					
 						s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
-					</if>
-				</where>
+					</where>
+				</if>
 				) 
 
 	</select>
@@ -505,11 +638,11 @@
 						WHERE p."PST_CLSF" 	= #{ pst_clsf}
 <!-- 							AND e."EMP_NM" is NOT NULL
 							OR	s."STDNT_NM" is NOT NULL -->
-						<where> 					
-							<if test="keyword !=null">
+						<if test="keyword !=null">
+							<where> 					
 								s."${search}"::TEXT LIKE '%'||#{keyword}||'%'
-							</if>
-						</where>
+							</where>
+						</if>
 					 ) pstAll
 		     )
 		

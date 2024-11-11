@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/kh_adminPstList.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	function updateDelYnPst(pst_num, pst_clsf, del_yn) {
 		console.log(pst_num);
@@ -18,6 +20,18 @@
 						+ "&del_yn=" 
 						+ del_yn;
 	}
+	
+	$(function(){
+		const sBox 			= $("#search");
+		const len 			= sBox.find("option").length;
+		const rawSearch		= '${rawList.search}';
+		
+		sBox.find("option").each(function() {
+		    if ($(this).val() == rawSearch) {
+		        $(this).prop("selected", true);
+		    }
+		});
+	});
 
 </script>
 </head>
@@ -112,23 +126,23 @@
 			</table>
         </div>
         
+		<div id="paging">
+			<c:if test="${page.startPage > page.pageBlock }">
+				<a href="/kh/admin/boardList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&pst_clsf=${rawList.pst_clsf}">[Previous]</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
+				<a href="/kh/admin/boardList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&pst_clsf=${rawList.pst_clsf}">[${i }]</a>
+			</c:forEach>
+			
+			<c:if test="${page.startPage < page.pageBlock }">
+				<a href="/kh/admin/boardList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&pst_clsf=${rawList.pst_clsf}">[Next]</a>
+			</c:if>
+		</div> 
+		
+		</div>
+        
     </div>
-    <footer id="pagingDiv">
-    	<div id="paging">
-				<c:if test="${page.startPage > page.pageBlock }">
-					<a href="/kh/admin/boardList?currentPage=${page.startPage - page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&pst_clsf=${rawList.pst_clsf}">[Previous]</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<a href="/kh/admin/boardList?currentPage=${i }&search=${rawList.search}&keyword=${rawList.keyword}&pst_clsf=${rawList.pst_clsf}">[${i }]</a>
-				</c:forEach>
-				
-				<c:if test="${page.startPage < page.pageBlock }">
-					<a href="/kh/admin/boardList?currentPage=${page.startPage + page.pageBlock }&search=${rawList.search}&keyword=${rawList.keyword}&pst_clsf=${rawList.pst_clsf}">[Next]</a>
-				</c:if>
-			</div>    
-    </footer>
-	
 	
 </body>
 </html>
