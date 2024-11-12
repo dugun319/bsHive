@@ -7,7 +7,46 @@
 <meta charset="UTF-8">
 <title>출석확인</title>
 <style type="text/css">
-
+	/* 메인 콘텐츠 영역 */
+	.main {
+	    width: 70%;
+	    background-color: #fff;
+	    padding: 30px;
+	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	/* 섹션 제목 스타일 */
+	h1 {
+	    font-size: 28px;
+	    color: #134b84;
+	    border-bottom: 2px solid #134b84;
+	    padding-bottom: 15px;
+	    margin-bottom: 20px;
+	}
+	
+	/* 테이블 스타일 */
+	table {
+	    width: 100%;
+	    border-collapse: collapse;
+	    margin-top: 20px;
+	}
+	
+	th {
+	    background-color: #134b84;
+	    color: white;
+	    font-weight: normal;
+	    text-align: center !important;
+	    padding: 12px;
+	    font-size: 16px;
+	}
+	
+	td {
+	    padding: 12px;
+	    text-align: center;
+	    background-color: #fff;
+	    color: #333;
+	    font-size: 14px;
+	}
 </style>
 </head>
 <header>

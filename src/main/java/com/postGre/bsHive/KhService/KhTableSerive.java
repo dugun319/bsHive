@@ -7,6 +7,7 @@ import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
+import com.postGre.bsHive.Adto.Kh_SortCode;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Amodel.Lgn;
@@ -36,6 +37,7 @@ public interface KhTableSerive {
 	List<Kh_PrdocList>		getPrdocList(Kh_PrdocList prList);
 	int 					getTotPrdocList(Kh_PrdocList prList);
 	Kh_PrdocList 			getPrdocDetail(Kh_PrdocList prList);
+	void 					updateIsuueDate(Kh_PrdocList prList);
 	
 	//Scholarship
 	int 					getTotSchList(Kh_ScholarshipList sList);
@@ -59,19 +61,8 @@ public interface KhTableSerive {
 	List<Kh_pstList> 		getBoardList(Kh_pstList pList);
 	void 					updateDelYnPst(Kh_pstList pList);
 
-	
+	String 					getSortContent(Kh_SortCode sCode);
 
 	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	
 }

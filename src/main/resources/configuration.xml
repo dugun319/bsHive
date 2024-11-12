@@ -50,6 +50,7 @@
 		<typeAlias alias="Kh_LctrList"				type="com.postGre.bsHive.Adto.Kh_LctrList"/>
 		<typeAlias alias="Kh_pstList"				type="com.postGre.bsHive.Adto.Kh_pstList"/>
 		<typeAlias alias="Kh_Lctrm"					type="com.postGre.bsHive.Adto.Kh_Lctrm"/>
+		<typeAlias alias="Kh_SortCode"				type="com.postGre.bsHive.Adto.Kh_SortCode"/>
 		
 		
 		
@@ -62,7 +63,8 @@
 		<typeAlias alias="Hs_Lec" 					type="com.postGre.bsHive.Adto.Hs_Lec"/>
 		<typeAlias alias="Hs_Attend"				type="com.postGre.bsHive.Adto.Hs_Attend"/>
 		<typeAlias alias="Hs_Assignment" 			type="com.postGre.bsHive.Adto.Hs_Assignment"/>
-		
+		<typeAlias alias="ResponseMessage" 			type="com.postGre.bsHive.Adto.ResponseMessage"/>
+	
 		<typeAlias alias="Jh_myClassroomList"        type="com.postGre.bsHive.Adto.Jh_myClassroomList"/>
 		<typeAlias alias="User_Table"				type="com.postGre.bsHive.Adto.User_Table"/>
 	</typeAliases>

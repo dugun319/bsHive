@@ -23,12 +23,12 @@
 <script type="text/javascript">
 	function goCertCompletion(aply_num) {
 		var url = "/kh/admin/goCertification?aply_num=" + aply_num + "&prdoc_type=100";
-		window.open(url, "_blank", 'width=1050,height=1485,location=no,status=no,scrollbars=no,top=100,left=300');
+		window.open(url, "_blank", 'width=1050,height=1520,location=no,status=no,scrollbars=no,top=100,left=300');
 	}
 	
 	function goCertScholarship(aply_num) {
 		var url = "/kh/admin/goCertification?aply_num=" + aply_num + "&prdoc_type=110";;
-		window.open(url, "_blank", 'width=1050,height=1485,location=no,status=no,scrollbars=no,top=100,left=300');
+		window.open(url, "_blank", 'width=1050,height=1520,location=no,status=no,scrollbars=no,top=100,left=300');
 	}
 	
 	$(function(){

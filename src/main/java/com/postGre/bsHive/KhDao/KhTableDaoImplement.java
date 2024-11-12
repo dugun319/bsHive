@@ -11,6 +11,7 @@ import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
+import com.postGre.bsHive.Adto.Kh_SortCode;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Amodel.Lgn;
@@ -409,6 +410,33 @@ public class KhTableDaoImplement implements KhTableDao {
 			System.out.println("KhTableDaoImplement updateDelYnPst() e.getMessage() -> " + e.getMessage());
 		}
 		
+	}
+
+
+
+	@Override
+	public String getSortContent(Kh_SortCode sCode) {
+		String sortContent = null;
+		
+		try {
+			sortContent = session.selectOne("com.postGre.bsHive.kh_TableMapper.getSortContent", sCode);
+			System.out.println("KhTableDaoImplement getSortContent() sortContent -> " + sortContent);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement getSortContent() e.getMessage() -> " + e.getMessage());
+		}
+		
+		return sortContent;
+	}
+
+
+
+	@Override
+	public void updateIsuueDate(Kh_PrdocList prList) {
+		try {
+			session.update("com.postGre.bsHive.kh_TableMapper.updateIsuueDate", prList);
+		} catch (Exception e) {
+			System.out.println("KhTableDaoImplement updateIsuueDate() e.getMessage() -> " + e.getMessage());
+		}
 	}
 
 

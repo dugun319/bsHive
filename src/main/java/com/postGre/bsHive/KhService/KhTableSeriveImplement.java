@@ -13,6 +13,7 @@ import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
+import com.postGre.bsHive.Adto.Kh_SortCode;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Amodel.Lgn;
@@ -196,6 +197,18 @@ public class KhTableSeriveImplement implements KhTableSerive {
 	public Kh_PrdocList getPrdocDetail(Kh_PrdocList prList) {
 		Kh_PrdocList prDetail = khTableDao.getPrdocDetail(prList);
 		return prDetail;
+	}
+
+	@Override
+	public String getSortContent(Kh_SortCode sCode) {
+		String sortContent	= khTableDao.getSortContent(sCode);
+		
+		return sortContent;
+	}
+
+	@Override
+	public void updateIsuueDate(Kh_PrdocList prList) {
+		khTableDao.updateIsuueDate(prList);
 	}
 
 }

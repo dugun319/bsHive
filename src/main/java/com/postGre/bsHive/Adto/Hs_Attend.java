@@ -27,10 +27,18 @@ public class Hs_Attend {
 	private String 	lctr_data;	// 수업자료
 	
 	// 출석 list로 update위해 만든 배열함수
-	private String attendanceData; // 여러 학생의 출석 정보를 담는 리스트
+	private List<Hs_Attend> attendanceData; // 여러 학생의 출석 정보를 담는 리스트
 	
 	// 공통분류코드
 	private int 	bcode;			//대분류
 	private int 	mcode;			//중분
 	private String 	content;		//코드
+	
+	//첨부파일 TBL
+	private int		file_group;		//파일그룹 (첨부파일 TBL과 조인)
+	private int 	file_no; 		//파일번호
+	private String 	uuid; 			//UUID
+	private String 	dwnld_file_nm; 	//실제파일명
+	private int 	file_size; 		//파일사이즈
+	private String 	file_path_nm; 	//파일경로
 }

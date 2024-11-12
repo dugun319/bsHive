@@ -1,16 +1,22 @@
 package com.postGre.bsHive.Acontroller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,26 +27,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.Session;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_Lctrm;
 import com.postGre.bsHive.Adto.Kh_PrdocList;
 import com.postGre.bsHive.Adto.Kh_ScholarshipList;
+import com.postGre.bsHive.Adto.Kh_SortCode;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Adto.Kh_pstList;
 import com.postGre.bsHive.Adto.Person;
 import com.postGre.bsHive.Amodel.Lgn;
+import com.postGre.bsHive.HsService.HsService;
 import com.postGre.bsHive.KhService.KhTableSerive;
 import com.postGre.bsHive.SeService.Paging;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Slf4j
@@ -52,6 +58,7 @@ public class KhController {
 	private String uploadPath;
 	
 	private final KhTableSerive khTableSerive;
+	private final HsService hss; 
 
 	//
 	// adminMain
@@ -283,6 +290,7 @@ public class KhController {
 		int lctrNum = Integer.parseInt(lctr_num);
 		Kh_LctrList lcList = new Kh_LctrList();
 		// int unq_num = Integer.parseInt(session.getAttribute("unq_num").toString());
+		
 		int unq_num = 317000012;
 		String crtr_cnt = "총 42점/ 32점 미만 과락( 출석 +3 지각 +2 결석 0 )";
 
@@ -348,6 +356,8 @@ public class KhController {
 
 		String aplyType = lctrDetail.getAply_type();
 
+		hss.atndcTblInsert(Integer.parseInt(lctr_num));
+
 		System.out.println("aplyType -> " + aplyType);
 
 		return "redirect:/kh/admin/appLctrList?aply_type=" + aplyType + "&lectureType=" + lectureType;
@@ -386,10 +396,375 @@ public class KhController {
 			yearAndSemester		= request.getParameter("year") + request.getParameter("semester");
 			System.out.println("yearAndSemester -> " + yearAndSemester);
 		}
-
+		
 		List<Kh_Lctrm> lctrmList 	= khTableSerive.getLctrmList(yearAndSemester);
 		
-		model.addAttribute("lctrmList", lctrmList);
+		int[][] int01		= new int[10][10];			//Monday
+		int[][] int02		= new int[10][10];			//Tuesday
+		int[][] int03		= new int[10][10];			//Wednesday
+		int[][] int04		= new int[10][10];			//Thursday
+		int[][] int05		= new int[10][10];			//Friday
+		
+		String[][] str01		= new String[10][10];	//Monday
+		String[][] str02		= new String[10][10];	//Tuesday
+		String[][] str03		= new String[10][10];	//Wednesday
+		String[][] str04		= new String[10][10];	//Thursday
+		String[][] str05		= new String[10][10];	//Friday
+		
+		for(int i = 0 ; i < lctrmList.size() ; i++) {
+			Kh_Lctrm dummy	= lctrmList.get(i);
+			if(dummy.getDow_day().equals("1")) {
+				String start 	= dummy.getBgng_tm();
+				String end 		= dummy.getEnd_tm();
+				start			= start.substring(0, 2);
+				end				= end.substring(0, 2);
+				int startNum	= Integer.parseInt(start);
+				int endNum		= Integer.parseInt(end);
+				startNum		= startNum - 9;
+				endNum			= endNum - 8;	
+				
+				int	lctrmNum	= dummy.getLctrm_num();
+				String lctrName	= dummy.getLctr_name();
+				
+				if(lctrmNum == 101) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][0] = 1;
+						str01[j][0] = lctrName;
+					}
+				} else if(lctrmNum == 102) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][1] = 1;
+						str01[j][1] = lctrName;
+					}
+				} else if(lctrmNum == 201) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][2] = 1;
+						str01[j][2] = lctrName;
+					}
+				} else if(lctrmNum == 202) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][3] = 1;
+						str01[j][3] = lctrName;
+					}
+				} else if(lctrmNum == 301) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][4] = 1;
+						str01[j][4] = lctrName;
+					}
+				} else if(lctrmNum == 302) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][5] = 1;
+						str01[j][5] = lctrName;
+					}
+				} else if(lctrmNum == 401) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][6] = 1;
+						str01[j][6] = lctrName;
+					}
+				} else if(lctrmNum == 402) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][7] = 1;
+						str01[j][7] = lctrName;
+					}
+				} else if(lctrmNum == 501) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][8] = 1;
+						str01[j][8] = lctrName;
+					}
+				} else if(lctrmNum == 502) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int01[j][9] = 1;
+						str01[j][9] = lctrName;
+					}
+				}
+			} else if(dummy.getDow_day().equals("2")) {
+				String start 	= dummy.getBgng_tm();
+				String end 		= dummy.getEnd_tm();
+				start			= start.substring(0, 2);
+				end				= end.substring(0, 2);
+				int startNum	= Integer.parseInt(start);
+				int endNum		= Integer.parseInt(end);
+				startNum		= startNum - 9;
+				endNum			= endNum - 8;	
+				
+				int	lctrmNum	= dummy.getLctrm_num();
+				String lctrName	= dummy.getLctr_name();
+				
+				if(lctrmNum == 101) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][0] = 1;
+						str02[j][0] = lctrName;
+					}
+				} else if(lctrmNum == 102) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][1] = 1;
+						str02[j][1] = lctrName;
+					}
+				} else if(lctrmNum == 201) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][2] = 1;
+						str02[j][2] = lctrName;
+					}
+				} else if(lctrmNum == 202) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][3] = 1;
+						str02[j][3] = lctrName;
+					}
+				} else if(lctrmNum == 301) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][4] = 1;
+						str02[j][4] = lctrName;
+					}
+				} else if(lctrmNum == 302) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][5] = 1;
+						str02[j][5] = lctrName;
+					}
+				} else if(lctrmNum == 401) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][6] = 1;
+						str02[j][6] = lctrName;
+					}
+				} else if(lctrmNum == 402) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][7] = 1;
+						str02[j][7] = lctrName;
+					}
+				} else if(lctrmNum == 501) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][8] = 1;
+						str02[j][8] = lctrName;
+					}
+				} else if(lctrmNum == 502) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int02[j][9] = 1;
+						str02[j][9] = lctrName;
+					}
+				}
+			
+			} else if(dummy.getDow_day().equals("3")) {
+				String start 	= dummy.getBgng_tm();
+				String end 		= dummy.getEnd_tm();
+				start			= start.substring(0, 2);
+				end				= end.substring(0, 2);
+				int startNum	= Integer.parseInt(start);
+				int endNum		= Integer.parseInt(end);
+				startNum		= startNum - 9;
+				endNum			= endNum - 8;	
+				
+				int	lctrmNum	= dummy.getLctrm_num();
+				String lctrName	= dummy.getLctr_name();
+				
+				if(lctrmNum == 101) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][0] = 1;
+						str03[j][0] = lctrName;
+					}
+				} else if(lctrmNum == 102) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][1] = 1;
+						str03[j][1] = lctrName;
+					}
+				} else if(lctrmNum == 201) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][2] = 1;
+						str03[j][2] = lctrName;
+					}
+				} else if(lctrmNum == 202) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][3] = 1;
+						str03[j][3] = lctrName;
+					}
+				} else if(lctrmNum == 301) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][4] = 1;
+						str03[j][4] = lctrName;
+					}
+				} else if(lctrmNum == 302) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][5] = 1;
+						str03[j][5] = lctrName;
+					}
+				} else if(lctrmNum == 401) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][6] = 1;
+						str03[j][6] = lctrName;
+					}
+				} else if(lctrmNum == 402) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][7] = 1;
+						str03[j][7] = lctrName;
+					}
+				} else if(lctrmNum == 501) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][8] = 1;
+						str03[j][8] = lctrName;
+					}
+				} else if(lctrmNum == 502) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int03[j][9] = 1;
+						str03[j][9] = lctrName;
+					}
+				}
+				
+			} else if(dummy.getDow_day().equals("4")) {
+				String start 	= dummy.getBgng_tm();
+				String end 		= dummy.getEnd_tm();
+				start			= start.substring(0, 2);
+				end				= end.substring(0, 2);
+				int startNum	= Integer.parseInt(start);
+				int endNum		= Integer.parseInt(end);
+				startNum		= startNum - 9;
+				endNum			= endNum - 8;	
+				
+				int	lctrmNum	= dummy.getLctrm_num();
+				String lctrName	= dummy.getLctr_name();
+				
+				if(lctrmNum == 101) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][0] = 1;
+						str04[j][0] = lctrName;
+					}
+				} else if(lctrmNum == 102) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][1] = 1;
+						str04[j][1] = lctrName;
+					}
+				} else if(lctrmNum == 201) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][2] = 1;
+						str04[j][2] = lctrName;
+					}
+				} else if(lctrmNum == 202) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][3] = 1;
+						str04[j][3] = lctrName;
+					}
+				} else if(lctrmNum == 301) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][4] = 1;
+						str04[j][4] = lctrName;
+					}
+				} else if(lctrmNum == 302) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][5] = 1;
+						str04[j][5] = lctrName;
+					}
+				} else if(lctrmNum == 401) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][6] = 1;
+						str04[j][6] = lctrName;
+					}
+				} else if(lctrmNum == 402) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][7] = 1;
+						str04[j][7] = lctrName;
+					}
+				} else if(lctrmNum == 501) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][8] = 1;
+						str04[j][8] = lctrName;
+					}
+				} else if(lctrmNum == 502) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int04[j][9] = 1;
+						str04[j][9] = lctrName;
+					}
+				}
+				
+			} else {
+				String start 	= dummy.getBgng_tm();
+				String end 		= dummy.getEnd_tm();
+				start			= start.substring(0, 2);
+				end				= end.substring(0, 2);
+				int startNum	= Integer.parseInt(start);
+				int endNum		= Integer.parseInt(end);
+				startNum		= startNum - 9;
+				endNum			= endNum - 8;	
+				
+				int	lctrmNum	= dummy.getLctrm_num();
+				String lctrName	= dummy.getLctr_name();
+				
+				if(lctrmNum == 101) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][0] = 1;
+						str05[j][0] = lctrName;
+					}
+				} else if(lctrmNum == 102) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][1] = 1;
+						str05[j][1] = lctrName;
+					}
+				} else if(lctrmNum == 201) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][2] = 1;
+						str05[j][2] = lctrName;
+					}
+				} else if(lctrmNum == 202) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][3] = 1;
+						str05[j][3] = lctrName;
+					}
+				} else if(lctrmNum == 301) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][4] = 1;
+						str05[j][4] = lctrName;
+					}
+				} else if(lctrmNum == 302) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][5] = 1;
+						str05[j][5] = lctrName;
+					}
+				} else if(lctrmNum == 401) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][6] = 1;
+						str05[j][6] = lctrName;
+					}
+				} else if(lctrmNum == 402) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][7] = 1;
+						str05[j][7] = lctrName;
+					}
+				} else if(lctrmNum == 501) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][8] = 1;
+						str05[j][8] = lctrName;
+					}
+				} else if(lctrmNum == 502) {
+					for(int j = startNum ; j < endNum ; j ++ ) {
+						int05[j][9] = 1;
+						str05[j][9] = lctrName;
+					}
+				}
+				
+			}
+		} 
+			
+		for(int i = 0 ; i < 10 ; i++) {
+			for(int j = 0 ; j < 10 ; j++) {
+				System.out.print(int02[j][i] + "  ");
+			}
+			System.out.println("");
+		}
+		
+		for(int i = 0 ; i < 10 ; i++) {
+			for(int j = 0 ; j < 10 ; j++) {
+				System.out.print(str02[j][i] + "  ");
+			}
+			System.out.println("");
+		}
+		
+		model.addAttribute("int01", int01);
+		model.addAttribute("int02", int02);
+		model.addAttribute("int03", int03);
+		model.addAttribute("int04", int04);
+		model.addAttribute("int05", int05);
+		model.addAttribute("str01", str01);
+		model.addAttribute("str02", str02);
+		model.addAttribute("str03", str03);
+		model.addAttribute("str04", str04);
+		model.addAttribute("str05", str05);
+		
 		
 		return "kh/adminLctrRm"; 
 	 }
@@ -626,7 +1001,47 @@ public class KhController {
 		
 		int prdocType			= prList.getPrdoc_type();
 		Kh_PrdocList prDetail	= khTableSerive.getPrdocDetail(prList);
-				
+		
+		LocalDate today			= LocalDate.now();
+		prDetail.setIssu_ymd(today.toString());
+		int yy					= today.getYear();
+		int month				= today.getMonthValue();
+		int day					= today.getDayOfMonth();
+		prDetail.setYy(yy);
+		prDetail.setMonth(month);
+		prDetail.setDay(day);
+		
+		String lecNum			= prDetail.getLctr_num() + "";	 
+		String year	 			= "20" + lecNum.substring(0, 2);
+		String date	 			= lecNum.substring(2, 3);
+		if(date.equals("1")) {
+			year += "-03-02";
+		} else {
+			year += "-09-02";
+		}
+		prDetail.setStart_date(year);
+		
+		String unqNum			= prDetail.getUnq_num() + "";	 
+		String bCode	 		= "3" + unqNum.substring(3, 4) + "0";
+		String mCode	 		= unqNum.substring(3, 5);
+		
+		Kh_SortCode	sCode		= new Kh_SortCode();
+		sCode.setBcode(Integer.parseInt(bCode));
+		sCode.setMcode(Integer.parseInt(mCode));		
+		String stdntDepart		= khTableSerive.getSortContent(sCode);
+		prDetail.setStdntDepart(stdntDepart);
+		
+		if(prDetail.getPtcp_type() != 0) {
+			sCode.setBcode(150);
+			sCode.setMcode(prDetail.getPtcp_type());
+		} else {
+			sCode.setBcode(160);
+			sCode.setMcode(prDetail.getPriority_type());
+		}
+		
+		String scType			= khTableSerive.getSortContent(sCode);
+		prDetail.setScType(scType);
+		
 		model.addAttribute("prDetail", prDetail);
 		
 		if(prdocType == 100) {
@@ -638,22 +1053,53 @@ public class KhController {
 	
 	
 	
+	@PostMapping(value = "/issueCertification")
+	public ResponseEntity<String> saveImage(ModelMap modelMap, HttpServletRequest request, Kh_PrdocList prList) {
+		log.info("KhController saveImage is called");
+		
+		int aply_num = Integer.parseInt(request.getParameter("aply_num"));
+		
+		FileOutputStream outStream	= null;
+		String fileName				= aply_num + "_certification.png";
+		String savePath 			= "c:" + File.separator + uploadPath + File.separator + fileName;
+				
+		try {
+			String imgData 			= request.getParameter("imgData");
+			// 디코딩을 위해서 string data의 "data:image/png;base64," 제거
+			imgData					= imgData.replaceAll("data:image/png;base64,", "");
+			
+			byte[] file				= Base64.getDecoder().decode(imgData);
+			outStream				= new FileOutputStream(savePath);
+			
+			outStream.write(file);
+			outStream.close();
+			
+			LocalDate today	= LocalDate.now();
+			prList.setIssu_ymd(today.toString());
+			prList.setAply_num(aply_num);
+			khTableSerive.updateIsuueDate(prList);   	
+			
+			System.out.println("KhController saveImage is completed");
+			return ResponseEntity.ok("Image saved successfully");										//  JSP 응답이 필요 없으므로, @ResponseBody나 ResponseEntity를 사용해 클라이언트에 JSON 형식의 응답을 반환
+			
+			/*	IOUtils.copy를 이용하여 download 폴더에 바로 저장
+			ByteArrayInputStream is	= new ByteArrayInputStream(file);
+			response.setContentType("image/png");
+			response.setHeader("Content-Disposition", "attachment; filename=report.png");
+			
+			System.out.println("response.getOutputStream() -> " + response.getOutputStream().toString());
+			
+			IOUtils.copy(is, response.getOutputStream());
+			response.flushBuffer();
+			*/
+		} catch (IOException e) {
+			log.error("Error saving image", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving image");	// JSP 응답이 필요 없으므로, @ResponseBody나 ResponseEntity를 사용해 클라이언트에 JSON 형식의 응답을 반환
+		}
+		
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	//
 	// Board

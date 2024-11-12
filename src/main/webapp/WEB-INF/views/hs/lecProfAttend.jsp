@@ -1,27 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<link href="/css/offLctrBanner.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>출석입력(교수용)</title>
-<link href="/css/offLctrBanner.css" rel="stylesheet" type="text/css">
-<style type="text/css">
 
+<style type="text/css">
+/* 메인 콘텐츠 영역 */
+    .main {
+        background-color: #fff;
+
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    /* 섹션 제목 스타일 */
+    h1 {
+        font-size: 28px;
+        color: #134b84;
+        border-bottom: 2px solid #134b84;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* 출결 입력 테이블 */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th {
+        background-color: #134b84;
+        color: white;
+        font-weight: normal;
+        text-align: center !important;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    td {
+        padding: 12px;
+        text-align: center;
+        background-color: #fff;
+        color: #333;
+        font-size: 14px;
+    }
+
+    /* 출결 상태 라디오 버튼 스타일 */
+    .btn-check {
+        display: none;
+    }
+
+    label {
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    /* 라디오 버튼 선택 시 색상 변화 */
+    .btn-outline-primary:checked + label {
+        background-color: #134b84;
+        color: white;
+    }
+
+    /* 라디오 버튼 상태에 따른 색상 */
+    .btn-outline-primary {
+        border-color: #134b84;
+        color: #134b84;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #e5e5e5;
+    }
+
+    .btn-outline-primary:checked {
+        background-color: #134b84;
+        color: white;
+    }
 </style>
 </head>
 <header>
 	<%@ include file="../header.jsp" %>
 </header>
 <script type="text/javascript">
-	
 	// 아작스로 주차 별 list 불러오기
 	$(document).ready(function () {
 		$('#lctrWeekSelect').change(function() {
 			let lctr_weeks = $(this).val();
-			let lctr_num = $(this).data('lctr-num');  	// 이미 HTML에서 data-lctr-num으로 서버값을 전달받음
-			$('#lctrWeeksHidden').val(lctr_weeks); 		// 선택된 주차를 hidden input에 설정
+			let lctr_num = $(this).data('lctr-num');  // 이미 HTML에서 data-lctr-num으로 서버값을 전달받음
+			$('#lctrWeeksHidden').val(lctr_weeks); // 선택된 주차를 hidden input에 설정
 			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/hs/lecWeekProf",
@@ -79,45 +151,105 @@
 			});
 		});
 		
-		// 폼 제출 시 데이터 수집
-        $('#attendFormUpd').on('submit', function(event) {
-            event.preventDefault(); // 기본 제출 방지
+		let attendanceData = [];
+		
+		// 출석 상태 라디오 버튼 클릭 시 자동 업데이트
+        $(document).on('change', 'input[type="radio"][name^="atndc_type"]', function() {
+            let lctr_num = $('#lctrNumHidden').val(); // 강의 번호
+            let lctr_weeks = $('#lctrWeeksHidden').val(); // 주차
+            let row = $(this).closest('tr');  // 현재 클릭한 라디오 버튼을 포함하는 <tr> 찾기
+            let studentId = row.find('td:nth-child(2)').text();
+            let attendanceType = $(this).val();
+            console.log('studentId->',studentId);
+            console.log('lctr_num->',lctr_num);
+            console.log('lctr_weeks->',lctr_weeks);
+            console.log('attendanceType->',attendanceType);
+            
 
-            let attendanceData = [];
+         	/* // 출석 정보를 객체 형태로 배열에 추가
+            let attendance = {
+                unq_num: studentId,
+                atndc_type: attendanceType,
+            };
             
-            $('tbody#attendList tr').each(function() {
-                let studentId = $(this).find('td:nth-child(2)').text();
-                let attendanceType = $(this).find('input[type="radio"]:checked').val();
-                attendanceData.push({ unq_num: studentId, atndc_type: attendanceType });
+         	// 배열에 추가
+            attendanceData.push(attendance);
+         	
+            console.log('현재 출석 데이터 배열:', attendanceData); */
+            
+            // AJAX로 출석 상태 업데이트
+            $.ajax({
+                url: "<%=request.getContextPath()%>/hs/AttendUpdate",
+                type: "POST",
+                contentType: "application/json", // JSON 형식으로 전송
+                data: JSON.stringify({
+                    lctr_weeks: lctr_weeks,
+                    lctr_num: lctr_num,
+                    unq_num: studentId,
+                    atndc_type: attendanceType
+                }),	// JSON 형식으로 데이터 전송
+                success: function(response) {
+                    console.log('출석 업데이트 성공:', response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('출석 업데이트 실패:', error);
+                }
             });
-			
-            if ($('#attendFormUpd input[name="lctr_weeks"]').length === 0 && $('#attendFormUpd input[name="lctr_num"]').length === 0) {
-            
-	         	// lctr_weeks 값을 추가
-	            $('<input>').attr({
-	                type: 'hidden',
-	                name: 'lctr_weeks',
-	                value: $('#lctrWeeksHidden').val() // 현재 hidden input의 값을 사용
-	            }).appendTo('#attendFormUpd');
-	         	
-	         	// lctr_weeks 값을 추가
-	            $('<input>').attr({
-	                type: 'hidden',
-	                name: 'lctr_num',
-	                value: $('#lctrNumHidden').val() // 현재 hidden input의 값을 사용
-	            }).appendTo('#attendFormUpd');
-            }
-            
-            // 데이터를 JSON 문자열로 변환
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'attendanceData',
-                value: JSON.stringify(attendanceData)
-            }).appendTo('#attendFormUpd');
-            
-            // 폼 제출
-            this.submit();
         });
+		
+
+        
+        $('#markAllPresent').click(function() {
+            // 사용자에게 확인 메시지 표시
+            let confirmResult = confirm("전체 출석 처리하시겠습니까?");
+            
+            // 사용자가 '확인'을 누른 경우
+            if (confirmResult) {
+                let lctr_num = $('#lctrNumHidden').val(); // 강의 번호
+                let lctr_weeks = $('#lctrWeeksHidden').val(); // 주차
+
+                let attendanceData = [];  // 출석 데이터를 담을 배열
+
+                // 모든 학생에 대해 출석 상태를 '100'으로 설정
+                $('tbody#attendList tr').each(function() {
+                    let studentId = $(this).find('td:nth-child(2)').text(); // 학번 추출
+
+                    // 출석 상태 '100'으로 설정
+                    $(this).find('input[type="radio"][value="100"]').prop('checked', true);
+
+                    // 출석 정보를 객체 형태로 배열에 추가
+                    let attendance = {
+                        unq_num: studentId,
+                        atndc_type: '100',  // 출석 상태는 '100'
+                        lctr_num: lctr_num,
+                        lctr_weeks: lctr_weeks
+                    };
+
+                    // 배열에 추가
+                    attendanceData.push(attendance);
+                });
+
+                console.log('전체 출석 처리 후 출석 데이터 배열:', attendanceData);
+
+                // 출석 정보를 JSON으로 서버에 전송
+                $.ajax({
+                    url: "<%=request.getContextPath()%>/hs/AttendUpdate1",
+                    type: "POST",
+                    contentType: "application/json",  // JSON 형식으로 전송
+                    data: JSON.stringify(attendanceData),  // JSON 배열로 변환하여 전송
+                    success: function(response) {
+                        console.log('출석 업데이트 성공:', response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('출석 업데이트 실패:', error);
+                    }
+                });
+            } else {
+                console.log('전체 출석 처리를 취소했습니다.');
+            }
+        });
+
+
 	})
 </script>
 <body>
@@ -131,11 +263,10 @@
 			<%@ include file="../sidebarLctr.jsp" %>
 		</div>
 		<div class="main">
-		<form action="AttendUpdate" id="attendFormUpd">
 			<h1>출결관리</h1>
 			<table>
 				<tr>
-					<th>
+					<td colspan="2">
 						<select class="form-select" id="lctrWeekSelect" aria-label="Default select example" data-lctr-num="${lctr.lctr_num }">
 							<option>주차 선택</option>
 							<c:forEach var="hs_attend" items="${weekList }">
@@ -145,9 +276,8 @@
 								</option>
 							</c:forEach>
 						</select>
-					</th>
-					<th></th>
-					<th></th>
+					</td>
+					<td><button id="markAllPresent" class="btn btn-outline-primary">전체 출석처리</button></td>
 				</tr>
 				<tr list="lctr_weeks"></tr>
 				<tr>
@@ -157,11 +287,9 @@
 					<th>출결상태</th>
 				</tr>
 				<tbody id="attendList"><!-- 출결 목록이 여기에 동적으로 추가됩니다. --></tbody>
+				<input type="hidden" id="lctrNumHidden" value="${lctr.lctr_num}">
+				<input type="hidden" id="lctrWeeksHidden" value="">
 			</table>
-			<input type="hidden" id="lctrWeeksHidden" name="lctr_weeks" value="">
-			<input type="hidden" id="lctrNumHidden" name="lctr_num" value="">
-			<button type="submit" class="btn btn-outline-secondary">등록</button>
-		</form>
 		</div>
 	</div>
 </body>

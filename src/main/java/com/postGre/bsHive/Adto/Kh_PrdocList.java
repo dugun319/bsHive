@@ -5,9 +5,10 @@ import lombok.Data;
 @Data
 public class Kh_PrdocList {			
 	private int		aply_num;		//신청번호
-	private long 	unq_num;		//고유번호
-	private long 	lctr_num;		//강의번호
+	private int 	unq_num;		//고유번호
+	private int 	lctr_num;		//강의번호
 	private String 	lctr_name;		//강의번호
+	private String 	start_date;		//종료일
 	private String 	end_date;		//종료일
 	private int 	prdoc_type;		//증명서타입
 	private String 	aply_ymd;		//신청일
@@ -32,8 +33,14 @@ public class Kh_PrdocList {
 	//Scholarship
 	private int 	ptcp_type;		//참여유형
 	private int		priority_type;	//우대유형
-	private String	ptcpType;		//참여유형	
-	private String	priorityType;	//우대유형	
+	
+	//SORT_CODE
+	
+	private String	stdntDepart;	//학과명
+	private String	scType;			//장학유형
+	private int 	yy;				//today.getYear();
+	private int 	month;			//today.getMonthValue();
+	private int 	day;			//today.getDayOfMonth();
 	
 	private String	search;			//분류
 	private String	keyword;		//Search Keyword

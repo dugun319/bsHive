@@ -47,9 +47,14 @@ ul, ol, li {
 	margin:0; 
 }
 
+table, th, td {
+	border: 2px solid #f5f5f5;
+	border-collapse: collapse;
+}
+
 .rolling { 
 	width: 1130px; 
-	height:150px;
+	height:600px;
 	margin:30px auto;
 }
 
@@ -66,9 +71,9 @@ ul, ol, li {
 li.panel { 
 	width: 1130px; 
 	margin:0; 
-	padding:20px; 
+	padding:0 20px; 
 	float:left; 
-	height:150px;  
+	height:600px;  
 	border-radius: 0; 
 	box-shadow: none; 
 	border:0; background-color: #999999;
@@ -76,6 +81,36 @@ li.panel {
 	font-size: 20px;
 	font-weight: 900;
 }
+
+.thCell{
+	width: 90px;
+	height: 45px;
+	max-width: 90px;
+	max-height: 45px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tdCell{
+	font-size: 12px;
+	font-weight: 500;
+	width: 90px;
+	height: 45px;
+	max-height: 45px;
+	max-width: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#control1{
+	position: absolute;
+	width: 1260px;
+	bottom: 60px;
+	left: 550px;
+}
+
 
 </style>
 </head>
@@ -118,67 +153,187 @@ li.panel {
                         <ul>
                             <li class="panel">
                             	월요일
-                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
-                    			<c:set var="dow_day"	value="${lctrmList.dow_day}" />
-                            	<c:if test="${dow_day eq '1'}">
-                            	${lctrmList.lctr_num }
-                            	${lctrmList.lctr_name }
-                            	${lctrmList.bgng_tm }
-                            	${lctrmList.end_tm }
-                            	</c:if>
-                            	</c:forEach>
+                            	<br>
+                            	<table>
+	                            	<tr>
+	                            		<th class="thCell">시간</th>
+	                            		<th class="thCell">101</th>
+	                            		<th class="thCell">102</th>
+	                            		<th class="thCell">201</th>
+	                            		<th class="thCell">202</th>
+	                            		<th class="thCell">301</th>
+	                            		<th class="thCell">302</th>
+	                            		<th class="thCell">401</th>
+	                            		<th class="thCell">402</th>
+	                            		<th class="thCell">501</th>
+	                            		<th class="thCell">502</th>
+	                            	</tr>
+	                            	<c:set var="time" value="8"/>
+									<c:forEach var="row" items="${str01}">
+									<tr>
+										<td class="tdCell">
+										<c:set var="time" value="${time + 1}" />
+										${time}:00
+										</td>
+										<c:forEach var="item" items="${row}">
+											<c:if test="${empty item}">
+									            <td class="tdCell" style="background-color: #999999;">${item}</td>
+									        </c:if>
+									        <c:if test="${not empty item}">
+									            <td class="tdCell" style="background-color: #323232;">${item}</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+									</c:forEach>
+								</table>
                             </li>
                             
                             <li class="panel">
                             	화요일
-                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
-                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
-                            	<c:if test="${dow_day eq '2'}">
-                            	${lctrmList.lctr_num }
-                            	${lctrmList.lctr_name }
-                            	${lctrmList.bgng_tm }
-                            	${lctrmList.end_tm }
-                            	</c:if>
-                            	</c:forEach>
+                            	<br>
+                            	<table>
+	                            	<tr>
+	                            		<th class="thCell">시간</th>
+	                            		<th class="thCell">101</th>
+	                            		<th class="thCell">102</th>
+	                            		<th class="thCell">201</th>
+	                            		<th class="thCell">202</th>
+	                            		<th class="thCell">301</th>
+	                            		<th class="thCell">302</th>
+	                            		<th class="thCell">401</th>
+	                            		<th class="thCell">402</th>
+	                            		<th class="thCell">501</th>
+	                            		<th class="thCell">502</th>
+	                            	</tr>
+	                            	<c:set var="time" value="8"/>
+									<c:forEach var="row" items="${str02}">
+									<tr>
+										<td class="tdCell">
+										<c:set var="time" value="${time + 1}" />
+										${time}:00
+										</td>
+										<c:forEach var="item" items="${row}">
+											<c:if test="${empty item}">
+									            <td class="tdCell" style="background-color: #999999;">${item}</td>
+									        </c:if>
+									        <c:if test="${not empty item}">
+									            <td class="tdCell" style="background-color: #323232;">${item}</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+									</c:forEach>
+								</table>
                             </li>
                             
                             <li class="panel">
                             	수요일
-                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
-                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
-                            	<c:if test="${dow_day eq '3'}">
-                            	${lctrmList.lctr_num }
-                            	${lctrmList.lctr_name }
-                            	${lctrmList.bgng_tm }
-                            	${lctrmList.end_tm }
-                            	</c:if>
-                            	</c:forEach>
+                            	<br>
+                            	<table>
+	                            	<tr>
+	                            		<th class="thCell">시간</th>
+	                            		<th class="thCell">101</th>
+	                            		<th class="thCell">102</th>
+	                            		<th class="thCell">201</th>
+	                            		<th class="thCell">202</th>
+	                            		<th class="thCell">301</th>
+	                            		<th class="thCell">302</th>
+	                            		<th class="thCell">401</th>
+	                            		<th class="thCell">402</th>
+	                            		<th class="thCell">501</th>
+	                            		<th class="thCell">502</th>
+	                            	</tr>
+	                            	<c:set var="time" value="8"/>
+									<c:forEach var="row" items="${str03}">
+									<tr>
+										<td class="tdCell">
+										<c:set var="time" value="${time + 1}" />
+										${time}:00
+										</td>
+										<c:forEach var="item" items="${row}">
+											<c:if test="${empty item}">
+									            <td class="tdCell" style="background-color: #999999;">${item}</td>
+									        </c:if>
+									        <c:if test="${not empty item}">
+									            <td class="tdCell" style="background-color: #323232;">${item}</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+									</c:forEach>
+								</table>
                             </li>
                             
                             <li class="panel">
                             	목요일
-                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
-                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
-                            	<c:if test="${dow_day eq '4'}">
-                            	${lctrmList.lctr_num }
-                            	${lctrmList.lctr_name }
-                            	${lctrmList.bgng_tm }
-                            	${lctrmList.end_tm }
-                            	</c:if>
-                            	</c:forEach>
+                            	<br>
+                            	<table>
+	                            	<tr>
+	                            		<th class="thCell">시간</th>
+	                            		<th class="thCell">101</th>
+	                            		<th class="thCell">102</th>
+	                            		<th class="thCell">201</th>
+	                            		<th class="thCell">202</th>
+	                            		<th class="thCell">301</th>
+	                            		<th class="thCell">302</th>
+	                            		<th class="thCell">401</th>
+	                            		<th class="thCell">402</th>
+	                            		<th class="thCell">501</th>
+	                            		<th class="thCell">502</th>
+	                            	</tr>
+	                            	<c:set var="time" value="8"/>
+									<c:forEach var="row" items="${str04}">
+									<tr>
+										<td class="tdCell">
+										<c:set var="time" value="${time + 1}" />
+										${time}:00
+										</td>
+										<c:forEach var="item" items="${row}">
+											<c:if test="${empty item}">
+									            <td class="tdCell" style="background-color: #999999;">${item}</td>
+									        </c:if>
+									        <c:if test="${not empty item}">
+									            <td class="tdCell" style="background-color: #323232;">${item}</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+									</c:forEach>
+								</table>
                             </li>
                             
                             <li class="panel">
                             	금요일
-                            	<c:forEach	var="lctrmList"	items="${lctrmList}"	varStatus="status" >
-                            	<c:set var="dow_day"	value="${lctrmList.dow_day}" />
-                            	<c:if test="${dow_day eq '5'}">
-                            	${lctrmList.lctr_num }
-                            	${lctrmList.lctr_name }
-                            	${lctrmList.bgng_tm }
-                            	${lctrmList.end_tm }
-                            	</c:if>
-                            	</c:forEach>
+                            	<br>
+                            	<table>
+	                            	<tr>
+	                            		<th class="thCell">시간</th>
+	                            		<th class="thCell">101</th>
+	                            		<th class="thCell">102</th>
+	                            		<th class="thCell">201</th>
+	                            		<th class="thCell">202</th>
+	                            		<th class="thCell">301</th>
+	                            		<th class="thCell">302</th>
+	                            		<th class="thCell">401</th>
+	                            		<th class="thCell">402</th>
+	                            		<th class="thCell">501</th>
+	                            		<th class="thCell">502</th>
+	                            	</tr>
+	                            	<c:set var="time" value="8"/>
+									<c:forEach var="row" items="${str05}">
+									<tr>
+										<td class="tdCell">
+										<c:set var="time" value="${time + 1}" />
+										${time}:00
+										</td>
+										<c:forEach var="item" items="${row}">
+											<c:if test="${empty item}">
+									            <td class="tdCell" style="background-color: #999999;">${item}</td>
+									        </c:if>
+									        <c:if test="${not empty item}">
+									            <td class="tdCell" style="background-color: #323232;">${item}</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+									</c:forEach>
+								</table>
                             </li>
                         </ul>
                     </div>

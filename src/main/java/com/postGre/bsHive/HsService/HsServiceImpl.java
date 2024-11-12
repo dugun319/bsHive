@@ -9,6 +9,7 @@ import com.postGre.bsHive.Adto.Hs_Assignment;
 import com.postGre.bsHive.Adto.Hs_Attend;
 import com.postGre.bsHive.Adto.Hs_Lec;
 import com.postGre.bsHive.Amodel.Asmt_Sbmsn;
+import com.postGre.bsHive.Amodel.File;
 import com.postGre.bsHive.Amodel.Lctr;
 import com.postGre.bsHive.HsDao.HsDao;
 
@@ -105,6 +106,16 @@ public class HsServiceImpl implements HsService {
 	
 	// 과제 입력 시 기본 정보 불러오기 (교수)
 	@Override
+	public Hs_Assignment AssignWriteProf(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl AssignWriteProf Start...");
+		Hs_Assignment profAssign = hsd.AssignWriteProf(hsAss);
+		System.out.println("HsServiceImpl AssignWriteProf -> " +profAssign);
+		System.out.println("HsServiceImpl AssignWriteProf After...");
+		return profAssign;
+	}
+	
+	//과제 상세보기 시 차수, 강의번호로 select
+	@Override
 	public Hs_Assignment AssignInfoProf(Hs_Assignment hsAss) {
 		System.out.println("HsServiceImpl AssignInfoProf Start...");
 		Hs_Assignment profAssign = hsd.AssignInfoProf(hsAss);
@@ -112,34 +123,36 @@ public class HsServiceImpl implements HsService {
 		System.out.println("HsServiceImpl AssignInfoProf After...");
 		return profAssign;
 	}
-	
-	
-	// 파일그룹 insert
-	@Override
-	public int gongInsert(Hs_Assignment assign) {
-		System.out.println("HsServiceImpl gongInsert Start...");
-		int result = hsd.gongInsert(assign);
-		System.out.println("HsServiceImpl gongInsert After...");
-		return result;
-	}
 
+	
+	// 교수가 과제 첨부파일
 	@Override
-	public int ProfAsmtInsert(Hs_Assignment hsAss) {
+	public int ProfAsmtInsert(Hs_Assignment hsAss, List<File> fileList) {
 		System.out.println("HsServiceImpl ProfAsmtInsert Start...");
 		
-		int result = hsd.ProfAsmtInsert(hsAss);
+		int result = hsd.ProfAsmtInsert(hsAss, fileList);
 		System.out.println("HsServiceImpl ProfAsmtInsert After...");
 		return result;
 	}
 	
 	// 내 강의실 과제 수정 form (교수)
 	@Override
-	public int asmtUpdate(Hs_Assignment hsAss) {
+	public int asmtUpdate(Hs_Assignment hsAss, List<File> fileList) {
 		System.out.println("HsServiceImpl asmtUpdate Start...");
-		int updateCount = hsd.asmtUpdate(hsAss);
+		int updateCount = hsd.asmtUpdate(hsAss, fileList);
 		
 		System.out.println("HsServiceImpl asmtUpdate After...");
 		return updateCount;
+	}
+	
+	// update form에서 파일 삭제 ajax
+	@Override
+	public int deleteFile(Hs_Assignment assign) {
+		System.out.println("HsServiceImpl deleteFile Start...");
+		int deleteFile = hsd.deleteFile(assign);
+		System.out.println("HsServiceImpl boolean deleteFile ->"+deleteFile);
+		System.out.println("HsServiceImpl asmtUpdate After...");
+		return deleteFile;
 	}
 	
 	//학생본인의 과제 제출여부 확인해보기
@@ -157,8 +170,109 @@ public class HsServiceImpl implements HsService {
 		System.out.println("HsServiceImpl stdAssignment Start...");
 		Hs_Assignment hsAssignWrite = hsd.stdAssignment(hsAss);
 		System.out.println("HsServiceImpl stdAssignment After...");
-		return null;
+		return hsAssignWrite;
 	}
+	
+	// 학생 과제제출 파일그룹 insert
+	@Override
+	public int StdntAsmtInsert(Hs_Assignment hsAss, List<File> fileList) {
+		System.out.println("HsServiceImpl StdntAsmtInsert Start...");
+		int result = hsd.StdntAsmtInsert(hsAss, fileList);
+		System.out.println("HsServiceImpl StdntAsmtInsert After...");
+		return result;
+	}
+	
+	//강의번호, 차수로 파일그룹 불러오기
+	@Override
+	public int CallFileGroup(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl CallFileGroup Start...");
+		int fileGroup = hsd.CallFileGroup(hsAss);
+		System.out.println("HsServiceImpl CallFileGroup After...");
+		return fileGroup;
+	}
+	
+	//파일그룹으로 파일 TBL 정보 불러오기
+	@Override
+	public List<File> filePath(int file_group) {
+		System.out.println("HsServiceImpl filePath Start...");
+		List<File> filePath = hsd.filePath(file_group);
+		System.out.println("HsServiceImpl filePath After...");
+		return filePath;
+	}
+	
+	// 학생 과제제출 수정 정보
+	@Override
+	public Hs_Assignment stdAssignmentUpd(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl stdAssignmentUpd Start...");
+		Hs_Assignment stdAssUpd = hsd.stdAssignmentUpd(hsAss);
+		System.out.println("HsServiceImpl stdAssignmentUpd After...");
+		return stdAssUpd;
+	}
+	
+	//강의번호, 차수, 학번으로 파일그룹 불러오기 (학생)
+	@Override
+	public int CallFileGroupStd(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl CallFileGroupStd Start...");
+		int fileGroup = hsd.CallFileGroupStd(hsAss);
+		System.out.println("HsServiceImpl CallFileGroupStd After...");
+		return fileGroup;
+	}
+	
+	// 내 강의실 과제 수정 form (학생)
+	@Override
+	public int asmtSbmsnUpdate(Hs_Assignment hsAss, List<File> fileList) {
+		System.out.println("HsServiceImpl asmtSbmsnUpdate Start...");
+		int updateCount = hsd.asmtSbmsnUpdate(hsAss, fileList);
+		
+		System.out.println("HsServiceImpl asmtSbmsnUpdate After...");
+		return updateCount;
+	}
+	
+	// 학생과제제출물 list 불러오기
+	@Override
+	public List<Hs_Assignment> assignSubmitList(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl assignSubmitList Start...");
+		List<Hs_Assignment> assignSubmitList = hsd.assignSubmitList(hsAss);
+		System.out.println("HsServiceImpl assignSubmitList After...");
+		return assignSubmitList;
+	}
+	
+	//해당 강의의 과제 차수 list 불러오기
+	@Override
+	public List<Hs_Assignment> assCycl(int lctr_num) {
+		System.out.println("HsServiceImpl assCycl Start...");
+		List<Hs_Assignment> assCycl = hsd.assCycl(lctr_num);
+		System.out.println("HsServiceImpl assCycl After...");
+		return assCycl;
+	}
+	
+	// 제출 학생 수 조회 count
+	@Override
+	public int getSubmitCount(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl getSubmitCount Start...");
+		int count = hsd.getSubmitCount(hsAss);
+		System.out.println("HsServiceImpl getSubmitCount After...");
+		return count;
+	}
+	
+	//과제 점수부여 update form (교수 -> 학생)
+	@Override
+	public void asmtScoreUpd(Hs_Assignment hsAss) {
+		System.out.println("HsServiceImpl asmtScoreUpd Start...");
+		hsd.asmtScoreUpd(hsAss);
+		System.out.println("HsServiceImpl asmtScoreUpd After...");
+	}
+	
+	//출석 table 자동 insert (procedure)
+	@Override
+	public void atndcTblInsert(int lctr_num) {
+		System.out.println("HsServiceImpl atndcTblInsert Start...");
+		hsd.atndcTblInsert(lctr_num);
+		System.out.println("HsServiceImpl atndcTblInsert After...");
+	}
+	
+	
+
 	
 	
 	

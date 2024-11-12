@@ -33,7 +33,6 @@ public class Hs_Lec {
 	private String 	lctr_weeks;	// 주차
 	private String 	lctr_ymd;	// 강의일자
 	private String 	lctr_plan;	// 강의계획
-	private String 	file_group;	// 수업자료 (파일첨부)
 	
 	// 강의실 TBL
 	private int 	lctrm_num;	//강의실번호
@@ -54,4 +53,12 @@ public class Hs_Lec {
 	private int 	bcode;			//대분류
 	private int 	mcode;			//중분
 	private String 	content;		//코드
+	
+	//첨부파일 TBL
+	private int 	file_group; 	//파일그룹
+	private int 	file_no; 		//파일번호
+	private String 	file_unq; 		//UUID
+	private String 	dwnld_file_nm; 	//실제파일명
+	private int 	file_size; 		//파일사이즈
+	private String 	file_path_nm; 	//파일경로
 }

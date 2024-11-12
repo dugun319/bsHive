@@ -7,32 +7,102 @@
 <meta charset="UTF-8">
 <title>강의계획서</title>
 <style type="text/css">
-	
-	/* 강의기본정보 table */
-	.leclecInfo table td {
-	
+	/* 메인 콘텐츠 영역 */
+	.main {
+	    background-color: #fff;
+	    padding: 30px;
+	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	    margin-top: 20px;
 	}
 	
-	/* 강의 계획 table */
-	.lecSched table td {
+	/* 섹션 제목 스타일 */
+	h1 {
+	    font-size: 28px;
+	    color: #134b84;
+	    border-bottom: 2px solid #134b84;
+	    padding-bottom: 15px;
+	    margin-bottom: 20px;
+	}
 	
+	h3 {
+	    font-size: 22px;
+	    color: #134b84;
+	    margin-top: 50px;
+	}
+		
+	/* 공통 테이블 헤더 스타일 */
+	th {
+	    background-color: #134b84;   /* 배경색 */
+	    color: white;                 /* 글자색 */
+	    font-weight: normal;          /* 글자 두께 */
+	    text-align: center;             /* 텍스트 왼쪽 정렬 */
+	    padding: 12px;                /* 내부 여백 */
+	    font-size: 16px;              /* 폰트 크기 */
+	    height: 50px;                 /* 헤더 높이 */
+	    width: 180px;
+	}
+	
+	/* 강의기본정보 table */
+	.lecInfo {
+	    width: 100%;
+	    margin-bottom: 30px;
+	    border-collapse: collapse;
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    background-color: #fafafa;
+	    text-align: center;
+	}
+	
+	.lecInfo td {
+	    padding: 12px;
+	    text-align: left !important;
+	    background-color: #fff;
+	    color: #333;
+	}
+
+	
+	/* 강의 계획 table */
+	.lecSched {
+	    width: 100%;
+	    border-collapse: collapse;
+	    margin-bottom: 30px;
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    background-color: #fafafa;
+	    text-align: center;
+	}
+	
+	.lecSched td {
+	    padding: 15px;
+	    background-color: #fff;
+	    color: #333;
+	    text-align: left !important;
+	    
+	    
 	}
 	
 	/* 주차별 강의 계획 table */
-	.lctrWeek table {
-    width: 100%; /* 테이블 너비를 100%로 설정 */
-    border-collapse: collapse; /* 테두리 겹침 제거 */
+	.lctrWeek {
+	    width: 100%;
+	    margin-top: 30px;
+	    border-collapse: collapse;
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    background-color: #fafafa;
 	}
 
 	.lctrWeek th {
-    	background-color: #999999; /* 헤더 배경색 */
-		color: #fdfdfd; /* 헤더 글자색 */
-		padding: 10px; /* 패딩 추가 */
+    	background-color: #134b84;
+	    color: white;
+	    text-align: center;
+	    padding: 12px;
 	}
 
 	.lctrWeek td {
-		padding: 10px; /* 패딩 추가 */
-		color: #323232; /* 데이터 셀 글자색 */
+		padding: 12px;
+	    text-align: left;
+	    background-color: #fff;
+	    color: #333;
 	}
 
 	/* 홀수, 짝수 행에 따른 배경색 설정 */
@@ -42,6 +112,23 @@
 
 	.lctrWeek tr:nth-child(even) td {
 		background-color: #fdfdfd; /* 짝수행 배경색 */
+	}
+	
+	/* 셀의 텍스트 가운데 정렬 */
+	.lctrWeek td, .lecSched td {
+	    text-align: center;
+	}
+	
+	/* 강의주차 셀 텍스트 스타일 */
+	.lctrWeek td {
+	    font-size: 14px;
+	    font-weight: bold;
+	}
+	
+	/* 세부 사항 텍스트 스타일 */
+	.lecSched td, .lctrWeek td {
+	    font-size: 14px;
+	    color: #666;
 	}
 </style>
 </head>
@@ -122,14 +209,25 @@
 				<tr>
 					<th>주</th>
 					<th>강의계획</th>
-					<th>수업자료</th>
+					<th><label for="file">수업자료</label></th>
 					<th>강의실</th>
 				</tr>
 				<c:forEach var="lctrWeek" items="${lctrWeek }">
 					<tr>
 						<td style="text-align: center;">${lctrWeek.lctr_weeks }주차 <br>(${lctrWeek.lctr_ymd })</td>
 						<td>${lctrWeek.lctr_plan }</td>
-						<td style="text-align: center;">${lctrWeek.file_group }</td>
+						<div class="form-group">
+							<td>
+								<div>
+			            			<c:forEach var="filePath" items="${filePaths}">
+			                			<a download="${filePath.dwnld_file_nm}" href="download?filePath=${filePath.file_path_nm}" type="media_type">
+			                   				${filePath.dwnld_file_nm}
+			        	       			</a>
+			                			<br>
+			            			</c:forEach>
+			        			</div>
+							</td>
+						</div>
 						<td style="text-align: center;">${lctrWeek.lctrm_num }</td>
 					</tr>
 				</c:forEach>

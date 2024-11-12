@@ -47,6 +47,7 @@
 		SELECT *
 		FROM "LCTR_WEEK"
 		WHERE "LCTR_NUM" = #{lctr_num}
+		ORDER BY "LCTR_WEEKS"
 	</select>
 	
 	<!-- 강의 주차 option 불러오는 list -->
@@ -81,9 +82,10 @@
     			FROM "SORT_CODE"
     			WHERE "BCODE" = '250'
 		) AS s
-		JOIN "ATNDC" AS a ON a."ATNDC_TYPE" = s."MCODE"
+		JOIN "ATNDC" AS a ON a."ATNDC_TYPE" = CAST(s."MCODE" AS VARCHAR)
 		WHERE a."LCTR_NUM" = #{lctr_num}
 		AND a."UNQ_NUM" = #{unq_num}
+		ORDER BY a."LCTR_WEEKS"
 	</select>
 	
 	<select id="hsProfListAsmt" parameterType="int" resultType="Hs_Assignment">
@@ -91,6 +93,14 @@
 		FROM 	"ASMT" AS a
 		JOIN	"LCTR" AS l ON a."LCTR_NUM" = l."LCTR_NUM"
 		WHERE	a."LCTR_NUM" = #{lctr_num}
+	</select>
+	
+	<select id="hsProfAsmtWriteInfo" parameterType="Hs_Assignment" resultType="Hs_Assignment">
+		SELECT l."LCTR_NAME", e."EMP_NM"
+		FROM "LCTR" AS l
+		JOIN "EMP" AS e ON l."UNQ_NUM2" = e."UNQ_NUM"
+		WHERE e."UNQ_NUM" = #{unq_num2}
+		AND   l."LCTR_NUM" = #{lctr_num}
 	</select>
 	
 	<select id="hsProfAsmtInfo" parameterType="Hs_Assignment" resultType="Hs_Assignment">
@@ -104,28 +114,35 @@
 	</select>
 	
 	<!-- 파일업로드 -->
-	<insert id="hsFileUp" parameterType="Asmt_Sbmsn">
-		INSERT INTO "ASMT_SBMSN"("CYCL", "LCTR_NUM", "UNQ_NUM", "FILE_GROUP")
-		VALUES ('1', '24131509', '119040014', #{file_group})
+	<insert id="hsStdntAsmt" parameterType="Asmt_Sbmsn">
+		INSERT INTO "ASMT_SBMSN"("CYCL", "LCTR_NUM", "UNQ_NUM", "CRANS_CNT", "FILE_GROUP")
+		VALUES (#{cycl}, #{lctr_num}, #{unq_num}, #{crans_cnt}, #{file_group})
 	</insert>
 	
 	<insert id="hsProfAsmt" parameterType="Hs_Assignment">
-	INSERT INTO "ASMT"("CYCL", "LCTR_NUM", "ASMT_TPC", "ASMT_DTL_CN", "ASMT_DDLN", "FILE_GROUP", "FILE_GROUPC")
-	VALUES (#{cycl}, #{lctr_num}, #{asmt_tpc}, #{asmt_dtl_cn}, #{asmt_ddln}, #{file_group}, #{file_groupc})
+		INSERT INTO "ASMT"("CYCL", "LCTR_NUM", "ASMT_TPC", "ASMT_DTL_CN", "ASMT_DDLN", "FILE_GROUP")
+		VALUES (#{cycl}, #{lctr_num}, #{asmt_tpc}, #{asmt_dtl_cn}, #{asmt_ddln}, #{file_group})
+	</insert>
+	
+	<insert id="hsFileUpload" parameterType="File">
+		INSERT INTO "FILE"("FILE_GROUP", "FILE_NO", "FILE_UNQ", "DWNLD_FILE_NM", "FILE_SIZE", "FILE_PATH_NM")
+		VALUES (#{file_group}, #{file_no}, #{file_unq}, #{dwnld_file_nm}, #{file_size}, #{file_path_nm});
 	</insert>
 	
 	<update id="hsProfAsmtUpd" parameterType="Hs_Assignment">
 		UPDATE "ASMT"
-		SET "CYCL"=#{cycl}, "LCTR_NUM"=#{lctr_num}, "ASMT_TPC"=#{asmt_tpc}, "ASMT_DTL_CN"=#{asmt_dtl_cn}, "ASMT_DDLN"=#{asmt_dtl_cn}
+		SET "ASMT_TPC"=#{asmt_tpc}, "ASMT_DTL_CN"=#{asmt_dtl_cn}, "ASMT_DDLN"=#{asmt_ddln}, "FILE_GROUP"=#{file_group}
+		WHERE "CYCL"=#{cycl}
+		AND   "LCTR_NUM"=#{lctr_num}
 	</update>
 	
 	<select id="hsCheckDataAssign" parameterType="Hs_Assignment" resultType="boolean">
 		SELECT 
             CASE WHEN COUNT(*) > 0 THEN true ELSE false END
         FROM "ASMT_SBMSN"
-        WHERE "CYCL" = #{cycl} 
+        WHERE "CYCL" = #{cycl}
         AND   "LCTR_NUM" = #{lctr_num} 
-        AND   "UNQ_NUM2" = #{unq_num2}
+        AND   "UNQ_NUM" = #{unq_num}
 	</select>
 	
 	<select id="hsAsmtStdntInfo" parameterType="Hs_Assignment" resultType="Hs_Assignment">
@@ -139,4 +156,98 @@
 		AND	  a."LCTR_NUM" = #{lctr_num}
 		AND	  s."UNQ_NUM" = #{unq_num}
 	</select>
+	
+	<select id="hsGetNextFileGroupId" resultType="int">
+		SELECT NEXTVAL('seq_file_group')
+	</select>
+	
+	<select id="hsGetMaxFileSeq" parameterType="int" resultType="java.lang.Integer">
+		SELECT COALESCE(MAX("FILE_NO"), 0) 
+        FROM "FILE" 
+        WHERE "FILE_GROUP" = #{file_group}
+	</select>
+
+    <select id="hsfilePath" parameterType="int" resultType="File">
+        SELECT * 
+        FROM "FILE" 
+        WHERE "FILE_GROUP" = #{file_group}
+    </select>
+    
+    <select id="HsFileGroup" parameterType="Hs_Assignment" resultType="int">
+    	SELECT "FILE_GROUP"
+    	FROM "ASMT"
+    	WHERE "CYCL" = #{cycl}
+    	AND   "LCTR_NUM" = #{lctr_num}
+    </select>
+    
+    <select id="hsGetMaxCycl" parameterType="int" resultType="String">
+    	SELECT COALESCE(CAST(MAX(CAST("CYCL" AS INTEGER))+1 AS TEXT), '1')
+    	FROM "ASMT"
+    	WHERE "LCTR_NUM" = #{lctr_num}
+    </select>
+    
+    <delete id="hsFileDelUpd" parameterType="Hs_Assignment">
+    	DELETE FROM "FILE"
+    	WHERE "FILE_GROUP" = #{file_group}
+    	AND	  "FILE_NO" = #{file_no}
+    </delete>
+    
+    <select id="hsStdAssUpd" parameterType="Hs_Assignment" resultType="Hs_Assignment">
+    	SELECT *
+		FROM "ASMT_SBMSN"
+		WHERE "CYCL" = #{cycl}
+		AND	  "LCTR_NUM" = #{lctr_num}
+		AND	  "UNQ_NUM" = #{unq_num}
+    </select>
+    
+    <select id="HsFileGroupStd" parameterType="Hs_Assignment" resultType="int">
+    	SELECT "FILE_GROUP"
+    	FROM "ASMT_SBMSN"
+    	WHERE "CYCL" = #{cycl}
+    	AND   "LCTR_NUM" = #{lctr_num}
+    	AND	  "UNQ_NUM" = #{unq_num}
+    </select>
+    
+    <update id="hsStdntAsmtUpd" parameterType="Hs_Assignment">
+    	UPDATE "ASMT_SBMSN"
+		SET "CRANS_CNT"=#{crans_cnt}, "FILE_GROUP"=#{file_group}
+		WHERE "CYCL"=#{cycl}
+		AND   "LCTR_NUM"=#{lctr_num}
+		AND	  "UNQ_NUM" = #{unq_num}
+    </update>
+    
+    <select id="hsCyclList" parameterType="int" resultType="Hs_Assignment">
+    	SELECT "CYCL"
+    	FROM   "ASMT"
+    	WHERE  "LCTR_NUM"=#{lctr_num}
+    </select>
+    
+    <select id="hsSubmitList" parameterType="Hs_Assignment" resultType="Hs_Assignment">
+    	SELECT  s."UNQ_NUM", 
+    			s."STDNT_NM", 
+    			asb."LCTR_NUM", 
+    			asb."CYCL"
+    	FROM	"ASMT_SBMSN" AS asb
+    	JOIN	"STDNT" AS s ON asb."UNQ_NUM"=s."UNQ_NUM"
+    	WHERE	asb."LCTR_NUM"=#{lctr_num}
+    	AND		asb."CYCL"=#{cycl}	
+    </select>
+    <select id="hsSubmitCount" parameterType="Hs_Assignment" resultType="int">
+    	SELECT	COUNT(*) AS asmtSubCount
+    	FROM  	"ASMT_SBMSN"
+    	WHERE 	"LCTR_NUM" = #{lctr_num} 
+    	AND	  	"CYCL" = #{cycl}
+    </select>
+
+    <update id="hsScoreUpd" parameterType="Hs_Assignment">
+    	UPDATE  "ASMT_SBMSN"
+		SET     "CYCL_SCR"=#{cycl_scr}
+		WHERE	"LCTR_NUM"=#{lctr_num}
+		AND		"CYCL" = #{cycl}
+		AND		"UNQ_NUM" = #{unq_num}
+    </update>
+    
+    <update id="hsAtndcIns" parameterType="int" statementType="CALLABLE">
+        CALL insert_atndc(#{lctr_num, mode=IN, jdbcType=INTEGER})
+    </update>
 </mapper>

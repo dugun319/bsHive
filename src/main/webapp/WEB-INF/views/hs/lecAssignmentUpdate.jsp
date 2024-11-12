@@ -5,10 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>과제목록</title>
+<title>과제제출수정</title>
 <style type="text/css">
+	
+    /* 메인 콘텐츠 영역 */
+    .main {
+        width: 70%;
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-    /* 과제입력 제목 스타일 */
+    /* 과제제출 제목 스타일 */
     h1 {
         font-size: 28px;
         color: #134b84;
@@ -29,43 +37,50 @@
         color: white;
         font-weight: normal;
         text-align: center !important;
+        padding: 12px;
         font-size: 16px;
         width: 180px;
     }
 
     td {
-        padding: 12px;
-        text-align: center;
+        padding: 20px;
+        text-align: left;
         background-color: #fff;
         color: #333;
         font-size: 14px;
     }
 
-    td[colspan="3"] {
-        text-align: left;
-        padding-left: 20px;
-    }
-
-    /* 폼 입력 스타일 */
-    .form-floating {
-        margin-bottom: 15px;
+    /* 텍스트 입력 영역 스타일 */
+    .form-control {
         width: 100%;
-    }
-
-    .form-floating input,
-    .form-floating textarea {
-        height: 45px;
-        font-size: 14px;
-        border-radius: 5px;
+        padding: 10px;
+        margin: 5px 0;
         border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 1.6;
     }
 
-    .form-floating textarea {
+    /* 텍스트영역 */
+    textarea.form-control {
         height: 100px;
     }
 
-    .form-floating label {
-        color: grey;
+    /* 파일 업로드 입력 필드 */
+    .form-control-file {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        font-size: 14px;
+    }
+    
+    /* 제출 안내 스타일 */
+    td[colspan="4"] {
+        font-size: 12px;
+        color: #F15F5F;
+        text-align: center;
+        padding-left: 10px;
+        padding-top: 10px;
     }
     
     ul {
@@ -119,7 +134,7 @@
 	// 페이지가 완전히 로드된 후 스크립트 실행
 	document.addEventListener('DOMContentLoaded', function () {
 		// 파일 추가 시 파일 목록에 추가
-	    document.getElementById("file").addEventListener("change", function(event) {
+	    document.getElementById("file1").addEventListener("change", function(event) {
 	        const files = event.target.files;  // 선택된 파일들
 	        const newFilesList = document.getElementById("newFiles");
 			
@@ -143,6 +158,17 @@
 	        });
 	    });
 	});
+	
+	// 목록으로 이동 시 저장 안된다는 경고
+	function confirmRedirect() {
+	    // alert 메시지 표시 후 확인을 누르면 해당 URL로 이동
+	    const isConfirmed = confirm("목록으로 이동 시 수정사항이 저장되지 않습니다. 이동하시겠습니까?");
+	    
+	    if (isConfirmed) {
+			// 확인 버튼을 클릭하면 해당 경로로 이동
+			location.href = '/hs/lecAssignmentList?lctr_num=${hsAssignWrite.lctr_num}';
+	    }
+	}
 </script>
 </head>
 <header>
@@ -151,11 +177,11 @@
 <body>
 	<div class="lctrList_main_banner">
 		<div class="lctrList_main_banner_text3"><div class="lctrList_main_banner_do"></div>${lctr.lctr_name }</div>
-		<div class="lctrList_main_banner_text">offline</div><div class="lctrList_main_banner_text2">과제입력</div>
+		<div class="lctrList_main_banner_text">offline</div><div class="lctrList_main_banner_text2">과제</div>
 		<img alt="메인배너" src="<%=request.getContextPath()%>/images/main/수강신청_banner.jpg" class="lctrList_main_banner_img">
 	</div>
 	<div class="container1">
-		<div class="sideLeft">
+	<div class="sideLeft">
 			<%-- lctr_num 가져오기 --%>
 			<c:set var="lctrNum" value="${lctr.lctr_num}" />
 			
@@ -176,77 +202,89 @@
 			        <%@ include file="../sidebarLctr.jsp" %>
 			    </c:when>
 			</c:choose>
-		</div>
-		<form action="profAsmtUpdate" method="post" enctype="multipart/form-data">
-		<div class="main">
-			<h1>과제입력</h1>
-			<input type="hidden" name="lctr_num" value="${hsAssignWrite.lctr_num }">
-			<table>
+	</div>
+	<div class="main">
+	<form action="AssignStdUpd" method="post" enctype="multipart/form-data">
+		<h1>과제제출수정</h1>
+		<input type="hidden" name="lctr_num" value="${hsAssignWrite.lctr_num }">
+		<input type="hidden" name="cycl" value="${hsAssignWrite.cycl }">
+		<input type="hidden" name="unq_num" value="${hsAssignWrite.unq_num }">
+		<table>
+			<tr>
+				<th>차수</th>
+				<td>${hsAssignWrite.cycl }차</td>
+				<th>강의명</th>
+				<td>${hsAssignWrite.lctr_name }</td>
+			</tr>
+			<tr>
+				<th>교수명</th>
+				<td>${hsAssignWrite.emp_nm }</td>
+				<th>제출마감일</th>
+				<td>${hsAssignWrite.asmt_ddln }</td>
+			</tr>
+			<tr>
+				<th>주제</th>
+				<td colspan="3">${hsAssignWrite.asmt_tpc }</td>
+			</tr>
+			<tr>
+				<th>상세내용</th>
+				<td colspan="3">${hsAssignWrite.asmt_dtl_cn }</td>
+			</tr>
+			<tr>
+				<th><label for="file">참고문서</label></th>
+				<td colspan="3">
+					<div>
+            			<c:forEach var="filePath" items="${filePath}">
+                			<a download="${filePath.dwnld_file_nm}" href="download?filePath=${filePath.file_path_nm}" type="media_type">
+                   				${filePath.dwnld_file_nm}
+                			</a>
+                			<br>
+            			</c:forEach>
+        			</div>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th>이름</th>
+				<td colspan="3">${hsAssignWrite.unq_num } ${hsAssignWrite.stdnt_nm }</td>
+			</tr>
+			<tr>
+				<th>제출 내용</th>
+				<td><textarea class="form-control" aria-label="With textarea" name="crans_cnt" id="floatingTextarea" style="height: 100px;">${hsAssigStdUpd.crans_cnt  }</textarea> </td>
+			</tr>
+			<div class="form-group">
 				<tr>
-					<th>차시</th>
-					<td><input type="hidden" name="cycl" value="${hsAssignWrite.cycl }" >${hsAssignWrite.cycl }차시</td>
-					<th>강의명</th>
-					<td>${hsAssignWrite.lctr_name }</td>
-				</tr>
-				<tr>
-					<th>교수명</th>
-					<td colspan="3">${hsAssignWrite.emp_nm }</td>
-				</tr>
-				<tr>
-					<th>주제</th>
-					<td colspan="3">
-						<div class="form-floating">
-	  						<input type="text" name="asmt_tpc" class="form-control" id="floatingInput" placeholder="과제주제를 입력하세요" required="required" value="${hsAssignWrite.asmt_tpc }">
-	  						<label for="floatingInput" style="color: grey;">과제 주제</label>
-	  					</div>
-					</td>
-				</tr>
-				<tr>
-					<th>상세내용</th>
-					<td colspan="3">
-						<div class="form-floating">
-							<textarea class="form-control" aria-label="With textarea" name="asmt_dtl_cn" id="floatingTextarea" required="required" style="height: 100px;">${hsAssignWrite.asmt_dtl_cn  }</textarea>
-							<label for="floatingTextarea">과제 관련해 자세히 적어주세요</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>제출마감일</th>
-					<td colspan="3">
-						<input type="date" name="asmt_ddln" class="form-control" required="required" value="${hsAssignWrite.asmt_ddln  }">
-					</td>
-				</tr>
-				<tr>
-					<th><label for="file">참고문서</label></th>
-					<td colspan="3">
-						<input type="hidden" name="file_group" value="${hsAssignWrite.file_group}">
-                		 <!-- 기존 첨부파일 목록 표시 -->
-                		 <input type="file" class="form-control" id="file" name="file" multiple>
-                        <c:if test="${not empty fileList}">
+					<th><label for="file1">파일</label></th>
+					<td><!-- 기존 첨부파일 목록 표시 -->
+						<input type="hidden" name="file_group" value="${hsAssigStdUpd.file_group2}">
+						<input type="file" class="form-control" id="file1" name="file" multiple>
+                        <c:if test="${not empty filePath1}">
+                        	<input type="hidden" name="file_group" value="${hsAssigStdUpd.file_group2}">
                             <ul>
                             	<!-- 새 파일 첨부 -->
                         		<br>
-                                <c:forEach var="file" items="${fileList}">
+                                <c:forEach var="fileL" items="${filePath1}">
                                     <li>
                                         <!-- 기존 파일 이름 표시 -->
-                                        ${file.dwnld_file_nm}
+                                        ${fileL.dwnld_file_nm}
                                         <!-- 파일 삭제 버튼 -->
-                                        <button type="button" onclick="deleteFile(${file.file_group}, '${file.file_no}')">  x</button>
+                                        <button type="button" onclick="deleteFile(${fileL.file_group}, '${fileL.file_no}')">  x</button>
                                     </li>
                                 </c:forEach>
                             </ul>
                         </c:if>
-                        <ul class="file-list" id="newFiles"></ul>
-                	</td>
+                        <ul class="file-list" id="newFiles"></ul></td>
 				</tr>
-				<tr>
-					<td colspan="4" style="text-align: center;">
-						<button type="submit" class="btn btn-outline-primary">등록</button>
-					</td>
-				</tr>
-			</table>
-		</div>
-		</form>
+			</div>
+			<tr>
+				<td colspan="4">※ 제출 마감일 전 까지는 수정이 가능합니다.</td>
+			</tr>
+		</table>
+		<button type="button" class="btn btn-outline-primary" style="text-align: center;" onclick="confirmRedirect()">목록</button>
+        <button type="submit" class="btn btn-outline-primary" style="text-align: center;">제출</button>
+	</form>
+	</div>
 	</div>
 </body>
 <footer>

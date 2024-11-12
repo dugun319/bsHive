@@ -12,6 +12,4 @@ public class Kh_Lctrm {
 	private String 	bgng_tm;    //시작시간
 	private String 	end_tm;     //종료시간
 	private String 	dow_day;	//강의요일
-	
-	
 }
