@@ -54,7 +54,6 @@
 						<option value="PST_TTL">제목</option>
 						<option value="PST_CN">내용</option>
 						<option value="WRT_YMD">내용</option>
-						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
 					<button type="submit"		id="searchButton">SEARCH</button>

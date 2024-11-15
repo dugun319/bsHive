@@ -49,7 +49,6 @@
 						<option value="EML">로그인ID</option>
 						<option value="EMP_NM">이름</option>
 						<option value="EMP_TELNO">연락처</option>
-						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
 					<input	type="hidden"		name="mbr_se"	id="mbr_se"		value="${mbr_se}" />

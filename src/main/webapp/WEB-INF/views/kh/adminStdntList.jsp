@@ -48,7 +48,6 @@
 						<option value="EML">로그인ID</option>
 						<option value="STDNT_NM">이름</option>
 						<option value="STDNT_TELNO">연락처</option>
-						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
 					<button type="submit"		id="searchButton">SEARCH</button>

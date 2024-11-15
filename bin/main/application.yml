@@ -14,17 +14,17 @@ spring:
       path: /upload/ 
         
         
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://172.30.1.98:5432/bs_Hive
-    username: postgres
-    password: postgre
-    
   #datasource:
-  #  driver-class-name: oracle.jdbc.OracleDriver
-  #  url: jdbc:oracle:thin:@localhost:1521/xe
-  #  username: testJMA
-  #  password: tiger 
+  #  driver-class-name: org.postgresql.Driver
+  #  url: jdbc:postgresql://172.30.1.98:5432/bs_Hive
+  #  username: postgres
+  #  password: postgre
+    
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: testJMA
+    password: tiger 
     
 #    url: jdbc:oracle:thin:@172.30.1.45:1521/xe
 #    username: S202430101

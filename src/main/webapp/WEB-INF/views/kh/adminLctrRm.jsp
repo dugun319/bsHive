@@ -27,16 +27,29 @@
 	}
 	
 	$(function(){
-		const sBox 			= $("#search");
+		const sBox 			= $("#year");
 		const len 			= sBox.find("option").length;
-		const rawSearch		= '${rawList.search}';
+		const rawYear		= '${year}';
 		
 		sBox.find("option").each(function() {
-		    if ($(this).val() == rawSearch) {
+		    if ($(this).val() == rawYear) {
 		        $(this).prop("selected", true);
 		    }
 		});
 	});
+	
+	$(function(){
+		const sBox 			= $("#semester");
+		const len 			= sBox.find("option").length;
+		const rawSemester		= '${semester}';
+		
+		sBox.find("option").each(function() {
+		    if ($(this).val() == rawSemester) {
+		        $(this).prop("selected", true);
+		    }
+		});
+	});
+	
 
 </script>
 
@@ -384,59 +397,6 @@ li.panel {
         </script>
      	</div> 
      </div>
-       
-        
-        
-<%--       
-	        
-
-       	
-			<div id="rolling" class="rolling">
-                    <c:forEach	var="lctrList"	items="${lctrList}"	varStatus="status" >
-                    <c:set var="dow_day"	value="${lctrmList.dow_day}" />
-                        <ul>
-                            <li class="panel">월요일</li>
-                            <c:if test="${dow_day eq '1'}">
-                            	${lctrList.lctr_num }
-                            	${lctrList.lctr_name }
-                            	${lctrList.bgng_tm }
-                            	${lctrList.end_tm }
-                            </c:if>
-                            <li class="panel">화요일</li>
-                            <c:if test="${dow_day eq '2'}">
-                            	${lctrList.lctr_num }
-                            	${lctrList.lctr_name }
-                            	${lctrList.bgng_tm }
-                            	${lctrList.end_tm }
-                            </c:if>
-                            <li class="panel">수요일</li>
-                            <c:if test="${dow_day eq '3'}">
-                            	${lctrList.lctr_num }
-                            	${lctrList.lctr_name }
-                            	${lctrList.bgng_tm }
-                            	${lctrList.end_tm }
-                            </c:if>
-                            <li class="panel">목요일</li>
-                            <c:if test="${dow_day eq '4'}">
-                            	${lctrList.lctr_num }
-                            	${lctrList.lctr_name }
-                            	${lctrList.bgng_tm }
-                            	${lctrList.end_tm }
-                            </c:if>
-                            <li class="panel">금요일</li>
-                            <c:if test="${dow_day eq '5'}">
-                            	${lctrList.lctr_num }
-                            	${lctrList.lctr_name }
-                            	${lctrList.bgng_tm }
-                            	${lctrList.end_tm }
-                            </c:if>
-                        </ul>
-                    </c:forEach>
-                    </div>
- --%>        
-    
-
-	
 	
 </body>
 </html>

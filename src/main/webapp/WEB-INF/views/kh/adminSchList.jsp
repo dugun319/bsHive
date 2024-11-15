@@ -57,9 +57,9 @@
 	<div class="container">
         <div class="left-menu">
         	<%@ include file="tree.jsp"%>
-        	<button type="button" onclick="applyScholarship()">
+        	<!-- <button type="button" onclick="applyScholarship()">
         		장학금신청
-        	</button>
+        	</button> -->
         </div>
         
         <div class="main-content">
@@ -77,7 +77,6 @@
 						<option value="LCTR_NUM">강의번호</option>
 						<option value="UNQ_NUM">고유번호</option>
 						<option value="STDNT_NM">이름</option>
-						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
 					<button type="submit"		id="searchButton">SEARCH</button>

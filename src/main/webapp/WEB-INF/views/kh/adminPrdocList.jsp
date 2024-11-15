@@ -62,13 +62,11 @@
 					<select name="prdoc_type"	id="prdoc_type">
 						<option value="100" selected="selected">수료증명서</option>
 						<option value="110">장학증명서</option>
-						<option value="">전체검색</option>
 					</select>
 					<select name="search"		id="search">
 						<option value="APLY_NUM">신청번호</option>
 						<option value="UNQ_NUM">고유번호</option>
 						<option value="ISSU_STTS">교수이름</option>
-						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
 					<button type="submit"		id="searchButton">SEARCH</button>

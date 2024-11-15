@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/se")
-public class SeController {
+public class seController {
 	
 	private final SeService ss;
 	

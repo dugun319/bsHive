@@ -98,12 +98,12 @@
 	        <div id="searchDiv">
 				<form action="/kh/admin/appLctrList" method="post">
 					<select name="aply_type"	id="aply_type">
-						<option value="0" selected="selected">개설신청</option>
-						<option value="1">모집중</option>
-						<option value="2">진행중</option>
-						<option value="3">보완요청</option>
-						<option value="4">강의종료</option>
-						<option value="5">폐강</option>
+						<option value="100" selected="selected">개설신청</option>
+						<option value="110">모집중</option>
+						<option value="120">진행중</option>
+						<option value="130">보완요청</option>
+						<option value="140">강의종료</option>
+						<option value="150">폐강</option>
 					</select>
 					<select name="search"		id="search">
 						<option value="LCTR_NUM">강의번호</option>
@@ -111,7 +111,6 @@
 						<option value="EMP_NM">교수이름</option>
 						<option value="SBJCT_NM">학과이름</option>
 						<option value="LCTR_NAME">강의이름</option>
-						<option value="">전체검색</option>
 					</select>
 					<input	type="text"			name="keyword"	id="keyword" 	placeholder="keyword" />
 					<input	type="hidden"		name="lectureType"				value="${rawList.lectureType}" />
@@ -136,10 +135,19 @@
 							<c:when test="${status eq '0'}">
 								보완요청
 							</c:when>
+							<c:when test="${status eq '100'}">
+								보완요청
+							</c:when>
 							<c:when test="${status eq '1'}">
 								강의진행
 							</c:when>
+							<c:when test="${status eq '110'}">
+								강의진행
+							</c:when>
 							<c:when test="${status eq '3'}">
+								폐강
+							</c:when>
+							<c:when test="${status eq '130'}">
 								폐강
 							</c:when>
 							<c:otherwise>보완요청</c:otherwise>
@@ -150,14 +158,20 @@
 							<c:when test="${status eq '0'}">
 								승인
 							</c:when>
+							<c:when test="${status eq '100'}">
+								승인
+							</c:when>
 							<c:when test="${status eq '1'}">
+								폐강
+							</c:when>
+							<c:when test="${status eq '110'}">
 								폐강
 							</c:when>
 							<c:when test="${status eq '2'}">
 								폐강
 							</c:when>
-							<c:when test="${status eq '3'}">
-								승인
+							<c:when test="${status eq '120'}">
+								폐강
 							</c:when>
 							<c:otherwise>승인</c:otherwise>
 						</c:choose>
@@ -179,16 +193,31 @@
 								<c:when test="${status eq '0'}">
 									개설신청
 								</c:when>
+								<c:when test="${status eq '100'}">
+									개설신청
+								</c:when>
 								<c:when test="${status eq '1'}">
+									모집중
+								</c:when>
+								<c:when test="${status eq '110'}">
 									모집중
 								</c:when>
 								<c:when test="${status eq '2'}">
 									진행중
 								</c:when>
+								<c:when test="${status eq '120'}">
+									진행중
+								</c:when>
 								<c:when test="${status eq '3'}">
 									보완요청
 								</c:when>
+								<c:when test="${status eq '130'}">
+									보완요청
+								</c:when>
 								<c:when test="${status eq '4'}">
+									강의종료
+								</c:when>
+								<c:when test="${status eq '140'}">
 									강의종료
 								</c:when>
 								<c:otherwise>폐강</c:otherwise>
@@ -206,10 +235,21 @@
 										보완요청
 									</button>
 								</c:when>
+								<c:when test="${status eq '100'}">
+									<button type="button" class="btn btn-primary"	id="modalBtn"	data-lctrNum="${lctrList.lctr_num}" data-empNm="${lctrList.emp_nm}" style="font-size: 12px;">
+										보완요청
+									</button>
+								</c:when>
 								<c:when test="${status eq '1'}">
 									<button	id="canButton"	onclick="startLctr('${lctrList.lctr_num}')">강의시작</button>
 								</c:when>
+								<c:when test="${status eq '110'}">
+									<button	id="canButton"	onclick="startLctr('${lctrList.lctr_num}')">강의시작</button>
+								</c:when>
 								<c:when test="${status eq '3'}">
+									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
+								</c:when>
+								<c:when test="${status eq '130'}">
 									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
 								</c:when>
 							</c:choose>	
@@ -249,13 +289,25 @@
 								<c:when test="${aply_type eq '0'}">
 									<button	id="appButton" 	onclick="openLctr('${lctrList.lctr_num}')">개설승인</button>
 								</c:when>
+								<c:when test="${aply_type eq '100'}">
+									<button	id="appButton" 	onclick="openLctr('${lctrList.lctr_num}')">개설승인</button>
+								</c:when>
 								<c:when test="${aply_type eq '1'}">
+									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
+								</c:when>
+								<c:when test="${aply_type eq '110'}">
 									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
 								</c:when>
 								<c:when test="${aply_type eq '2'}">
 									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
 								</c:when>
+								<c:when test="${aply_type eq '120'}">
+									<button	id="canButton"	onclick="closeLctr('${lctrList.lctr_num}')">강의폐강</button>
+								</c:when>
 								<c:when test="${aply_type eq '3'}">
+									<button	id="appButton" 	onclick="openLctr('${lctrList.lctr_num}')">개설승인</button>
+								</c:when>
+								<c:when test="${aply_type eq '130'}">
 									<button	id="appButton" 	onclick="openLctr('${lctrList.lctr_num}')">개설승인</button>
 								</c:when>
 								<c:otherwise>수정불가</c:otherwise>

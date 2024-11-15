@@ -147,9 +147,11 @@
 				FROM public."LCTR" l
 				LEFT OUTER JOIN public."EMP" e
 				ON l."UNQ_NUM2" = e."UNQ_NUM"
-				WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) BETWEEN #{lectureType}::TEXT AND #{lectureTypeEnd}::TEXT
+				WHERE LENGTH(l."LCTR_NUM"::TEXT) >= 6 
+					AND SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) BETWEEN #{lectureType}::TEXT AND #{lectureTypeEnd}::TEXT
 				<if test="aply_type !=null">
-					AND l."APLY_TYPE" = #{aply_type}::INTEGER
+					AND (l."APLY_TYPE" = #{aply_type}::INTEGER
+					     OR l."APLY_TYPE" = SUBSTR(#{aply_type}::TEXT, 2, 1)::INTEGER)
 				</if>
 				)
 		<where> 					
@@ -178,9 +180,11 @@
 						FROM public."LCTR" l
 						LEFT OUTER JOIN public."EMP" e
 						ON l."UNQ_NUM2" = e."UNQ_NUM"
-						WHERE SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) BETWEEN #{lectureType}::TEXT AND #{lectureTypeEnd}::TEXT
+						WHERE LENGTH(l."LCTR_NUM"::TEXT) >= 6 
+							AND SUBSTR(l."LCTR_NUM"::TEXT, 6, 1) BETWEEN #{lectureType}::TEXT AND #{lectureTypeEnd}::TEXT
 						<if test="aply_type !=null">
-							AND l."APLY_TYPE" = #{aply_type}::INTEGER
+							AND (l."APLY_TYPE" = #{aply_type}::INTEGER
+							     OR l."APLY_TYPE" = SUBSTR(#{aply_type}::TEXT, 2, 1)::INTEGER)
 						</if>
 						)lctrAll
 				<where> 					

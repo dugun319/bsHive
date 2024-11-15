@@ -260,7 +260,7 @@ public class KhController {
 		int lctrNum = Integer.parseInt(lctr_num);
 		Kh_LctrList lcList = new Kh_LctrList();
 		lcList.setLctr_num(lctrNum);
-		lcList.setAply_type("3");
+		lcList.setAply_type("130");
 
 		khTableSerive.updateAplyType(lcList);
 		Kh_LctrList lctrDetail = khTableSerive.getLctrDetail(lcList);
@@ -296,7 +296,7 @@ public class KhController {
 
 		lcList.setUnq_num(unq_num);
 		lcList.setLctr_num(lctrNum);
-		lcList.setAply_type("1");
+		lcList.setAply_type("110");
 		lcList.setAply_ydm(aplyYdm);
 		lcList.setEnd_date(endDate);
 		lcList.setCrtr_cnt(crtr_cnt);
@@ -325,7 +325,7 @@ public class KhController {
 		int lctrNum = Integer.parseInt(lctr_num);
 		Kh_LctrList lcList = new Kh_LctrList();
 		lcList.setLctr_num(lctrNum);
-		lcList.setAply_type("5");
+		lcList.setAply_type("150");
 		khTableSerive.updateAplyType(lcList);
 		Kh_LctrList lctrDetail = khTableSerive.getLctrDetail(lcList);
 
@@ -350,7 +350,7 @@ public class KhController {
 		int lctrNum = Integer.parseInt(lctr_num);
 		Kh_LctrList lcList = new Kh_LctrList();
 		lcList.setLctr_num(lctrNum);
-		lcList.setAply_type("2");
+		lcList.setAply_type("120");
 		khTableSerive.updateAplyType(lcList);
 		Kh_LctrList lctrDetail = khTableSerive.getLctrDetail(lcList);
 
@@ -372,23 +372,6 @@ public class KhController {
 	 public String getLctrmList(HttpServletRequest request, Model model) throws JsonMappingException, JsonProcessingException { 
 		
 		log.info("KhController getLctrRoom() is called");
-		
-		String attendanceData 	= "[{\"id\" : \"아이디1\", \"name\" : \"이름1\"}, {\"id\" : \"아이디2\", \"name\" : \"이름2\"}]";
-		JSONArray jArray		= new JSONArray(attendanceData);		
-		System.out.println("jArray -> " + jArray);
-		System.out.println("jArray jArray.get(0) -> " + jArray.get(0));
-		System.out.println("jArray jArray.length() -> " + jArray.length());
-		JSONObject jObject	= (JSONObject) jArray.get(0);
-		System.out.println("jObject.getString(\"name\") -> " + jObject.getString("name"));
-		
-		
-		ObjectMapper objectMapper 	= new ObjectMapper();
-		String userArray 			=  "[{\"id\" : \"아이디1\", \"name\" : \"이름1\"}, {\"id\" : \"아이디2\", \"name\" : \"이름2\"}]";
-		Person[] person 			= objectMapper.readValue(userArray, Person[].class);
-		List<Person> personList		= Arrays.asList(objectMapper.readValue(userArray, Person[].class));
-		
-		System.out.println("person -> " + person);
-		System.out.println("persList -> " + personList);
 		
 		String yearAndSemester 	= "";
 		
@@ -765,6 +748,8 @@ public class KhController {
 		model.addAttribute("str04", str04);
 		model.addAttribute("str05", str05);
 		
+		model.addAttribute("year", request.getParameter("year"));
+		model.addAttribute("semester", request.getParameter("semester"));
 		
 		return "kh/adminLctrRm"; 
 	 }
