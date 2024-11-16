@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postGre.bsHive.Adto.Kh_EmpList;
 import com.postGre.bsHive.Adto.Kh_LctrList;
 import com.postGre.bsHive.Adto.Kh_Lctrm;
@@ -39,14 +35,12 @@ import com.postGre.bsHive.Adto.Kh_ScholarshipList;
 import com.postGre.bsHive.Adto.Kh_SortCode;
 import com.postGre.bsHive.Adto.Kh_StdntList;
 import com.postGre.bsHive.Adto.Kh_pstList;
-import com.postGre.bsHive.Adto.Person;
 import com.postGre.bsHive.Amodel.Lgn;
 import com.postGre.bsHive.HsService.HsService;
 import com.postGre.bsHive.KhService.KhTableSerive;
 import com.postGre.bsHive.SeService.Paging;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Slf4j
